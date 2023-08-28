@@ -491,7 +491,7 @@ namespace SerialPortListener
             {
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
                 /* เครื่องพี่จ๋า */
-
+                //M3
                 string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
                 string remainingText = newString.Substring(newString.LastIndexOf("p"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
