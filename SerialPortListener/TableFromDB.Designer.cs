@@ -1,0 +1,744 @@
+﻿namespace SerialPortListener
+{
+    partial class TableFromDB
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.weightBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.truckDataSet = new SerialPortListener.truckDataSet();
+            this.lbTotal = new System.Windows.Forms.Label();
+            this.dateFrom = new System.Windows.Forms.DateTimePicker();
+            this.dateTo = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cbbSearchWeight = new System.Windows.Forms.ComboBox();
+            this.truckDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.weightTableAdapter = new SerialPortListener.truckDataSetTableAdapters.weightTableAdapter();
+            this.tableDataFromDB = new System.Windows.Forms.DataGridView();
+            this.label3 = new System.Windows.Forms.Label();
+            this.btSearch = new System.Windows.Forms.Button();
+            this.btClose = new System.Windows.Forms.Button();
+            this.btDelete = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
+            this.btAdd = new System.Windows.Forms.Button();
+            this.วันที่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.เลขที่เอกสาร = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ทะเบียนรถ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.รหัสลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.โรงโม่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ชนิดหิน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.คนขับ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.วันที่ชั่งเข้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.เวลาชั่งเข้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.วันที่ชั่งออก = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.เวลาชั่งออก = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.น้ำหนักรถ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.น้ำหนักรวม = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.น้ำหนักสินค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.คิว = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ประเภทหิน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ราคาตัน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.จำนวณเงิน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.จำนวนเงินสุทธิ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.จ่ายเงิน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.รหัสผู้ชั่ง = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ชื่อผู้ชั่ง = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.รหัสผู้ตัก = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ชื่อผู้ตัก = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.รหัสผู้อนุมัติจ่าย = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ชื่อผู้อนุมัติจ่าย = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.เลขที่ใบตัก = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ค่าขนส่ง = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.weight_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ชนิดvat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ล้าง = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ขนส่ง = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.รหัสคนขับ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.รหัสทะเบียนรถ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.จังหวัด = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ทีม = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.หน้างาน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.weightBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.truckDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.truckDataSetBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tableDataFromDB)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // weightBindingSource
+            // 
+            this.weightBindingSource.DataMember = "weight";
+            this.weightBindingSource.DataSource = this.truckDataSet;
+            // 
+            // truckDataSet
+            // 
+            this.truckDataSet.DataSetName = "truckDataSet";
+            this.truckDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // lbTotal
+            // 
+            this.lbTotal.AutoSize = true;
+            this.lbTotal.Location = new System.Drawing.Point(0, 0);
+            this.lbTotal.Margin = new System.Windows.Forms.Padding(7, 0, 7, 0);
+            this.lbTotal.Name = "lbTotal";
+            this.lbTotal.Size = new System.Drawing.Size(125, 22);
+            this.lbTotal.TabIndex = 3;
+            this.lbTotal.Text = "Total rows : 0";
+            this.lbTotal.Visible = false;
+            // 
+            // dateFrom
+            // 
+            this.dateFrom.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateFrom.CalendarFont = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateFrom.CustomFormat = "dd-MM-yyyy";
+            this.dateFrom.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateFrom.Location = new System.Drawing.Point(646, 23);
+            this.dateFrom.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(154, 27);
+            this.dateFrom.TabIndex = 9;
+            // 
+            // dateTo
+            // 
+            this.dateTo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dateTo.CalendarFont = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTo.CustomFormat = "dd-MM-yyyy";
+            this.dateTo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTo.Location = new System.Drawing.Point(882, 23);
+            this.dateTo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(154, 27);
+            this.dateTo.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(561, 30);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(56, 21);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "From :";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(825, 30);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 21);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "To :";
+            // 
+            // cbbSearchWeight
+            // 
+            this.cbbSearchWeight.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.cbbSearchWeight.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbSearchWeight.FormattingEnabled = true;
+            this.cbbSearchWeight.Items.AddRange(new object[] {
+            "ทั้งหมด",
+            "ยังไม่ได้ชั่งออก",
+            "ชั่งสำเร็จ"});
+            this.cbbSearchWeight.Location = new System.Drawing.Point(345, 23);
+            this.cbbSearchWeight.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.cbbSearchWeight.Name = "cbbSearchWeight";
+            this.cbbSearchWeight.Size = new System.Drawing.Size(184, 29);
+            this.cbbSearchWeight.TabIndex = 14;
+            // 
+            // truckDataSetBindingSource
+            // 
+            this.truckDataSetBindingSource.DataSource = this.truckDataSet;
+            this.truckDataSetBindingSource.Position = 0;
+            // 
+            // weightTableAdapter
+            // 
+            this.weightTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableDataFromDB
+            // 
+            this.tableDataFromDB.AutoGenerateColumns = false;
+            this.tableDataFromDB.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.tableDataFromDB.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableDataFromDB.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.วันที่,
+            this.เลขที่เอกสาร,
+            this.ทะเบียนรถ,
+            this.รหัสลูกค้า,
+            this.ลูกค้า,
+            this.โรงโม่,
+            this.ชนิดหิน,
+            this.คนขับ,
+            this.วันที่ชั่งเข้า,
+            this.เวลาชั่งเข้า,
+            this.วันที่ชั่งออก,
+            this.เวลาชั่งออก,
+            this.น้ำหนักรถ,
+            this.น้ำหนักรวม,
+            this.น้ำหนักสินค้า,
+            this.คิว,
+            this.ประเภทหิน,
+            this.ราคาตัน,
+            this.จำนวณเงิน,
+            this.vat,
+            this.จำนวนเงินสุทธิ,
+            this.จ่ายเงิน,
+            this.รหัสผู้ชั่ง,
+            this.ชื่อผู้ชั่ง,
+            this.รหัสผู้ตัก,
+            this.ชื่อผู้ตัก,
+            this.รหัสผู้อนุมัติจ่าย,
+            this.ชื่อผู้อนุมัติจ่าย,
+            this.เลขที่ใบตัก,
+            this.ค่าขนส่ง,
+            this.weight_id,
+            this.ชนิดvat,
+            this.ล้าง,
+            this.ขนส่ง,
+            this.รหัสคนขับ,
+            this.รหัสทะเบียนรถ,
+            this.จังหวัด,
+            this.ทีม,
+            this.หน้างาน});
+            this.tableDataFromDB.DataSource = this.weightBindingSource;
+            this.tableDataFromDB.Location = new System.Drawing.Point(15, 66);
+            this.tableDataFromDB.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.tableDataFromDB.Name = "tableDataFromDB";
+            this.tableDataFromDB.Size = new System.Drawing.Size(1163, 503);
+            this.tableDataFromDB.TabIndex = 15;
+            this.tableDataFromDB.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tableDataFromDB_CellDoubleClick);
+            // 
+            // label3
+            // 
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(258, 26);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(58, 21);
+            this.label3.TabIndex = 16;
+            this.label3.Text = "น้ำหนัก:";
+            // 
+            // btSearch
+            // 
+            this.btSearch.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.btSearch.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btSearch.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btSearch.Image = global::SerialPortListener.Properties.Resources.search_32px1;
+            this.btSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btSearch.Location = new System.Drawing.Point(1069, 20);
+            this.btSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btSearch.Name = "btSearch";
+            this.btSearch.Size = new System.Drawing.Size(106, 35);
+            this.btSearch.TabIndex = 13;
+            this.btSearch.Text = "ค้นหา";
+            this.btSearch.UseVisualStyleBackColor = true;
+            this.btSearch.Click += new System.EventHandler(this.btSearch_Click);
+            // 
+            // btClose
+            // 
+            this.btClose.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btClose.BackColor = System.Drawing.Color.Gray;
+            this.btClose.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btClose.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btClose.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btClose.Image = global::SerialPortListener.Properties.Resources.exit_24px;
+            this.btClose.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btClose.Location = new System.Drawing.Point(1068, 579);
+            this.btClose.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(110, 43);
+            this.btClose.TabIndex = 8;
+            this.btClose.Text = "ออก";
+            this.btClose.UseVisualStyleBackColor = false;
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            // 
+            // btDelete
+            // 
+            this.btDelete.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btDelete.BackColor = System.Drawing.Color.IndianRed;
+            this.btDelete.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btDelete.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btDelete.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btDelete.Image = global::SerialPortListener.Properties.Resources.delete_bin_24px;
+            this.btDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btDelete.Location = new System.Drawing.Point(308, 579);
+            this.btDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btDelete.Name = "btDelete";
+            this.btDelete.Size = new System.Drawing.Size(110, 43);
+            this.btDelete.TabIndex = 7;
+            this.btDelete.Text = "ลบ";
+            this.btDelete.UseVisualStyleBackColor = false;
+            this.btDelete.Visible = false;
+            this.btDelete.Click += new System.EventHandler(this.btDelete_Click);
+            // 
+            // btUpdate
+            // 
+            this.btUpdate.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btUpdate.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.btUpdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btUpdate.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btUpdate.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btUpdate.Image = global::SerialPortListener.Properties.Resources.edit_file_24px;
+            this.btUpdate.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btUpdate.Location = new System.Drawing.Point(15, 579);
+            this.btUpdate.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(110, 43);
+            this.btUpdate.TabIndex = 6;
+            this.btUpdate.Text = "แก้ไข";
+            this.btUpdate.UseVisualStyleBackColor = false;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
+            // 
+            // btAdd
+            // 
+            this.btAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btAdd.BackColor = System.Drawing.Color.MediumAquamarine;
+            this.btAdd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btAdd.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btAdd.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btAdd.Image = global::SerialPortListener.Properties.Resources.add_24px;
+            this.btAdd.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btAdd.Location = new System.Drawing.Point(158, 579);
+            this.btAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(110, 43);
+            this.btAdd.TabIndex = 5;
+            this.btAdd.Text = "เพิ่ม";
+            this.btAdd.UseVisualStyleBackColor = false;
+            this.btAdd.Visible = false;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // วันที่
+            // 
+            this.วันที่.DataPropertyName = "วันที่";
+            this.วันที่.FillWeight = 279.2793F;
+            this.วันที่.HeaderText = "วันที่";
+            this.วันที่.Name = "วันที่";
+            this.วันที่.Width = 61;
+            // 
+            // เลขที่เอกสาร
+            // 
+            this.เลขที่เอกสาร.DataPropertyName = "เลขที่เอกสาร";
+            this.เลขที่เอกสาร.FillWeight = 254.849F;
+            this.เลขที่เอกสาร.HeaderText = "เลขที่การชั่ง";
+            this.เลขที่เอกสาร.Name = "เลขที่เอกสาร";
+            this.เลขที่เอกสาร.Width = 106;
+            // 
+            // ทะเบียนรถ
+            // 
+            this.ทะเบียนรถ.DataPropertyName = "ทะเบียนรถ";
+            this.ทะเบียนรถ.FillWeight = 193.9885F;
+            this.ทะเบียนรถ.HeaderText = "ทะเบียนรถ";
+            this.ทะเบียนรถ.Name = "ทะเบียนรถ";
+            this.ทะเบียนรถ.Width = 96;
+            // 
+            // รหัสลูกค้า
+            // 
+            this.รหัสลูกค้า.DataPropertyName = "รหัสลูกค้า";
+            this.รหัสลูกค้า.FillWeight = 232.6197F;
+            this.รหัสลูกค้า.HeaderText = "รหัสหน้างาน";
+            this.รหัสลูกค้า.Name = "รหัสลูกค้า";
+            this.รหัสลูกค้า.Width = 109;
+            // 
+            // ลูกค้า
+            // 
+            this.ลูกค้า.DataPropertyName = "ลูกค้า";
+            this.ลูกค้า.FillWeight = 212.393F;
+            this.ลูกค้า.HeaderText = "หน้างาน";
+            this.ลูกค้า.Name = "ลูกค้า";
+            this.ลูกค้า.Width = 84;
+            // 
+            // โรงโม่
+            // 
+            this.โรงโม่.DataPropertyName = "โรงโม่";
+            this.โรงโม่.FillWeight = 95.44719F;
+            this.โรงโม่.HeaderText = "โรงโม่";
+            this.โรงโม่.Name = "โรงโม่";
+            this.โรงโม่.Width = 69;
+            // 
+            // ชนิดหิน
+            // 
+            this.ชนิดหิน.DataPropertyName = "ชนิดหิน";
+            this.ชนิดหิน.FillWeight = 80.41848F;
+            this.ชนิดหิน.HeaderText = "ชนิดหิน";
+            this.ชนิดหิน.Name = "ชนิดหิน";
+            this.ชนิดหิน.Width = 83;
+            // 
+            // คนขับ
+            // 
+            this.คนขับ.DataPropertyName = "คนขับ";
+            this.คนขับ.FillWeight = 162.0045F;
+            this.คนขับ.HeaderText = "คนขับ";
+            this.คนขับ.Name = "คนขับ";
+            this.คนขับ.Width = 73;
+            // 
+            // วันที่ชั่งเข้า
+            // 
+            this.วันที่ชั่งเข้า.DataPropertyName = "วันที่ชั่งเข้า";
+            this.วันที่ชั่งเข้า.FillWeight = 45.44717F;
+            this.วันที่ชั่งเข้า.HeaderText = "วันที่ชั่งเข้า";
+            this.วันที่ชั่งเข้า.Name = "วันที่ชั่งเข้า";
+            this.วันที่ชั่งเข้า.Width = 98;
+            // 
+            // เวลาชั่งเข้า
+            // 
+            this.เวลาชั่งเข้า.DataPropertyName = "เวลาชั่งเข้า";
+            this.เวลาชั่งเข้า.FillWeight = 42.08287F;
+            this.เวลาชั่งเข้า.HeaderText = "เวลาชั่งเข้า";
+            this.เวลาชั่งเข้า.Name = "เวลาชั่งเข้า";
+            this.เวลาชั่งเข้า.Width = 99;
+            // 
+            // วันที่ชั่งออก
+            // 
+            this.วันที่ชั่งออก.DataPropertyName = "วันที่ชั่งออก";
+            this.วันที่ชั่งออก.FillWeight = 39.02167F;
+            this.วันที่ชั่งออก.HeaderText = "วันที่ชั่งออก";
+            this.วันที่ชั่งออก.Name = "วันที่ชั่งออก";
+            this.วันที่ชั่งออก.Width = 102;
+            // 
+            // เวลาชั่งออก
+            // 
+            this.เวลาชั่งออก.DataPropertyName = "เวลาชั่งออก";
+            this.เวลาชั่งออก.FillWeight = 36.23623F;
+            this.เวลาชั่งออก.HeaderText = "เวลาชั่งออก";
+            this.เวลาชั่งออก.Name = "เวลาชั่งออก";
+            this.เวลาชั่งออก.Width = 103;
+            // 
+            // น้ำหนักรถ
+            // 
+            this.น้ำหนักรถ.DataPropertyName = "น้ำหนักรถ";
+            this.น้ำหนักรถ.FillWeight = 135.5236F;
+            this.น้ำหนักรถ.HeaderText = "น้ำหนักเข้า";
+            this.น้ำหนักรถ.Name = "น้ำหนักรถ";
+            this.น้ำหนักรถ.Width = 101;
+            // 
+            // น้ำหนักรวม
+            // 
+            this.น้ำหนักรวม.DataPropertyName = "น้ำหนักรวม";
+            this.น้ำหนักรวม.FillWeight = 124.0443F;
+            this.น้ำหนักรวม.HeaderText = "น้ำหนักออก";
+            this.น้ำหนักรวม.Name = "น้ำหนักรวม";
+            this.น้ำหนักรวม.Width = 105;
+            // 
+            // น้ำหนักสินค้า
+            // 
+            this.น้ำหนักสินค้า.DataPropertyName = "น้ำหนักสินค้า";
+            this.น้ำหนักสินค้า.FillWeight = 113.5992F;
+            this.น้ำหนักสินค้า.HeaderText = "น้ำหนักสุทธิ";
+            this.น้ำหนักสินค้า.Name = "น้ำหนักสินค้า";
+            this.น้ำหนักสินค้า.Width = 106;
+            // 
+            // คิว
+            // 
+            this.คิว.DataPropertyName = "คิว";
+            this.คิว.FillWeight = 104.0951F;
+            this.คิว.HeaderText = "น้ำหนักคิว";
+            this.คิว.Name = "คิว";
+            this.คิว.Width = 96;
+            // 
+            // ประเภทหิน
+            // 
+            this.ประเภทหิน.DataPropertyName = "ประเภทหิน";
+            this.ประเภทหิน.FillWeight = 73.90363F;
+            this.ประเภทหิน.HeaderText = "ประเภทหิน";
+            this.ประเภทหิน.Name = "ประเภทหิน";
+            this.ประเภทหิน.Width = 98;
+            // 
+            // ราคาตัน
+            // 
+            this.ราคาตัน.DataPropertyName = "ราคาตัน";
+            this.ราคาตัน.FillWeight = 67.97569F;
+            this.ราคาตัน.HeaderText = "ราคา/ตัน";
+            this.ราคาตัน.Name = "ราคาตัน";
+            this.ราคาตัน.Width = 90;
+            // 
+            // จำนวณเงิน
+            // 
+            this.จำนวณเงิน.DataPropertyName = "จำนวณเงิน";
+            this.จำนวณเงิน.FillWeight = 62.58178F;
+            this.จำนวณเงิน.HeaderText = "จำนวนเงิน";
+            this.จำนวณเงิน.Name = "จำนวณเงิน";
+            this.จำนวณเงิน.Width = 97;
+            // 
+            // vat
+            // 
+            this.vat.DataPropertyName = "vat";
+            this.vat.FillWeight = 57.67384F;
+            this.vat.HeaderText = "ภาษี";
+            this.vat.Name = "vat";
+            this.vat.Width = 61;
+            // 
+            // จำนวนเงินสุทธิ
+            // 
+            this.จำนวนเงินสุทธิ.DataPropertyName = "จำนวนเงินสุทธิ";
+            this.จำนวนเงินสุทธิ.FillWeight = 53.20803F;
+            this.จำนวนเงินสุทธิ.HeaderText = "จำนวนเงินรวมภาษี";
+            this.จำนวนเงินสุทธิ.Name = "จำนวนเงินสุทธิ";
+            this.จำนวนเงินสุทธิ.Width = 146;
+            // 
+            // จ่ายเงิน
+            // 
+            this.จ่ายเงิน.DataPropertyName = "จ่ายเงิน";
+            this.จ่ายเงิน.FillWeight = 49.14456F;
+            this.จ่ายเงิน.HeaderText = "จ่ายเงิน";
+            this.จ่ายเงิน.Name = "จ่ายเงิน";
+            this.จ่ายเงิน.Width = 78;
+            // 
+            // รหัสผู้ชั่ง
+            // 
+            this.รหัสผู้ชั่ง.DataPropertyName = "รหัสผู้ชั่ง";
+            this.รหัสผู้ชั่ง.FillWeight = 33.70175F;
+            this.รหัสผู้ชั่ง.HeaderText = "รหัสผู้ชั่ง";
+            this.รหัสผู้ชั่ง.Name = "รหัสผู้ชั่ง";
+            this.รหัสผู้ชั่ง.Width = 86;
+            // 
+            // ชื่อผู้ชั่ง
+            // 
+            this.ชื่อผู้ชั่ง.DataPropertyName = "ชื่อผู้ชั่ง";
+            this.ชื่อผู้ชั่ง.FillWeight = 31.3956F;
+            this.ชื่อผู้ชั่ง.HeaderText = "ชื่อผู้ชั่ง";
+            this.ชื่อผู้ชั่ง.Name = "ชื่อผู้ชั่ง";
+            this.ชื่อผู้ชั่ง.Width = 79;
+            // 
+            // รหัสผู้ตัก
+            // 
+            this.รหัสผู้ตัก.DataPropertyName = "รหัสผู้ตัก";
+            this.รหัสผู้ตัก.FillWeight = 29.29721F;
+            this.รหัสผู้ตัก.HeaderText = "รหัสผู้ตัก";
+            this.รหัสผู้ตัก.Name = "รหัสผู้ตัก";
+            this.รหัสผู้ตัก.Width = 88;
+            // 
+            // ชื่อผู้ตัก
+            // 
+            this.ชื่อผู้ตัก.DataPropertyName = "ชื่อผู้ตัก";
+            this.ชื่อผู้ตัก.FillWeight = 27.38786F;
+            this.ชื่อผู้ตัก.HeaderText = "ชื่อผู้ตัก";
+            this.ชื่อผู้ตัก.Name = "ชื่อผู้ตัก";
+            this.ชื่อผู้ตัก.Width = 81;
+            // 
+            // รหัสผู้อนุมัติจ่าย
+            // 
+            this.รหัสผู้อนุมัติจ่าย.DataPropertyName = "รหัสผู้อนุมัติจ่าย";
+            this.รหัสผู้อนุมัติจ่าย.FillWeight = 25.65054F;
+            this.รหัสผู้อนุมัติจ่าย.HeaderText = "รหัสผู้อนุมัติจ่าย";
+            this.รหัสผู้อนุมัติจ่าย.Name = "รหัสผู้อนุมัติจ่าย";
+            this.รหัสผู้อนุมัติจ่าย.Width = 129;
+            // 
+            // ชื่อผู้อนุมัติจ่าย
+            // 
+            this.ชื่อผู้อนุมัติจ่าย.DataPropertyName = "ชื่อผู้อนุมัติจ่าย";
+            this.ชื่อผู้อนุมัติจ่าย.FillWeight = 24.06972F;
+            this.ชื่อผู้อนุมัติจ่าย.HeaderText = "ชื่อผู้อนุมัติจ่าย";
+            this.ชื่อผู้อนุมัติจ่าย.Name = "ชื่อผู้อนุมัติจ่าย";
+            this.ชื่อผู้อนุมัติจ่าย.Width = 122;
+            // 
+            // เลขที่ใบตัก
+            // 
+            this.เลขที่ใบตัก.DataPropertyName = "เลขที่ใบตัก";
+            this.เลขที่ใบตัก.HeaderText = "เลขที่ใบตัก";
+            this.เลขที่ใบตัก.Name = "เลขที่ใบตัก";
+            this.เลขที่ใบตัก.Visible = false;
+            // 
+            // ค่าขนส่ง
+            // 
+            this.ค่าขนส่ง.DataPropertyName = "ค่าขนส่ง";
+            this.ค่าขนส่ง.HeaderText = "ค่าขนส่ง";
+            this.ค่าขนส่ง.Name = "ค่าขนส่ง";
+            this.ค่าขนส่ง.Visible = false;
+            this.ค่าขนส่ง.Width = 86;
+            // 
+            // weight_id
+            // 
+            this.weight_id.DataPropertyName = "weight_id";
+            this.weight_id.HeaderText = "weight_id";
+            this.weight_id.Name = "weight_id";
+            this.weight_id.Visible = false;
+            this.weight_id.Width = 124;
+            // 
+            // ชนิดvat
+            // 
+            this.ชนิดvat.DataPropertyName = "ชนิดvat";
+            this.ชนิดvat.HeaderText = "ชนิดvat";
+            this.ชนิดvat.Name = "ชนิดvat";
+            this.ชนิดvat.Visible = false;
+            this.ชนิดvat.Width = 97;
+            // 
+            // ล้าง
+            // 
+            this.ล้าง.DataPropertyName = "ล้าง";
+            this.ล้าง.HeaderText = "ล้าง";
+            this.ล้าง.Name = "ล้าง";
+            this.ล้าง.Width = 57;
+            // 
+            // ขนส่ง
+            // 
+            this.ขนส่ง.DataPropertyName = "ขนส่ง";
+            this.ขนส่ง.HeaderText = "ขนส่ง";
+            this.ขนส่ง.Name = "ขนส่ง";
+            this.ขนส่ง.Width = 70;
+            // 
+            // รหัสคนขับ
+            // 
+            this.รหัสคนขับ.DataPropertyName = "รหัสคนขับ";
+            this.รหัสคนขับ.HeaderText = "รหัสคนขับ";
+            this.รหัสคนขับ.Name = "รหัสคนขับ";
+            this.รหัสคนขับ.Width = 98;
+            // 
+            // รหัสทะเบียนรถ
+            // 
+            this.รหัสทะเบียนรถ.DataPropertyName = "รหัสทะเบียนรถ";
+            this.รหัสทะเบียนรถ.HeaderText = "รหัสทะเบียนรถ";
+            this.รหัสทะเบียนรถ.Name = "รหัสทะเบียนรถ";
+            this.รหัสทะเบียนรถ.Width = 121;
+            // 
+            // จังหวัด
+            // 
+            this.จังหวัด.DataPropertyName = "จังหวัด";
+            this.จังหวัด.FillWeight = 177.2422F;
+            this.จังหวัด.HeaderText = "จังหวัด";
+            this.จังหวัด.Name = "จังหวัด";
+            this.จังหวัด.Width = 74;
+            // 
+            // ทีม
+            // 
+            this.ทีม.DataPropertyName = "ทีม";
+            this.ทีม.FillWeight = 148.1395F;
+            this.ทีม.HeaderText = "ทีม";
+            this.ทีม.Name = "ทีม";
+            this.ทีม.Width = 53;
+            // 
+            // หน้างาน
+            // 
+            this.หน้างาน.DataPropertyName = "หน้างาน";
+            this.หน้างาน.HeaderText = "หน้างาน";
+            this.หน้างาน.Name = "หน้างาน";
+            this.หน้างาน.Width = 84;
+            // 
+            // TableFromDB
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Linen;
+            this.ClientSize = new System.Drawing.Size(1191, 636);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.tableDataFromDB);
+            this.Controls.Add(this.cbbSearchWeight);
+            this.Controls.Add(this.btSearch);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dateTo);
+            this.Controls.Add(this.dateFrom);
+            this.Controls.Add(this.btClose);
+            this.Controls.Add(this.btDelete);
+            this.Controls.Add(this.btUpdate);
+            this.Controls.Add(this.btAdd);
+            this.Controls.Add(this.lbTotal);
+            this.Font = new System.Drawing.Font("Century Gothic", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(7, 6, 7, 6);
+            this.MaximizeBox = false;
+            this.Name = "TableFromDB";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "รายการชั่งน้ำหนัก";
+            this.Load += new System.EventHandler(this.TableFromDB_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.weightBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.truckDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.truckDataSetBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tableDataFromDB)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+        private System.Windows.Forms.BindingSource truckDataSetBindingSource;
+        private truckDataSet truckDataSet;
+        private System.Windows.Forms.BindingSource weightBindingSource;
+        private truckDataSetTableAdapters.weightTableAdapter weightTableAdapter;
+        private System.Windows.Forms.Label lbTotal;
+        private System.Windows.Forms.Button btAdd;
+        private System.Windows.Forms.Button btUpdate;
+        private System.Windows.Forms.Button btDelete;
+        private System.Windows.Forms.Button btClose;
+        private System.Windows.Forms.DateTimePicker dateFrom;
+        private System.Windows.Forms.DateTimePicker dateTo;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btSearch;
+        private System.Windows.Forms.ComboBox cbbSearchWeight;
+        private System.Windows.Forms.DataGridView tableDataFromDB;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn วันที่;
+        private System.Windows.Forms.DataGridViewTextBoxColumn เลขที่เอกสาร;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ทะเบียนรถ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn รหัสลูกค้า;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ลูกค้า;
+        private System.Windows.Forms.DataGridViewTextBoxColumn โรงโม่;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ชนิดหิน;
+        private System.Windows.Forms.DataGridViewTextBoxColumn คนขับ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn วันที่ชั่งเข้า;
+        private System.Windows.Forms.DataGridViewTextBoxColumn เวลาชั่งเข้า;
+        private System.Windows.Forms.DataGridViewTextBoxColumn วันที่ชั่งออก;
+        private System.Windows.Forms.DataGridViewTextBoxColumn เวลาชั่งออก;
+        private System.Windows.Forms.DataGridViewTextBoxColumn น้ำหนักรถ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn น้ำหนักรวม;
+        private System.Windows.Forms.DataGridViewTextBoxColumn น้ำหนักสินค้า;
+        private System.Windows.Forms.DataGridViewTextBoxColumn คิว;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ประเภทหิน;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ราคาตัน;
+        private System.Windows.Forms.DataGridViewTextBoxColumn จำนวณเงิน;
+        private System.Windows.Forms.DataGridViewTextBoxColumn vat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn จำนวนเงินสุทธิ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn จ่ายเงิน;
+        private System.Windows.Forms.DataGridViewTextBoxColumn รหัสผู้ชั่ง;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ชื่อผู้ชั่ง;
+        private System.Windows.Forms.DataGridViewTextBoxColumn รหัสผู้ตัก;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ชื่อผู้ตัก;
+        private System.Windows.Forms.DataGridViewTextBoxColumn รหัสผู้อนุมัติจ่าย;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ชื่อผู้อนุมัติจ่าย;
+        private System.Windows.Forms.DataGridViewTextBoxColumn เลขที่ใบตัก;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ค่าขนส่ง;
+        private System.Windows.Forms.DataGridViewTextBoxColumn weight_id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ชนิดvat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ล้าง;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ขนส่ง;
+        private System.Windows.Forms.DataGridViewTextBoxColumn รหัสคนขับ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn รหัสทะเบียนรถ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn จังหวัด;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ทีม;
+        private System.Windows.Forms.DataGridViewTextBoxColumn หน้างาน;
+    }
+}
