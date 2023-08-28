@@ -138,7 +138,7 @@ namespace SerialPortListener
                 sql.Append("SELECT weight.*  FROM public.weight");
                 if (cbbCarType.SelectedIndex != 0)
                     sql.Append(" INNER JOIN public.base_car_registration ON weight.ทะเบียนรถ = base_car_registration.ชื่อทะเบียนรถ ");
-                sql.Append(" WHERE วันที่ >= '" + tbdateFrom.Value.ToString("yyyy-MM-dd") + "' AND  วันที่ <= '" + tbdateTo.Value.ToString("yyyy-MM-dd") + "' AND เวลาชั่งออก BETWEEN '" + dtFromOut.Value.ToString("HH:mm") + "' AND '" + dtToOut.Value.ToString("HH:mm") + "' ");
+                sql.Append(" WHERE (วันที่ = '" + tbdateFrom.Value.ToString("yyyy-MM-dd") + "' and เวลาชั่งออก >= '" + dtFromOut.Value.ToString("HH:mm") + "' or วันที่  > '" + tbdateFrom.Value.ToString("yyyy-MM-dd") + "') AND (วันที่ = '" + tbdateTo.Value.ToString("yyyy-MM-dd") + "' and  เวลาชั่งออก <= '" + dtToOut.Value.ToString("HH:mm") + "' or  วันที่ < '" + tbdateTo.Value.ToString("yyyy-MM-dd") + "') ");
                 if (cbbCarType.SelectedIndex != 0)
                     sql.Append(" AND base_car_registration.ประเภทรถ = '" + cbbCarType.Text + "' ");
                 if (cbbCarRegistration.SelectedIndex != 0)
@@ -350,7 +350,7 @@ namespace SerialPortListener
             sql.Append("SELECT weight.*  FROM public.weight");
             if (cbbCarType.SelectedIndex != 0)
                 sql.Append(" INNER JOIN public.base_car_registration ON weight.ทะเบียนรถ = base_car_registration.ชื่อทะเบียนรถ ");
-            sql.Append(" WHERE วันที่ >= '" + tbdateFrom.Value.ToString("yyyy-MM-dd") + "' AND  วันที่ <= '" + tbdateTo.Value.ToString("yyyy-MM-dd") + "' AND เวลาชั่งออก BETWEEN '" + dtFromOut.Value.ToString("HH:mm") + "' AND '" + dtToOut.Value.ToString("HH:mm") + "' ");
+            sql.Append(" WHERE (วันที่ = '" + tbdateFrom.Value.ToString("yyyy-MM-dd") + "' and เวลาชั่งออก >= '" + dtFromOut.Value.ToString("HH:mm") + "' or วันที่  > '" + tbdateFrom.Value.ToString("yyyy-MM-dd") + "') AND (วันที่ = '" + tbdateTo.Value.ToString("yyyy-MM-dd") + "' and  เวลาชั่งออก <= '" + dtToOut.Value.ToString("HH:mm") + "' or  วันที่ < '" + tbdateTo.Value.ToString("yyyy-MM-dd") + "') ");
             if (cbbCarType.SelectedIndex != 0)
                 sql.Append(" AND base_car_registration.ประเภทรถ = '" + cbbCarType.Text + "' ");
             if (cbbCarRegistration.SelectedIndex != 0)

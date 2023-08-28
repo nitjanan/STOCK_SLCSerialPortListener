@@ -37,6 +37,24 @@ namespace SerialPortListener
         bool isCheckedCleanNo = false;
         bool isCheckedSelfPick = false;
         bool isCheckedSendTo = false;
+
+        class ComboboxValue
+        {
+            public string Id { get; private set; }
+            public string Name { get; private set; }
+
+            public ComboboxValue(string id, string name)
+            {
+                Id = id;
+                Name = name;
+            }
+
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
+
         public MainForm(string username, String firstname)
         {
             dl = new Datalayer();
@@ -270,8 +288,9 @@ namespace SerialPortListener
                 dl.connect();
                 OdbcDataReader reader = pgCommand.ExecuteReader();
                 while (reader.Read()) {
+                    string id = reader["รหัสหิน"].ToString();
                     string des = reader["ชื่อหิน"].ToString();
-                    cbbStoneType.Items.Add(des);
+                    cbbStoneType.Items.Add(new ComboboxValue(id, des));
                 }
             }
             catch (Exception) {
@@ -864,12 +883,13 @@ namespace SerialPortListener
             Boolean isSuccess = false;
             //sql
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
-            pgCommand.CommandText = "INSERT INTO weight (วันที่, เลขที่เอกสาร, ทะเบียนรถ, จังหวัด, คนขับ, ลูกค้า, น้ำหนักรถ, น้ำหนักรวม, น้ำหนักสินค้า , เลขที่ใบตัก, โรงโม่, ชนิดหิน, จ่ายเงิน, รหัสผู้ชั่ง, รหัสผู้ตัก, ราคาตัน, จำนวณเงิน, ค่าขนส่ง, วันที่ชั่งเข้า, เวลาชั่งเข้า, วันที่ชั่งออก, เวลาชั่งออก, รหัสลูกค้า, ชื่อผู้ชั่ง, ชื่อผู้ตัก, vat, รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, คิว, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ, base_weight_station_name)" +
+            pgCommand.CommandText = "INSERT INTO weight (วันที่, เลขที่เอกสาร, ทะเบียนรถ, จังหวัด, คนขับ, ลูกค้า, น้ำหนักรถ, น้ำหนักรวม, น้ำหนักสินค้า , เลขที่ใบตัก, โรงโม่, ชนิดหิน, จ่ายเงิน, รหัสผู้ชั่ง, รหัสผู้ตัก, ราคาตัน, จำนวณเงิน, ค่าขนส่ง, วันที่ชั่งเข้า, เวลาชั่งเข้า, วันที่ชั่งออก, เวลาชั่งออก, รหัสลูกค้า, ชื่อผู้ชั่ง, ชื่อผู้ตัก, vat, รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, คิว, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ, base_weight_station_name, stone_type_id, mill_id)" +
                                      "VALUES ('" + dtDate.Value.ToString("yyyy-MM-dd") + "','" + tbDocNum.Text + "','" + tbCarLicense.Text + "','" + tbCarCity.Text + "','" + tbDriverName.Text + "','" + tbCustomerName.Text + "','" + kgToTon(tbWeightIn) + "'" + ",'"
                                      + kgToTon(tbWeightOut) + "','" + kgToTon(tbWeightTotal) + "','" + tbRefNum.Text + "','" + getMillRadioValue() + "','" + cbbStoneType.Text + "','" + getPayRadioValue() + "','" + tbScaleId.Text + "','"
                                      + tbScoopId.Text + "','" + numberFormat(tbPricePerTon.Text,1) + "','" + numberFormat(tbAmount.Text,1) + "','" + tbShipCost.Text + "','" + dtWeightInDate.Value.ToString("yyyy-MM-dd") + "','" + dtWeightInTime.Text + "','" + dtWeightOutDate.Value.ToString("yyyy-MM-dd") + "','" + dtWeightOutTime.Text + "','"
                                      + tbCustomerId.Text + "','" + tbScaleName.Text + "','" + tbScoopName.Text + "','" + numberFormat(tbVat.Text,1) + "','" + tbApproveId.Text + "','" + tbApproveName.Text + "','" + numberFormat(tbQ.Text,1) + "','" + getVatRadioValue() + "','" + numberFormat(tbAmountVat.Text,1) + "','"
-                                     + cbbStoneColor.Text + "','" + tbSite.Text + "','" + tbCarTeam.Text + "','" + getCleanRadioValue() + "','" + cbbTransport.Text + "','" + tbDriverId.Text + "','" + tbCarLicenseId.Text + "', (SELECT base_weight_station_name FROM base_weight_station WHERE base_weight_station_id = 1 ) )";
+                                     + cbbStoneColor.Text + "','" + tbSite.Text + "','" + tbCarTeam.Text + "','" + getCleanRadioValue() + "','" + cbbTransport.Text + "','" + tbDriverId.Text + "','" + tbCarLicenseId.Text + "', (SELECT base_weight_station_name FROM base_weight_station WHERE base_weight_station_id = 1 ) ,'"
+                                     + getComboboxId(cbbStoneType) + "','" + getMillId()  + "' )";
             try
             {
                 dl.connect();
@@ -917,6 +937,7 @@ namespace SerialPortListener
                                     " , รหัสผู้ตัก = '" + tbScoopId.Text + "' , ราคาตัน = '" + numberFormat(tbPricePerTon.Text, 1) + "' , จำนวณเงิน = '" + numberFormat(tbAmount.Text, 1) + "' , ค่าขนส่ง = '" + tbShipCost.Text + "' , วันที่ชั่งเข้า = '" + dtWeightInDate.Value.ToString("yyyy-MM-dd") + "' , เวลาชั่งเข้า = '" + dtWeightInTime.Text + "'" +
                                     " , วันที่ชั่งออก = '" + dtWeightOutDate.Value.ToString("yyyy-MM-dd") + "' , เวลาชั่งออก = '" + dtWeightOutTime.Text + "'  , รหัสลูกค้า = '" + tbCustomerId.Text + "'  , ชื่อผู้ชั่ง = '" + tbScaleName.Text + "' , ชื่อผู้ตัก = '" + tbScoopName.Text + "' , vat = '" + numberFormat(tbVat.Text, 1) +
                                     "' , รหัสผู้อนุมัติจ่าย = '" + tbApproveId.Text + "' , ชื่อผู้อนุมัติจ่าย = '" + tbApproveName.Text + "' , คิว = '" + numberFormat(tbQ.Text, 1) + "' , ชนิดvat = '" + getVatRadioValue() + "' , จำนวนเงินสุทธิ = '" + numberFormat(tbAmountVat.Text, 1) + "' , ประเภทหิน = '" + cbbStoneColor.Text +
+                                    "' , stone_type_id = '" + getComboboxStoneTypeUpdate() + "' , mill_id = '" + getMillId() + 
                                     "' , หน้างาน = '" + tbSite.Text + "' , ทีม = '" + tbCarTeam.Text + "' , ล้าง = '" + getCleanRadioValue() + "' , ขนส่ง = '" + cbbTransport.Text + "' , รหัสคนขับ = '" + tbDriverId.Text + "' , รหัสทะเบียนรถ = '" + tbCarLicenseId.Text + "' WHERE วันที่ = '" + dtDate.Value.ToString("yyyy-MM-dd") + "' AND weight_id = " + tbId.Text + " ; ";
             try
             {
@@ -933,6 +954,50 @@ namespace SerialPortListener
                 MessageBox.Show(ex.ToString());
             }
             dl.close();
+        }
+
+        //get combobox id use to save or update
+        private string getComboboxId(ComboBox cbb)
+        {
+            string tmp = "";
+
+            if (cbb.SelectedIndex > -1)
+            {
+                ComboboxValue tmpComboboxValue = (ComboboxValue)cbb.SelectedItem;
+                tmp = tmpComboboxValue.Id;
+            }
+            return tmp;
+        }
+
+        private string getMillId() {
+            string mill_id = "";
+            if (rbMillNo.Checked)
+                mill_id = "00";
+            else if (rbMill1.Checked)
+                mill_id = "01";
+            else if (rbMill2.Checked)
+                mill_id = "02";
+            else if (rbMill3.Checked)
+                mill_id = "03";
+            return mill_id;
+        }
+
+        private string getComboboxStoneTypeUpdate()
+        {
+
+            string selectedName = cbbStoneType.Text;
+            string selectedId = "";
+
+            foreach (ComboboxValue item in cbbStoneType.Items)
+            {
+
+                if (item.Name == selectedName)
+                {
+                    selectedId = item.Id;
+                    break;
+                }
+            }
+            return selectedId;
         }
 
 
@@ -1024,6 +1089,7 @@ namespace SerialPortListener
             }
             return value;
         }
+
 
 
         private void getDefaultCompany()
