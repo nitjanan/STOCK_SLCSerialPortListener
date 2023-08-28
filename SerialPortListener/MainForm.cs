@@ -162,13 +162,10 @@ namespace SerialPortListener
             calculatenumQ();
 
             disableBtAfterRead(0);
-            //เปิดคีย์ได้หมด 10-01-2023
-            disableBtAfterRead(999);
-            /*
+
             //if user admin enable all 
             if (Globals.isPermissionTop())
                 disableBtAfterRead(999);
-            */
         }
 
         public void getAndSetFirstUser()
@@ -343,15 +340,12 @@ namespace SerialPortListener
 
             //disable after read in
             disableBtAfterRead(1);
-            //เปิดคีย์ได้หมด 10-01-2023
-            disableBtAfterRead(999);
-            /*
+
             //if user admin enable all
             if (Globals.isPermissionTop())
             {
                 disableBtAfterRead(999);
             }
-            */
 
             rbWeightOut.Checked = true;
         }
@@ -2052,10 +2046,9 @@ namespace SerialPortListener
 
             rbWeightIn.Checked = true;
 
-            /*เปิดคีย์ได้หมด 10-01-2023
             if(!Globals.isPermissionTop())
                 btReadOut.Enabled = false;
-            */
+
         }
 
         private void rbWeightOut_Click(object sender, EventArgs e)
