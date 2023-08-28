@@ -866,6 +866,8 @@ namespace SerialPortListener
                 //เช็คเลขทะเบียนซ้ำกัน
                 else if (checkDuplicateCarLicense())
                     MessageBox.Show("ทะเบียนรถนี้ยังไม่มีการชั่งออก กรุณาทำการชั่งใหม่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else if (checkWeightInZero())
+                    MessageBox.Show("น้ำหนักชั่งเข้าเป็น 0.00 ไม่สามารถบันทึกข้อมูลได้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 else
                     saveAction();
             }
@@ -877,6 +879,16 @@ namespace SerialPortListener
                 else
                     MessageBox.Show("รหัสยกเลิกผิด ไม่สามารถบันทึกข้อมูลได้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private Boolean checkWeightInZero()
+        {
+            string str = tbWeightIn.Text;
+            Double temp;
+            Boolean isOk = Double.TryParse(str, out temp);
+            Int32 value = isOk ? (Int32)temp : 0;
+
+            return value == 0 ? true : false;
         }
 
         private void saveAction() {
