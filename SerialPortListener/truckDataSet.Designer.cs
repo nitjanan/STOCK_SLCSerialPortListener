@@ -357,6 +357,10 @@ namespace SerialPortListener {
             
             private global::System.Data.DataColumn columnรหัสทะเบียนรถ;
             
+            private global::System.Data.DataColumn columnis_s;
+            
+            private global::System.Data.DataColumn columnหมายเหตุ;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public weightDataTable() {
@@ -704,6 +708,22 @@ namespace SerialPortListener {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn is_sColumn {
+                get {
+                    return this.columnis_s;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn หมายเหตุColumn {
+                get {
+                    return this.columnหมายเหตุ;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -778,7 +798,9 @@ namespace SerialPortListener {
                         string ล้าง, 
                         string ขนส่ง, 
                         string รหัสคนขับ, 
-                        string รหัสทะเบียนรถ) {
+                        string รหัสทะเบียนรถ, 
+                        bool is_s, 
+                        string หมายเหตุ) {
                 weightRow rowweightRow = ((weightRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         วันที่,
@@ -819,7 +841,9 @@ namespace SerialPortListener {
                         ล้าง,
                         ขนส่ง,
                         รหัสคนขับ,
-                        รหัสทะเบียนรถ};
+                        รหัสทะเบียนรถ,
+                        is_s,
+                        หมายเหตุ};
                 rowweightRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowweightRow);
                 return rowweightRow;
@@ -888,6 +912,8 @@ namespace SerialPortListener {
                 this.columnขนส่ง = base.Columns["ขนส่ง"];
                 this.columnรหัสคนขับ = base.Columns["รหัสคนขับ"];
                 this.columnรหัสทะเบียนรถ = base.Columns["รหัสทะเบียนรถ"];
+                this.columnis_s = base.Columns["is_s"];
+                this.columnหมายเหตุ = base.Columns["หมายเหตุ"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -971,6 +997,10 @@ namespace SerialPortListener {
                 base.Columns.Add(this.columnรหัสคนขับ);
                 this.columnรหัสทะเบียนรถ = new global::System.Data.DataColumn("รหัสทะเบียนรถ", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnรหัสทะเบียนรถ);
+                this.columnis_s = new global::System.Data.DataColumn("is_s", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnis_s);
+                this.columnหมายเหตุ = new global::System.Data.DataColumn("หมายเหตุ", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnหมายเหตุ);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnweight_id}, true));
                 this.columnweight_id.AllowDBNull = false;
@@ -1736,6 +1766,38 @@ namespace SerialPortListener {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool is_s {
+                get {
+                    try {
+                        return ((bool)(this[this.tableweight.is_sColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'is_s\' in table \'weight\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableweight.is_sColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string หมายเหตุ {
+                get {
+                    try {
+                        return ((string)(this[this.tableweight.หมายเหตุColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'หมายเหตุ\' in table \'weight\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableweight.หมายเหตุColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool Isวันที่Null() {
                 return this.IsNull(this.tableweight.วันที่Column);
             }
@@ -2189,6 +2251,30 @@ namespace SerialPortListener {
             public void SetรหัสทะเบียนรถNull() {
                 this[this.tableweight.รหัสทะเบียนรถColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Isis_sNull() {
+                return this.IsNull(this.tableweight.is_sColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Setis_sNull() {
+                this[this.tableweight.is_sColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsหมายเหตุNull() {
+                return this.IsNull(this.tableweight.หมายเหตุColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetหมายเหตุNull() {
+                this[this.tableweight.หมายเหตุColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -2390,6 +2476,8 @@ namespace SerialPortListener.truckDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("ขนส่ง", "ขนส่ง");
             tableMapping.ColumnMappings.Add("รหัสคนขับ", "รหัสคนขับ");
             tableMapping.ColumnMappings.Add("รหัสทะเบียนรถ", "รหัสทะเบียนรถ");
+            tableMapping.ColumnMappings.Add("is_s", "is_s");
+            tableMapping.ColumnMappings.Add("หมายเหตุ", "หมายเหตุ");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -2407,14 +2495,12 @@ namespace SerialPortListener.truckDataSetTableAdapters {
             this._commandCollection[0] = new global::Devart.Data.PostgreSql.PgSqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = @"SELECT        วันที่, เลขที่เอกสาร, จังหวัด, คนขับ, ลูกค้า, น้ำหนักรวม, น้ำหนักสินค้า, เลขที่ใบตัก, โรงโม่, ชนิดหิน, จ่ายเงิน, รหัสผู้ชั่ง, รหัสผู้ตัก, ราคาตัน, ค่าขนส่ง, วันที่ชั่งเข้า, เวลาชั่งเข้า, วันที่ชั่งออก, เวลาชั่งออก, รหัสลูกค้า, ชื่อผู้ชั่ง, ชื่อผู้ตัก, ทะเบียนรถ, weight_id, vat, คิว, 
-                         รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, จำนวณเงิน, น้ำหนักรถ, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ
+                         รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, จำนวณเงิน, น้ำหนักรถ, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ, is_s, หมายเหตุ
 FROM            weight";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::Devart.Data.PostgreSql.PgSqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT        วันที่, เลขที่เอกสาร, จังหวัด, คนขับ, ลูกค้า, น้ำหนักรวม, น้ำหนักสินค้า, เลขที่ใบตัก, โรงโม่, ชนิดหิน, จ่ายเงิน, รหัสผู้ชั่ง, รหัสผู้ตัก, ราคาตัน, ค่าขนส่ง, วันที่ชั่งเข้า, เวลาชั่งเข้า, วันที่ชั่งออก, เวลาชั่งออก, รหัสลูกค้า, ชื่อผู้ชั่ง, ชื่อผู้ตัก, ทะเบียนรถ, weight_id, vat, คิว, 
-                         รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, จำนวณเงิน, น้ำหนักรถ, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ
-FROM            weight";
+            this._commandCollection[1].CommandText = @"SELECT is_s, vat, weight_id, ขนส่ง, คนขับ, คิว, ค่าขนส่ง, จังหวัด, จำนวณเงิน, จำนวนเงินสุทธิ, จ่ายเงิน, ชนิดvat, ชนิดหิน, ชื่อผู้ชั่ง, ชื่อผู้ตัก, ชื่อผู้อนุมัติจ่าย, ทะเบียนรถ, ทีม, น้ำหนักรถ, น้ำหนักรวม, น้ำหนักสินค้า, ประเภทหิน, รหัสคนขับ, รหัสทะเบียนรถ, รหัสผู้ชั่ง, รหัสผู้ตัก, รหัสผู้อนุมัติจ่าย, รหัสลูกค้า, ราคาตัน, ลูกค้า, ล้าง, วันที่, วันที่ชั่งออก, วันที่ชั่งเข้า, หน้างาน, หมายเหตุ, เลขที่เอกสาร, เลขที่ใบตัก, เวลาชั่งออก, เวลาชั่งเข้า, โรงโม่ FROM weight";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
         }
         

@@ -164,10 +164,14 @@
           <DataField>ทีม</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="หมายเหตุ">
+          <DataField>หมายเหตุ</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>weightScoopDataSet</rd:DataSetName>
-        <rd:SchemaPath>C:\Users\ADMIN\Desktop\SerialPortListener\SerialPortListener\weightScoopDataSet.xsd</rd:SchemaPath>
+        <rd:SchemaPath>C:\Users\Nooni\OneDrive\เดสก์ท็อป\STOCK\SerialPortListener\SerialPortListener\weightScoopDataSet.xsd</rd:SchemaPath>
         <rd:TableName>weight</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
@@ -195,10 +199,10 @@
                   <Width>1.81137cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.81208cm</Width>
+                  <Width>1.28cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.79509cm</Width>
+                  <Width>1.28cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.865cm</Width>
@@ -210,22 +214,28 @@
                   <Width>1.91792cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.65333cm</Width>
+                  <Width>2.00583cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.03126cm</Width>
+                  <Width>1.9cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.2524cm</Width>
+                  <Width>1.88029cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.36435cm</Width>
+                  <Width>2.04685cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.03731cm</Width>
+                  <Width>1.4cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.905cm</Width>
+                  <Width>1.4cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.40077cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.25709cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -425,7 +435,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>เวลาชั่งเข้า</Value>
+                                  <Value>เวลาเข้า</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -471,7 +481,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>เวลาชั่งออก</Value>
+                                  <Value>เวลาออก</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -655,7 +665,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>โรงโม่</Value>
+                                  <Value>ต้นทาง</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -694,14 +704,14 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox94">
+                        <Textbox Name="Textbox4">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>พนักงานขับ</Value>
+                                  <Value>ปลายทาง</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -713,7 +723,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox94</rd:DefaultName>
+                          <rd:DefaultName>Textbox4</rd:DefaultName>
                           <Style>
                             <Border>
                               <Style>Solid</Style>
@@ -839,7 +849,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>พนักงานชั่ง</Value>
+                                  <Value>พนง.ชั่ง</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -885,7 +895,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>พนักงานตัก</Value>
+                                  <Value>พนง.ตัก</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -922,6 +932,98 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>พนง.ขับ</Value>
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox20">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>note.</Value>
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox20</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
                 <TablixRow>
@@ -930,7 +1032,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="เลขที่เอกสาร">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -965,7 +1066,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ทะเบียนรถ1">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1000,7 +1100,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="วันที่ชั่งเข้า">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1036,7 +1135,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="วันที่ชั่งออก">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1072,7 +1170,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="เวลาชั่งเข้า">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1107,7 +1204,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="เวลาชั่งออก">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1142,7 +1238,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="น้ำหนักรถ">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1178,7 +1273,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="น้ำหนักรวม">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1214,7 +1308,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="น้ำหนักสินค้า">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1250,7 +1343,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="โรงโม่">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1284,14 +1376,13 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="คนขับ">
-                          <CanGrow>true</CanGrow>
+                        <Textbox Name="หน้างาน">
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!คนขับ.Value</Value>
+                                  <Value>=Fields!หน้างาน.Value</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>14pt</FontSize>
@@ -1303,7 +1394,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>คนขับ</rd:DefaultName>
+                          <rd:DefaultName>หน้างาน</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -1388,7 +1479,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ชื่อผู้ชั่ง">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1423,7 +1513,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ชื่อผู้ตัก">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -1453,6 +1542,75 @@
                             <PaddingBottom>0.25pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="คนขับ">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!คนขับ.Value</Value>
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>คนขับ</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="หมายเหตุ">
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!หมายเหตุ.Value</Value>
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>หมายเหตุ</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -1762,7 +1920,6 @@
                             <PaddingBottom>0.25pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1894,7 +2051,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox96">
+                        <Textbox Name="Textbox9">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -1914,7 +2071,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox96</rd:DefaultName>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -2103,6 +2260,100 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox108</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox16">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox16</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </Border>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox23">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox23</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>White</Color>
@@ -2624,7 +2875,7 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox97">
+                        <Textbox Name="Textbox11">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -2643,7 +2894,7 @@
                               </Style>
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox97</rd:DefaultName>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -2867,12 +3118,112 @@
                         </Textbox>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox19">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox19</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox26">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Angsana New</FontFamily>
+                                    <FontSize>14pt</FontSize>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox26</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Color>LightGrey</Color>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>White</Color>
+                              <Style>None</Style>
+                            </RightBorder>
+                            <PaddingLeft>0.25pt</PaddingLeft>
+                            <PaddingRight>0.25pt</PaddingRight>
+                            <PaddingTop>0.25pt</PaddingTop>
+                            <PaddingBottom>0.25pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
                   </TablixCells>
                 </TablixRow>
               </TablixRows>
             </TablixBody>
             <TablixColumnHierarchy>
               <TablixMembers>
+                <TablixMember />
+                <TablixMember />
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
@@ -2906,7 +3257,7 @@
             </TablixRowHierarchy>
             <DataSetName>dailyDataSet</DataSetName>
             <Height>2cm</Height>
-            <Width>28.63392cm</Width>
+            <Width>28.63393cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2931,7 +3282,31 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>รายงานการชั่งสินค้าประจำวันที่</Value>
+                      <Value>รายงานการชั่งสินค้าประจำวันที่   </Value>
+                      <Style>
+                        <FontFamily>Angsana New</FontFamily>
+                        <FontSize>16pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!PDateFrom.Value</Value>
+                      <Style>
+                        <FontFamily>Angsana New</FontFamily>
+                        <FontSize>16pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>    -   </Value>
+                      <Style>
+                        <FontFamily>Angsana New</FontFamily>
+                        <FontSize>16pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Parameters!PDateFrom.Value</Value>
                       <Style>
                         <FontFamily>Angsana New</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -2945,114 +3320,7 @@
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.6cm</Top>
               <Height>0.6cm</Height>
-              <Width>5.35027cm</Width>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="PDateFrom">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Parameters!PDateFrom.Value</Value>
-                      <Style>
-                        <FontFamily>Angsana New</FontFamily>
-                        <FontSize>16pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>PDateFrom</rd:DefaultName>
-              <Top>0.6cm</Top>
-              <Left>5.35027cm</Left>
-              <Height>0.6cm</Height>
-              <Width>3.62345cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox2">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>-</Value>
-                      <Style>
-                        <FontFamily>Angsana New</FontFamily>
-                        <FontSize>16pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Center</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>Textbox1</rd:DefaultName>
-              <Top>0.6cm</Top>
-              <Left>8.97372cm</Left>
-              <Height>0.6cm</Height>
-              <Width>1.79509cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="PDateTo">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>=Parameters!PDateTo.Value</Value>
-                      <Style>
-                        <FontFamily>Angsana New</FontFamily>
-                        <FontSize>16pt</FontSize>
-                        <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Left</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>PDateTo</rd:DefaultName>
-              <Top>0.6cm</Top>
-              <Left>10.76881cm</Left>
-              <Height>0.6cm</Height>
-              <Width>3.70354cm</Width>
-              <ZIndex>3</ZIndex>
+              <Width>25.97607cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3083,10 +3351,10 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
-              <Left>26.72893cm</Left>
+              <Left>25.97607cm</Left>
               <Height>0.6cm</Height>
-              <Width>1.905cm</Width>
-              <ZIndex>4</ZIndex>
+              <Width>2.65786cm</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -3104,7 +3372,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>บริษัท ศิลาชัยสุราษฎร์ จำกัด (1169)</Value>
+                      <Value>บริษัท ศิลาชัยสุราษฎร์ จำกัด (1169) </Value>
                       <Style>
                         <FontFamily>Angsana New</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -3112,13 +3380,15 @@
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Height>0.6cm</Height>
-              <Width>8.97372cm</Width>
-              <ZIndex>5</ZIndex>
+              <Width>25.97607cm</Width>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>

@@ -632,7 +632,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="โรงโม่">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -665,7 +664,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ชนิดหิน">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -698,7 +696,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ทะเบียนรถ">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -731,7 +728,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ขนส่ง">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -759,12 +755,12 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="น้ำหนักสินค้า">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -792,6 +788,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>

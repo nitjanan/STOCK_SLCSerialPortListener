@@ -57,6 +57,7 @@ namespace SerialPortListener
             public String team;
             public String clean;
             public String transport;
+            public String note;
         }
         public TableFromDB(MainForm parent)
         {
@@ -189,6 +190,7 @@ namespace SerialPortListener
                 data.transport = tableDataFromDB.CurrentRow.Cells["ขนส่ง"].Value.ToString();
                 data.driverId = tableDataFromDB.CurrentRow.Cells["รหัสคนขับ"].Value.ToString();
                 data.carLicenseId = tableDataFromDB.CurrentRow.Cells["รหัสทะเบียนรถ"].Value.ToString();
+                data.note = tableDataFromDB.CurrentRow.Cells["หมายเหตุ"].Value.ToString();
 
                 //set Mode Weight
                 /*
@@ -249,7 +251,7 @@ namespace SerialPortListener
                 StringBuilder sql = new StringBuilder();
                 sql.Append("SELECT * FROM public.weight where วันที่ between '").Append(dateFrom.Value.ToString("yyyy-MM-dd")).Append("'  AND  '").Append(dateTo.Value.ToString("yyyy-MM-dd")).Append("'");
                 if (cbbSearchWeight.SelectedIndex == 1)
-                    sql.Append(" AND น้ำหนักรวม = '0.00' AND NOT รหัสลูกค้า = '99' ");
+                    sql.Append(" AND น้ำหนักรวม = '0.00' AND NOT รหัสลูกค้า = '99' AND NOT รหัสลูกค้า = '99RM' ");
                 else if (cbbSearchWeight.SelectedIndex == 2)
                     sql.Append(" AND NOT น้ำหนักรถ = '0.00' AND NOT น้ำหนักรวม = '0.00' ");
 

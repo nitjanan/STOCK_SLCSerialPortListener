@@ -39,6 +39,11 @@ namespace SerialPortListener
         private static string _clean;
         private static string _transport;
         private static string _scoopName;
+        private static string _note;
+
+        private static string _datePrint;
+        private static string _datePrintAndCopyNum;
+        private static string _timePrint;
 
         public static string Id
         {
@@ -331,6 +336,38 @@ namespace SerialPortListener
             { return _scoopName; }
             set
             { _scoopName = value; }
+        }
+
+        public static string Note
+        {
+            get
+            { return _note; }
+            set
+            { _note = value; }
+        }
+
+        public static string DatePrint
+        {
+            get
+            { return _datePrint; }
+            set
+            { _datePrint = value; }
+        }
+
+        public static string DatePrintAndCopyNum
+        {
+            get
+            { return _datePrintAndCopyNum; }
+            set
+            { _datePrintAndCopyNum = value; }
+        }
+
+        public static string TimePrint
+        {
+            get
+            { return _timePrint; }
+            set
+            { _timePrint = value; }
         }
     }
 }

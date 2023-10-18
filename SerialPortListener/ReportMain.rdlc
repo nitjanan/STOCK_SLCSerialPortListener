@@ -195,7 +195,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>โรงโม่ </Value>
+                        <Value>ต้นทาง</Value>
                         <Style>
                           <FontFamily>Yu Gothic UI Semilight</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -209,7 +209,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox10</rd:DefaultName>
-                <Top>1.8133in</Top>
+                <Top>1.49385in</Top>
                 <Left>0.09584in</Left>
                 <Height>0.25in</Height>
                 <Width>0.99678in</Width>
@@ -389,8 +389,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox10</rd:DefaultName>
-                <Top>2.68655in</Top>
-                <Left>0.09584in</Left>
+                <Top>2.53377in</Top>
+                <Left>0.10973in</Left>
                 <Height>0.25in</Height>
                 <Width>1.01067in</Width>
                 <ZIndex>10</ZIndex>
@@ -411,7 +411,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>ชนิดสินค้า</Value>
+                        <Value>ชนิด</Value>
                         <Style>
                           <FontFamily>Yu Gothic UI Semilight</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -425,8 +425,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox10</rd:DefaultName>
-                <Top>1.50775in</Top>
-                <Left>0.09584in</Left>
+                <Top>1.17442in</Top>
+                <Left>0.10973in</Left>
                 <Height>0.25in</Height>
                 <Width>0.99678in</Width>
                 <ZIndex>11</ZIndex>
@@ -501,8 +501,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PDriverName</rd:DefaultName>
-                <Top>2.68655in</Top>
-                <Left>1.09262in</Left>
+                <Top>2.53377in</Top>
+                <Left>1.10651in</Left>
                 <Height>0.25in</Height>
                 <Width>2.47556in</Width>
                 <ZIndex>13</ZIndex>
@@ -533,8 +533,8 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PStoneType</rd:DefaultName>
-                <Top>1.50775in</Top>
-                <Left>1.09262in</Left>
+                <Top>1.17442in</Top>
+                <Left>1.10651in</Left>
                 <Height>0.25in</Height>
                 <Width>2.48945in</Width>
                 <ZIndex>14</ZIndex>
@@ -566,10 +566,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PMill</rd:DefaultName>
-                <Top>1.8133in</Top>
+                <Top>1.49385in</Top>
                 <Left>1.09262in</Left>
                 <Height>0.25in</Height>
-                <Width>2.48945in</Width>
+                <Width>2.51723in</Width>
                 <ZIndex>15</ZIndex>
                 <Style>
                   <Border>
@@ -1267,8 +1267,8 @@
                 </Style>
               </Line>
               <Line Name="Line13">
-                <Top>1.4244in</Top>
-                <Left>0.08194in</Left>
+                <Top>1.17441in</Top>
+                <Left>0.08195in</Left>
                 <Height>0in</Height>
                 <Width>3.5279in</Width>
                 <ZIndex>42</ZIndex>
@@ -1299,7 +1299,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox10</rd:DefaultName>
-                <Top>3.17266in</Top>
+                <Top>2.85322in</Top>
                 <Left>0.12362in</Left>
                 <Height>0.25in</Height>
                 <Width>0.9829in</Width>
@@ -1338,7 +1338,7 @@
                 <Top>0.84108in</Top>
                 <Left>0.12362in</Left>
                 <Height>0.27778in</Height>
-                <Width>0.72595in</Width>
+                <Width>0.969in</Width>
                 <ZIndex>44</ZIndex>
                 <Style>
                   <Border>
@@ -1358,7 +1358,7 @@
                       <TextRun>
                         <Value>=Parameters!PCustomerName.Value</Value>
                         <Style>
-                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontFamily>Leelawadee UI Semilight</FontFamily>
                           <FontSize>12pt</FontSize>
                         </Style>
                       </TextRun>
@@ -1368,9 +1368,9 @@
                 </Paragraphs>
                 <rd:DefaultName>PCustomerName</rd:DefaultName>
                 <Top>0.85496in</Top>
-                <Left>1.09262in</Left>
-                <Height>0.5in</Height>
-                <Width>2.50334in</Width>
+                <Left>1.10652in</Left>
+                <Height>0.2639in</Height>
+                <Width>2.50333in</Width>
                 <ZIndex>45</ZIndex>
                 <Style>
                   <Border>
@@ -1955,7 +1955,7 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PScoopName</rd:DefaultName>
-                <Top>8.05855cm</Top>
+                <Top>7.24718cm</Top>
                 <Left>2.77525cm</Left>
                 <Height>0.635cm</Height>
                 <Width>6.35848cm</Width>
@@ -1985,6 +1985,180 @@
                   </Border>
                 </Style>
               </Image>
+              <Textbox Name="Textbox30">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>หมายเหตุ</Value>
+                        <Style>
+                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontSize>12pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox10</rd:DefaultName>
+                <Top>3.17267in</Top>
+                <Left>0.12362in</Left>
+                <Height>0.24999in</Height>
+                <Width>0.9829in</Width>
+                <ZIndex>64</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="PScoopName2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!PNote.Value</Value>
+                        <Style>
+                          <FontFamily>Leelawadee UI Semilight</FontFamily>
+                          <FontSize>12pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>PScoopName</rd:DefaultName>
+                <Top>8.05858cm</Top>
+                <Left>2.77526cm</Left>
+                <Height>0.635cm</Height>
+                <Width>6.35848cm</Width>
+                <ZIndex>65</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="PDocNum2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!PDatePrintAndCopyNum.Value</Value>
+                        <Style>
+                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontSize>12pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Right</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>PDocNum</rd:DefaultName>
+                <Top>0.12205in</Top>
+                <Left>6.24524in</Left>
+                <Height>0.25in</Height>
+                <Width>0.95143in</Width>
+                <ZIndex>66</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="Textbox22">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>ปลายทาง</Value>
+                        <Style>
+                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontSize>12pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Left</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>Textbox10</rd:DefaultName>
+                <Top>1.81329in</Top>
+                <Left>0.10974in</Left>
+                <Height>0.25in</Height>
+                <Width>0.99678in</Width>
+                <ZIndex>67</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="PMill2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>=Parameters!PSite.Value</Value>
+                        <Style>
+                          <FontFamily>Leelawadee UI Semilight</FontFamily>
+                          <FontSize>12pt</FontSize>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style />
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>PMill</rd:DefaultName>
+                <Top>1.81329in</Top>
+                <Left>1.10652in</Left>
+                <Height>0.25in</Height>
+                <Width>2.48945in</Width>
+                <ZIndex>68</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
             <Height>10.995cm</Height>
@@ -2162,6 +2336,18 @@
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PScoopName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PNote">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PDatePrintAndCopyNum">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PSite">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
@@ -2355,6 +2541,21 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>9</RowIndex>
           <ParameterName>PScoopName</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>PNote</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>PDatePrintAndCopyNum</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>9</RowIndex>
+          <ParameterName>PSite</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

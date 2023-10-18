@@ -15,6 +15,7 @@ namespace SerialPortListener
         private static string _Ttelephone;
         private static string _Temail;
         private static string _TdocName;
+        private static string _code;
         public static string CompanyName
         {
             get
@@ -116,6 +117,21 @@ namespace SerialPortListener
                 // You can add logic here for race conditions,
                 // or other measurements
                 _TdocName = value;
+            }
+        }
+
+        public static string Code
+        {
+            get
+            {
+                // Reads are usually simple
+                return _code;
+            }
+            set
+            {
+                // You can add logic here for race conditions,
+                // or other measurements
+                _code = value;
             }
         }
     }

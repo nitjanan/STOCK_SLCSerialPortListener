@@ -1093,7 +1093,6 @@
                               <PaddingBottom>1pt</PaddingBottom>
                             </Style>
                           </Textbox>
-                          <rd:Selected>true</rd:Selected>
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>
@@ -1124,7 +1123,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!ชนิดหิน.Value &amp; " " &amp; Fields!โรงโม่.Value &amp; " " &amp; Fields!ประเภทหิน.Value</Value>
+                                    <Value>=Fields!ชนิดหิน.Value &amp; " " &amp; Fields!โรงโม่.Value &amp; " " &amp; Fields!ประเภทหิน.Value &amp; " " &amp; Fields!หน้างาน.Value</Value>
                                     <Style>
                                       <FontFamily>Angsana New</FontFamily>
                                       <FontSize>14pt</FontSize>
@@ -1148,6 +1147,7 @@
                               <PaddingBottom>1pt</PaddingBottom>
                             </Style>
                           </Textbox>
+                          <rd:Selected>true</rd:Selected>
                         </CellContents>
                       </TablixHeader>
                       <TablixMembers>

@@ -55,9 +55,12 @@ namespace SerialPortListener
                 new Microsoft.Reporting.WinForms.ReportParameter("PClean",Weight.Clean),
                 new Microsoft.Reporting.WinForms.ReportParameter("PTransport",Weight.Transport),
                 new Microsoft.Reporting.WinForms.ReportParameter("PScoopName",Weight.ScoopName),
+                new Microsoft.Reporting.WinForms.ReportParameter("PNote",Weight.Note),
+                new Microsoft.Reporting.WinForms.ReportParameter("PSite",Weight.Site),
                 new Microsoft.Reporting.WinForms.ReportParameter("TTelephone",Company.TTelephone),
                 new Microsoft.Reporting.WinForms.ReportParameter("TEmail",Company.TEmail),
                 new Microsoft.Reporting.WinForms.ReportParameter("TDocName",Company.TDocName),
+                new Microsoft.Reporting.WinForms.ReportParameter("PDatePrintAndCopyNum",Weight.DatePrintAndCopyNum),
             };
             //this.reportViewer1.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             System.Drawing.Printing.PageSettings ps = new System.Drawing.Printing.PageSettings();

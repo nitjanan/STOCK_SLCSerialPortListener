@@ -815,7 +815,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="โรงโม่">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -845,6 +844,7 @@
                             <PaddingBottom>1pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

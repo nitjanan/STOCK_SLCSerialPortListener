@@ -13,7 +13,7 @@
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        วันที่, เลขที่เอกสาร, จังหวัด, คนขับ, ลูกค้า, น้ำหนักรวม, น้ำหนักสินค้า, เลขที่ใบตัก, โรงโม่, ชนิดหิน, จ่ายเงิน, รหัสผู้ชั่ง, รหัสผู้ตัก, ราคาตัน, ค่าขนส่ง, วันที่ชั่งเข้า, เวลาชั่งเข้า, วันที่ชั่งออก, เวลาชั่งออก, รหัสลูกค้า, ชื่อผู้ชั่ง, ชื่อผู้ตัก, ทะเบียนรถ, weight_id, vat, คิว, 
-                         รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, จำนวณเงิน, น้ำหนักรถ, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ
+                         รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, จำนวณเงิน, น้ำหนักรถ, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ, is_s, หมายเหตุ
 FROM            weight</CommandText>
                     <Parameters />
                   </DbCommand>
@@ -61,14 +61,14 @@ FROM            weight</CommandText>
               <Mapping SourceColumn="ขนส่ง" DataSetColumn="ขนส่ง" />
               <Mapping SourceColumn="รหัสคนขับ" DataSetColumn="รหัสคนขับ" />
               <Mapping SourceColumn="รหัสทะเบียนรถ" DataSetColumn="รหัสทะเบียนรถ" />
+              <Mapping SourceColumn="is_s" DataSetColumn="is_s" />
+              <Mapping SourceColumn="หมายเหตุ" DataSetColumn="หมายเหตุ" />
             </Mappings>
             <Sources>
               <DbSource ConnectionRef="truckConnectionString (Settings)" DbObjectName="&quot;public&quot;.weight" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Fill" GenerateShortCommands="true" GeneratorSourceName="FillBy" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="false">
-                    <CommandText>SELECT        วันที่, เลขที่เอกสาร, จังหวัด, คนขับ, ลูกค้า, น้ำหนักรวม, น้ำหนักสินค้า, เลขที่ใบตัก, โรงโม่, ชนิดหิน, จ่ายเงิน, รหัสผู้ชั่ง, รหัสผู้ตัก, ราคาตัน, ค่าขนส่ง, วันที่ชั่งเข้า, เวลาชั่งเข้า, วันที่ชั่งออก, เวลาชั่งออก, รหัสลูกค้า, ชื่อผู้ชั่ง, ชื่อผู้ตัก, ทะเบียนรถ, weight_id, vat, คิว, 
-                         รหัสผู้อนุมัติจ่าย, ชื่อผู้อนุมัติจ่าย, ชนิดvat, จำนวนเงินสุทธิ, ประเภทหิน, หน้างาน, ทีม, จำนวณเงิน, น้ำหนักรถ, ล้าง, ขนส่ง, รหัสคนขับ, รหัสทะเบียนรถ
-FROM            weight</CommandText>
+                    <CommandText>SELECT is_s, vat, weight_id, ขนส่ง, คนขับ, คิว, ค่าขนส่ง, จังหวัด, จำนวณเงิน, จำนวนเงินสุทธิ, จ่ายเงิน, ชนิดvat, ชนิดหิน, ชื่อผู้ชั่ง, ชื่อผู้ตัก, ชื่อผู้อนุมัติจ่าย, ทะเบียนรถ, ทีม, น้ำหนักรถ, น้ำหนักรวม, น้ำหนักสินค้า, ประเภทหิน, รหัสคนขับ, รหัสทะเบียนรถ, รหัสผู้ชั่ง, รหัสผู้ตัก, รหัสผู้อนุมัติจ่าย, รหัสลูกค้า, ราคาตัน, ลูกค้า, ล้าง, วันที่, วันที่ชั่งออก, วันที่ชั่งเข้า, หน้างาน, หมายเหตุ, เลขที่เอกสาร, เลขที่ใบตัก, เวลาชั่งออก, เวลาชั่งเข้า, โรงโม่ FROM weight</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -83,7 +83,7 @@ FROM            weight</CommandText>
   <xs:element name="truckDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="truckDataSet" msprop:Generator_UserDSName="truckDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="weight" msprop:Generator_TableClassName="weightDataTable" msprop:Generator_TableVarName="tableweight" msprop:Generator_TablePropName="weight" msprop:Generator_RowDeletingName="weightRowDeleting" msprop:Generator_RowChangingName="weightRowChanging" msprop:Generator_RowEvHandlerName="weightRowChangeEventHandler" msprop:Generator_RowDeletedName="weightRowDeleted" msprop:Generator_UserTableName="weight" msprop:Generator_RowChangedName="weightRowChanged" msprop:Generator_RowEvArgName="weightRowChangeEvent" msprop:Generator_RowClassName="weightRow">
+        <xs:element name="weight" msprop:Generator_TableClassName="weightDataTable" msprop:Generator_TableVarName="tableweight" msprop:Generator_RowChangedName="weightRowChanged" msprop:Generator_TablePropName="weight" msprop:Generator_RowDeletingName="weightRowDeleting" msprop:Generator_RowChangingName="weightRowChanging" msprop:Generator_RowEvHandlerName="weightRowChangeEventHandler" msprop:Generator_RowDeletedName="weightRowDeleted" msprop:Generator_RowClassName="weightRow" msprop:Generator_UserTableName="weight" msprop:Generator_RowEvArgName="weightRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="วันที่" msprop:Generator_ColumnVarNameInTable="columnวันที่" msprop:Generator_ColumnPropNameInRow="วันที่" msprop:Generator_ColumnPropNameInTable="วันที่Column" msprop:Generator_UserColumnName="วันที่" type="xs:dateTime" minOccurs="0" />
@@ -125,6 +125,8 @@ FROM            weight</CommandText>
               <xs:element name="ขนส่ง" msprop:Generator_ColumnVarNameInTable="columnขนส่ง" msprop:Generator_ColumnPropNameInRow="ขนส่ง" msprop:Generator_ColumnPropNameInTable="ขนส่งColumn" msprop:Generator_UserColumnName="ขนส่ง" type="xs:string" minOccurs="0" />
               <xs:element name="รหัสคนขับ" msprop:Generator_ColumnVarNameInTable="columnรหัสคนขับ" msprop:Generator_ColumnPropNameInRow="รหัสคนขับ" msprop:Generator_ColumnPropNameInTable="รหัสคนขับColumn" msprop:Generator_UserColumnName="รหัสคนขับ" type="xs:string" minOccurs="0" />
               <xs:element name="รหัสทะเบียนรถ" msprop:Generator_ColumnVarNameInTable="columnรหัสทะเบียนรถ" msprop:Generator_ColumnPropNameInRow="รหัสทะเบียนรถ" msprop:Generator_ColumnPropNameInTable="รหัสทะเบียนรถColumn" msprop:Generator_UserColumnName="รหัสทะเบียนรถ" type="xs:string" minOccurs="0" />
+              <xs:element name="is_s" msprop:Generator_ColumnVarNameInTable="columnis_s" msprop:Generator_ColumnPropNameInRow="is_s" msprop:Generator_ColumnPropNameInTable="is_sColumn" msprop:Generator_UserColumnName="is_s" type="xs:boolean" minOccurs="0" />
+              <xs:element name="หมายเหตุ" msprop:Generator_ColumnVarNameInTable="columnหมายเหตุ" msprop:Generator_ColumnPropNameInRow="หมายเหตุ" msprop:Generator_ColumnPropNameInTable="หมายเหตุColumn" msprop:Generator_UserColumnName="หมายเหตุ" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

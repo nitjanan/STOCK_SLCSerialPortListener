@@ -32,11 +32,11 @@ namespace SerialPortListener
             InitializeComponent();
             setDefaultFormatDTGV();
             /* autoComplete ลูกค้า */
-            autoCompleteSetting(tbCustomerId, "รหัสลูกค้า", "base_customer");
-            autoCompleteSetting(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
+            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
             /* autoComplete แจ้งหนี้ */
-            autoCompleteSetting(tbInvoiceCutomerId, "รหัสลูกค้า", "base_customer");
-            autoCompleteSetting(tbInvoiceCutomerName, "ชื่อลูกค้า", "base_customer");
+            autoCompleteSettingByWeightType(tbInvoiceCutomerId, "รหัสลูกค้า", "base_customer");
+            autoCompleteSettingByWeightType(tbInvoiceCutomerName, "ชื่อลูกค้า", "base_customer");
 
             /* autoComplete ทะเบียนรถ */
             autoCompleteSettingDistinct(tbJointCarRegistration, "ทะเบียนรถ", "weight");
@@ -44,20 +44,23 @@ namespace SerialPortListener
             /* autoComplete ชื่อผู้ตัก */
             autoCompleteSettingDistinct(tbScoopName, "ชื่อผู้ตัก", "weight");
 
-            cbMill.SelectedIndex = 0;
 
             //tabPage1
-            cbbMill.SelectedIndex = 0;
             cbbCarType.SelectedIndex = 0;
             cbbWeight.SelectedIndex = 0;
 
-            fillTableCombo(cbbCarRegistration, "base_car_registration", "ชื่อทะเบียนรถ");
-            fillTableCombo(cbbDriver, "base_driver", "ชื่อผู้ขับ");
-            fillTableCombo(cbbStoneType, "base_stone_type", "ชื่อหิน");
-            fillTableCombo(cbbCustomer, "base_customer", "ชื่อลูกค้า");
-            fillTableCombo(cbbCustomerSummary, "base_customer", "ชื่อลูกค้า");
-            fillTableCombo(cbbDriverSummary, "base_driver", "ชื่อผู้ขับ");
-            fillTableCombo(cbbStone, "base_stone_type", "ชื่อหิน");
+            fillTableComboByCompany(cbbCarRegistration, "base_car_registration", "ชื่อทะเบียนรถ");
+            fillTableComboByCompany(cbbDriver, "base_driver", "ชื่อผู้ขับ");
+            fillTableComboByCompany(cbbDriverSummary, "base_driver", "ชื่อผู้ขับ");
+
+            fillTableComboByWeightType(cbbCustomer, "base_customer", "ชื่อลูกค้า");
+            fillTableComboByWeightType(cbbCustomerSummary, "base_customer", "ชื่อลูกค้า");
+            fillTableComboByWeightType(cbbMill, "base_mill", "ชื่อโรงโม่");
+            fillTableComboByWeightType(cbMill, "base_mill", "ชื่อโรงโม่");
+            fillTableComboByWeightType(cbbSite, "base_site", "base_site_name");
+
+            fillTableComboByInactive(cbbStone, "base_stone_type", "ชื่อหิน");
+            fillTableComboByInactive(cbbStoneType, "base_stone_type", "ชื่อหิน");
 
             dtFromOut.Value = Convert.ToDateTime(System.DateTime.Today.ToShortDateString() + " 08:00 AM");
 
@@ -85,6 +88,33 @@ namespace SerialPortListener
             //sql
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT * FROM public." + tableName;
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    string rdStr = reader[field].ToString();
+                    coll.Add(rdStr);
+                }
+            }
+            catch (Exception)
+            {
+            }
+            tb.AutoCompleteCustomSource = coll;
+            dl.close();
+        }
+
+        /* autoComplete Setting By Weight Type*/
+        private void autoCompleteSettingByWeightType(TextBox tb, string field, string tableName)
+        {
+            tb.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tb.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            AutoCompleteStringCollection coll = new AutoCompleteStringCollection();
+
+            //sql
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT * FROM public." + tableName + " where weight_type = 2 or  weight_type = 3 ";
             try
             {
                 dl.connect();
@@ -151,6 +181,8 @@ namespace SerialPortListener
                     sql.Append(" AND ชนิดหิน = '" + cbbStoneType.Text + "' ");
                 if (cbbCustomer.SelectedIndex != 0)
                     sql.Append(" AND ลูกค้า = '" + cbbCustomer.Text + "' ");
+                if (cbbSite.SelectedIndex != 0)
+                    sql.Append(" AND หน้างาน = '" + cbbSite.Text + "' ");
                 if (cbbWeight.SelectedIndex != 0)
                     sql.Append(" AND น้ำหนักสินค้า " + checkWeightStr(cbbWeight.Text) + "");
                 sql.Append(" ORDER BY วันที่, เลขที่เอกสาร ");
@@ -283,6 +315,93 @@ namespace SerialPortListener
             dl.close();
         }
 
+        private void fillTableComboByCompany(ComboBox cbb, string tableName, string field)
+        {
+            //ล้างก่อน
+            cbb.Items.Clear();
+
+            //
+            cbb.Items.Add("ทั้งหมด");
+            cbb.SelectedIndex = 0;
+
+            //เพิ่ม combobox
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT * FROM public." + tableName + " where company = '"+ Company.Code + "' ";
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    string des = reader[field].ToString();
+                    cbb.Items.Add(des);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+        }
+
+        private void fillTableComboByWeightType(ComboBox cbb, string tableName, string field)
+        {
+            //ล้างก่อน
+            cbb.Items.Clear();
+
+            //
+            cbb.Items.Add("ทั้งหมด");
+            cbb.SelectedIndex = 0;
+
+            //เพิ่ม combobox
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT * FROM public." + tableName + " where weight_type = 2 or weight_type = 3 ";
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    string des = reader[field].ToString();
+                    cbb.Items.Add(des);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+        }
+
+        private void fillTableComboByInactive(ComboBox cbb, string tableName, string field)
+        {
+            //ล้างก่อน
+            cbb.Items.Clear();
+
+            //
+            cbb.Items.Add("ทั้งหมด");
+            cbb.SelectedIndex = 0;
+
+            //เพิ่ม combobox
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT * FROM public." + tableName + " where inactive = false ";
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    string des = reader[field].ToString();
+                    cbb.Items.Add(des);
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+        }
+
         private void btSearch_Click(object sender, EventArgs e)
         {
             /*
@@ -363,6 +482,8 @@ namespace SerialPortListener
                 sql.Append(" AND ชนิดหิน = '" + cbbStoneType.Text + "' ");
             if (cbbCustomer.SelectedIndex != 0 )
                 sql.Append(" AND ลูกค้า = '" + cbbCustomer.Text + "' ");
+            if (cbbSite.SelectedIndex != 0)
+                sql.Append(" AND หน้างาน = '" + cbbSite.Text + "' ");
             if (cbbWeight.SelectedIndex != 0)
                 sql.Append(" AND น้ำหนักสินค้า " + checkWeightStr(cbbWeight.Text) + "");
             sql.Append(" ORDER BY วันที่, เลขที่เอกสาร ");
@@ -604,7 +725,7 @@ namespace SerialPortListener
 
         private void tbCustomerId_TextChanged(object sender, EventArgs e)
         {
-            setCustomerIdToTextbox(tbCustomerId, tbCustomerName);
+            //setCustomerIdToTextbox(tbCustomerId, tbCustomerName);
         }
 
         private void setCustomerNameToTextbox(TextBox customerId, TextBox customernName)
@@ -636,7 +757,7 @@ namespace SerialPortListener
         }
         private void tbCustomerName_TextChanged(object sender, EventArgs e)
         {
-            setCustomerNameToTextbox(tbCustomerId, tbCustomerName);
+            //setCustomerNameToTextbox(tbCustomerId, tbCustomerName);
         }
 
         private void btPrintClean_Click(object sender, EventArgs e)
@@ -675,7 +796,10 @@ namespace SerialPortListener
         {
             //sql
             dl.connect();
-            string sql = "select * from weight where วันที่ BETWEEN '" + dtFromMill.Value.ToString("yyyy-MM-dd") + "' AND '" + dtToMill.Value.ToString("yyyy-MM-dd") + "' AND โรงโม่ = '" + cbMill.Text + "' ORDER BY วันที่, เลขที่เอกสาร ";
+            string sql = "select * from weight where วันที่ BETWEEN '" + dtFromMill.Value.ToString("yyyy-MM-dd") + "' AND '" + dtToMill.Value.ToString("yyyy-MM-dd") + "'";
+            if (cbMill.SelectedIndex != 0)
+                sql += " AND โรงโม่ = '" + cbMill.Text + "'";
+            sql += " ORDER BY วันที่, เลขที่เอกสาร ";
 
             OdbcDataAdapter cmd = new OdbcDataAdapter(sql, dl.sqlConn());
             DataTable dt = new DataTable();
@@ -818,7 +942,7 @@ namespace SerialPortListener
                 Weight.Date = dgvDailyReport.CurrentRow.Cells["วันที่"].Value.ToString();
                 Weight.DriverName = strNotEmty(dgvDailyReport.CurrentRow.Cells["คนขับ"].Value.ToString());
                 Weight.Mill = strNotEmty(dgvDailyReport.CurrentRow.Cells["โรงโม่"].Value.ToString());
-                Weight.Pay = dgvDailyReport.CurrentRow.Cells["จ่ายเงิน"].Value.ToString();
+                Weight.Pay = " ";
                 Weight.Price = numberFormat(dgvDailyReport.CurrentRow.Cells["ราคาตัน"].Value.ToString(), 2);
                 //data.scoopName = dgvDailyReport.CurrentRow.Cells["ชื่อผู้ตัก"].Value.ToString();
                 Weight.StoneType = strNotEmty(dgvDailyReport.CurrentRow.Cells["ชนิดหิน"].Value.ToString());
@@ -834,17 +958,20 @@ namespace SerialPortListener
                 Weight.AmountVat = numberFormat(dgvDailyReport.CurrentRow.Cells["จำนวนเงินสุทธิ"].Value.ToString(), 2);
                 Weight.VatType = dgvDailyReport.CurrentRow.Cells["ชนิดvat"].Value.ToString();
                 Weight.StoneColor = strNotEmty(dgvDailyReport.CurrentRow.Cells["ประเภทหิน"].Value.ToString());
-                Weight.Site = " ";
+                Weight.Note = strNotEmty(dgvDailyReport.CurrentRow.Cells["หมายเหตุ"].Value.ToString());
                 Weight.Team = strNotEmty(dgvDailyReport.CurrentRow.Cells["ทีม"].Value.ToString());
-                Weight.Clean = dgvDailyReport.CurrentRow.Cells["ล้าง"].Value.ToString();
+                Weight.Clean = " ";
                 Weight.Vat = numberFormat(dgvDailyReport.CurrentRow.Cells["vat"].Value.ToString(), 2);
                 Weight.Transport = strNotEmty(dgvDailyReport.CurrentRow.Cells["ขนส่ง"].Value.ToString());
                 Weight.ScoopName = strNotEmty(dgvDailyReport.CurrentRow.Cells["ชื่อผู้ตัก"].Value.ToString());
+                Weight.Site = strNotEmty(dgvDailyReport.CurrentRow.Cells["หน้างาน"].Value.ToString());
+                Weight.Id = dgvDailyReport.CurrentRow.Cells["weight_id"].Value.ToString();
 
                 Company.TTelephone = "โทร";
                 Company.TEmail = "E-mail";
 
                 Company.TDocName = " ";
+                HandleSuccessfulPrint();
 
                 FPrint f = new FPrint();
                 f.ShowDialog();
@@ -854,6 +981,64 @@ namespace SerialPortListener
             {
                 MessageBox.Show("ไม่พบข้อมูลที่ต้องการปริ้นบิล", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private int findLastCopyByWeightId()
+        {
+            int copy_num = 0;
+
+            if (Weight.Id != "")
+            {
+                //sql
+                OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+                pgCommand.CommandText = "select copy_num from weight_copy where weight_id = '" + Weight.Id + "' ORDER BY weight_copy_id DESC LIMIT 1";
+                try
+                {
+                    dl.connect();
+                    OdbcDataReader reader = pgCommand.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        copy_num = Convert.ToInt32(reader["copy_num"].ToString());
+                    }
+                    else
+                    {
+                        copy_num = 0;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                dl.close();
+            }
+
+            return copy_num;
+        }
+
+        private void HandleSuccessfulPrint()
+        {
+            int copy_num = findLastCopyByWeightId();
+            copy_num++;
+
+            Weight.DatePrint = DateTime.Now.ToString("yyyy-MM-dd");
+            Weight.DatePrintAndCopyNum = DateTime.Now.ToString("dd/MM") + "#" + copy_num;
+            Weight.TimePrint = DateTime.Now.ToString("HH:mm:ss");
+
+            //save weight copy
+            //sql
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "INSERT INTO weight_copy (copy_num, date_print, time_print, user_print, weight_id )" +
+                                     "VALUES ('" + copy_num + "','" + Weight.DatePrint + "','" + Weight.TimePrint + "','" + Globals.UserId + "','" + Weight.Id + "' )";
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.ToString());
+            }
+            dl.close();
         }
 
 
@@ -891,5 +1076,91 @@ namespace SerialPortListener
             fp.ShowDialog();
 
         }
+
+        private void tbCustomerId_Leave(object sender, EventArgs e)
+        {
+            customerIdTextChanged(tbCustomerId, tbCustomerName);
+        }
+
+        private void tbCustomerName_Leave(object sender, EventArgs e)
+        {
+            customerNameTextChanged(tbCustomerId, tbCustomerName);
+        }
+
+        private void customerIdTextChanged(TextBox customerId, TextBox customerName)
+        {
+            if (customerId != null && customerId.Text != "")
+            {
+                //sql
+                OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+                pgCommand.CommandText = "SELECT * FROM public.base_customer where รหัสลูกค้า = '" + customerId.Text + "' ";
+                try
+                {
+                    dl.connect();
+                    OdbcDataReader reader = pgCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string rdStr = reader["ชื่อลูกค้า"].ToString();
+                        customerName.Text = rdStr;
+                    }
+
+                    //sql รีเซตค่าหากหาข้อมูลไม่เจอ
+                    if (!reader.HasRows)
+                    {
+                        MessageBox.Show("ไม่มีรหัสลูกค้า " + customerId.Text, "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        customerId.Text = "";
+                        customerName.Text = "";
+                    }
+                }
+                catch (Exception)
+                {
+                }
+                dl.close();
+
+            }
+            else
+            {
+                customerName.Text = "";
+            }
+        }
+
+        private void customerNameTextChanged(TextBox customerId, TextBox customerName)
+        {
+            if (customerName != null && customerName.Text != "")
+            {
+                //sql
+                OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+                pgCommand.CommandText = "SELECT * FROM public.base_customer where ชื่อลูกค้า = '" + customerName.Text + "' ";
+                try
+                {
+                    dl.connect();
+                    OdbcDataReader reader = pgCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string rdStr = reader["รหัสลูกค้า"].ToString();
+                        customerId.Text = rdStr;
+                    }
+
+                    //sql รีเซตค่าหากหาข้อมูลไม่เจอ
+                    if (!reader.HasRows)
+                    {
+                        MessageBox.Show("ไม่มีชื่อลูกค้า " + customerName.Text, "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        customerId.Text = "";
+                        customerName.Text = "";
+                    }
+                }
+                catch (Exception)
+                {
+                }
+                dl.close();
+
+            }
+            else
+            {
+                customerId.Text = "";
+            }
+        }
+
+
     }  
 }

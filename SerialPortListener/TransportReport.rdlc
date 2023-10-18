@@ -630,7 +630,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="โรงโม่">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>
@@ -727,7 +726,6 @@
                     <TablixCell>
                       <CellContents>
                         <Textbox Name="ทะเบียนรถ">
-                          <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
                             <Paragraph>

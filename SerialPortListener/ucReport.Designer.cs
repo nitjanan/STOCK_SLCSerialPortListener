@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.tcReport = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label43 = new System.Windows.Forms.Label();
+            this.cbbSite = new System.Windows.Forms.ComboBox();
             this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.dtFromOut = new System.Windows.Forms.DateTimePicker();
@@ -88,6 +90,9 @@
             this.ชนิดvat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ล้าง = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ขนส่ง = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.หมายเหตุ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.หน้างาน = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.weightBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSet = new SerialPortListener.truckDataSet();
@@ -98,6 +103,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.label42 = new System.Windows.Forms.Label();
+            this.cbbStone = new System.Windows.Forms.ComboBox();
             this.label41 = new System.Windows.Forms.Label();
             this.cbbDriverSummary = new System.Windows.Forms.ComboBox();
             this.label40 = new System.Windows.Forms.Label();
@@ -192,8 +199,6 @@
             this.dtFromTransportByTeam = new System.Windows.Forms.DateTimePicker();
             this.btPrintTransportByTeam = new System.Windows.Forms.Button();
             this.weightTableAdapter = new SerialPortListener.truckDataSetTableAdapters.weightTableAdapter();
-            this.label42 = new System.Windows.Forms.Label();
-            this.cbbStone = new System.Windows.Forms.ComboBox();
             this.tcReport.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDailyReport)).BeginInit();
@@ -241,6 +246,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.GhostWhite;
+            this.tabPage1.Controls.Add(this.label43);
+            this.tabPage1.Controls.Add(this.cbbSite);
             this.tabPage1.Controls.Add(this.label37);
             this.tabPage1.Controls.Add(this.label36);
             this.tabPage1.Controls.Add(this.dtFromOut);
@@ -276,19 +283,39 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "รายงานการชั่งสินค้าประจำวัน";
             // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(202, 105);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(66, 20);
+            this.label43.TabIndex = 37;
+            this.label43.Text = "ปลายทาง:";
+            // 
+            // cbbSite
+            // 
+            this.cbbSite.DropDownHeight = 300;
+            this.cbbSite.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cbbSite.FormattingEnabled = true;
+            this.cbbSite.IntegralHeight = false;
+            this.cbbSite.Location = new System.Drawing.Point(271, 100);
+            this.cbbSite.Name = "cbbSite";
+            this.cbbSite.Size = new System.Drawing.Size(87, 28);
+            this.cbbSite.TabIndex = 36;
+            // 
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(523, 22);
+            this.label37.Location = new System.Drawing.Point(533, 25);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(27, 20);
+            this.label37.Size = new System.Drawing.Size(63, 20);
             this.label37.TabIndex = 35;
-            this.label37.Text = "ถึง:";
+            this.label37.Text = "เวลาออก:";
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(354, 22);
+            this.label36.Location = new System.Drawing.Point(204, 25);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(63, 20);
             this.label36.TabIndex = 34;
@@ -300,10 +327,10 @@
             this.dtFromOut.CustomFormat = "HH:mm";
             this.dtFromOut.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtFromOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtFromOut.Location = new System.Drawing.Point(417, 20);
+            this.dtFromOut.Location = new System.Drawing.Point(271, 19);
             this.dtFromOut.Name = "dtFromOut";
             this.dtFromOut.ShowUpDown = true;
-            this.dtFromOut.Size = new System.Drawing.Size(88, 26);
+            this.dtFromOut.Size = new System.Drawing.Size(87, 26);
             this.dtFromOut.TabIndex = 33;
             // 
             // dtToOut
@@ -312,16 +339,18 @@
             this.dtToOut.CustomFormat = "HH:mm";
             this.dtToOut.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtToOut.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtToOut.Location = new System.Drawing.Point(556, 20);
+            this.dtToOut.Location = new System.Drawing.Point(602, 19);
             this.dtToOut.Name = "dtToOut";
             this.dtToOut.ShowUpDown = true;
-            this.dtToOut.Size = new System.Drawing.Size(86, 26);
+            this.dtToOut.Size = new System.Drawing.Size(87, 26);
             this.dtToOut.TabIndex = 32;
             // 
             // cbbCustomer
             // 
+            this.cbbCustomer.DropDownHeight = 300;
             this.cbbCustomer.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbbCustomer.FormattingEnabled = true;
+            this.cbbCustomer.IntegralHeight = false;
             this.cbbCustomer.Location = new System.Drawing.Point(114, 72);
             this.cbbCustomer.Name = "cbbCustomer";
             this.cbbCustomer.Size = new System.Drawing.Size(84, 28);
@@ -330,7 +359,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(354, 105);
+            this.label35.Location = new System.Drawing.Point(377, 105);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(55, 20);
             this.label35.TabIndex = 27;
@@ -350,9 +379,9 @@
             "มากกว่าหรือเท่ากับ 28",
             "น้อยกว่า 40",
             "มากกว่าหรือเท่ากับ 40"});
-            this.cbbWeight.Location = new System.Drawing.Point(417, 100);
+            this.cbbWeight.Location = new System.Drawing.Point(440, 100);
             this.cbbWeight.Name = "cbbWeight";
-            this.cbbWeight.Size = new System.Drawing.Size(225, 28);
+            this.cbbWeight.Size = new System.Drawing.Size(249, 28);
             this.cbbWeight.TabIndex = 26;
             // 
             // cbbCarType
@@ -363,9 +392,9 @@
             "ทั้งหมด",
             "จีน",
             "สิบล้อ"});
-            this.cbbCarType.Location = new System.Drawing.Point(114, 100);
+            this.cbbCarType.Location = new System.Drawing.Point(271, 72);
             this.cbbCarType.Name = "cbbCarType";
-            this.cbbCarType.Size = new System.Drawing.Size(202, 28);
+            this.cbbCarType.Size = new System.Drawing.Size(87, 28);
             this.cbbCarType.TabIndex = 25;
             // 
             // label34
@@ -373,14 +402,14 @@
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(37, 105);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(69, 20);
+            this.label34.Size = new System.Drawing.Size(52, 20);
             this.label34.TabIndex = 24;
-            this.label34.Text = "ประเภทรถ:";
+            this.label34.Text = "ต้นทาง:";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(354, 77);
+            this.label33.Location = new System.Drawing.Point(377, 77);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(57, 20);
             this.label33.TabIndex = 21;
@@ -398,26 +427,31 @@
             // 
             // cbbStoneType
             // 
+            this.cbbStoneType.DropDownHeight = 300;
+            this.cbbStoneType.DropDownWidth = 300;
             this.cbbStoneType.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbbStoneType.FormattingEnabled = true;
-            this.cbbStoneType.Location = new System.Drawing.Point(417, 72);
+            this.cbbStoneType.IntegralHeight = false;
+            this.cbbStoneType.Location = new System.Drawing.Point(440, 72);
             this.cbbStoneType.Name = "cbbStoneType";
-            this.cbbStoneType.Size = new System.Drawing.Size(225, 28);
+            this.cbbStoneType.Size = new System.Drawing.Size(249, 28);
             this.cbbStoneType.TabIndex = 19;
             // 
             // cbbDriver
             // 
+            this.cbbDriver.DropDownHeight = 300;
             this.cbbDriver.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbbDriver.FormattingEnabled = true;
-            this.cbbDriver.Location = new System.Drawing.Point(417, 46);
+            this.cbbDriver.IntegralHeight = false;
+            this.cbbDriver.Location = new System.Drawing.Point(440, 46);
             this.cbbDriver.Name = "cbbDriver";
-            this.cbbDriver.Size = new System.Drawing.Size(225, 28);
+            this.cbbDriver.Size = new System.Drawing.Size(249, 28);
             this.cbbDriver.TabIndex = 17;
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(354, 49);
+            this.label31.Location = new System.Drawing.Point(377, 49);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(48, 20);
             this.label31.TabIndex = 16;
@@ -425,16 +459,13 @@
             // 
             // cbbMill
             // 
+            this.cbbMill.DropDownHeight = 300;
             this.cbbMill.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbbMill.FormattingEnabled = true;
-            this.cbbMill.Items.AddRange(new object[] {
-            "ทั้งหมด",
-            "โรงโม่ 1",
-            "โรงโม่ 2",
-            "โรงโม่ 3"});
-            this.cbbMill.Location = new System.Drawing.Point(234, 72);
+            this.cbbMill.IntegralHeight = false;
+            this.cbbMill.Location = new System.Drawing.Point(114, 100);
             this.cbbMill.Name = "cbbMill";
-            this.cbbMill.Size = new System.Drawing.Size(82, 28);
+            this.cbbMill.Size = new System.Drawing.Size(84, 28);
             this.cbbMill.TabIndex = 15;
             // 
             // label30
@@ -442,17 +473,19 @@
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(204, 77);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(26, 20);
+            this.label30.Size = new System.Drawing.Size(27, 20);
             this.label30.TabIndex = 14;
-            this.label30.Text = "โม่:";
+            this.label30.Text = "รถ:";
             // 
             // cbbCarRegistration
             // 
+            this.cbbCarRegistration.DropDownHeight = 300;
             this.cbbCarRegistration.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbbCarRegistration.FormattingEnabled = true;
+            this.cbbCarRegistration.IntegralHeight = false;
             this.cbbCarRegistration.Location = new System.Drawing.Point(114, 46);
             this.cbbCarRegistration.Name = "cbbCarRegistration";
-            this.cbbCarRegistration.Size = new System.Drawing.Size(202, 28);
+            this.cbbCarRegistration.Size = new System.Drawing.Size(244, 28);
             this.cbbCarRegistration.TabIndex = 13;
             // 
             // label29
@@ -532,7 +565,10 @@
             this.weight_id,
             this.ชนิดvat,
             this.ล้าง,
-            this.ขนส่ง});
+            this.ขนส่ง,
+            this.หมายเหตุ,
+            this.หน้างาน,
+            this.dataGridViewTextBoxColumn1});
             this.dgvDailyReport.DataSource = this.weightBindingSource;
             this.dgvDailyReport.Location = new System.Drawing.Point(6, 135);
             this.dgvDailyReport.Name = "dgvDailyReport";
@@ -759,6 +795,24 @@
             this.ขนส่ง.HeaderText = "ขนส่ง";
             this.ขนส่ง.Name = "ขนส่ง";
             // 
+            // หมายเหตุ
+            // 
+            this.หมายเหตุ.DataPropertyName = "หมายเหตุ";
+            this.หมายเหตุ.HeaderText = "หมายเหตุ";
+            this.หมายเหตุ.Name = "หมายเหตุ";
+            // 
+            // หน้างาน
+            // 
+            this.หน้างาน.DataPropertyName = "หน้างาน";
+            this.หน้างาน.HeaderText = "หน้างาน";
+            this.หน้างาน.Name = "หน้างาน";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "weight_id";
+            this.dataGridViewTextBoxColumn1.HeaderText = "weight_id";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
             // weightBindingSource
             // 
             this.weightBindingSource.DataMember = "weight";
@@ -777,7 +831,7 @@
             // tbdateTo
             // 
             this.tbdateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.tbdateTo.Location = new System.Drawing.Point(229, 20);
+            this.tbdateTo.Location = new System.Drawing.Point(440, 20);
             this.tbdateTo.Name = "tbdateTo";
             this.tbdateTo.Size = new System.Drawing.Size(87, 26);
             this.tbdateTo.TabIndex = 8;
@@ -809,9 +863,9 @@
             this.btSearch.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btSearch.Image = global::SerialPortListener.Properties.Resources.search_32px1;
             this.btSearch.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btSearch.Location = new System.Drawing.Point(669, 102);
+            this.btSearch.Location = new System.Drawing.Point(695, 104);
             this.btSearch.Name = "btSearch";
-            this.btSearch.Size = new System.Drawing.Size(66, 23);
+            this.btSearch.Size = new System.Drawing.Size(54, 23);
             this.btSearch.TabIndex = 5;
             this.btSearch.Text = "ค้นหา";
             this.btSearch.UseVisualStyleBackColor = true;
@@ -820,20 +874,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(204, 22);
+            this.label2.Location = new System.Drawing.Point(377, 25);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 20);
+            this.label2.Size = new System.Drawing.Size(52, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "To:";
+            this.label2.Text = "ถึงวันที่:";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 22);
+            this.label1.Location = new System.Drawing.Point(37, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(48, 20);
+            this.label1.Size = new System.Drawing.Size(61, 20);
             this.label1.TabIndex = 3;
-            this.label1.Text = "From:";
+            this.label1.Text = "จากวันที่:";
             // 
             // tabPage13
             // 
@@ -855,6 +909,27 @@
             this.tabPage13.TabIndex = 12;
             this.tabPage13.Text = "รายงานการชั่งแบบสรุป";
             // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.Location = new System.Drawing.Point(157, 187);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(58, 21);
+            this.label42.TabIndex = 27;
+            this.label42.Text = "ชนิดหิน";
+            // 
+            // cbbStone
+            // 
+            this.cbbStone.DropDownHeight = 300;
+            this.cbbStone.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbbStone.FormattingEnabled = true;
+            this.cbbStone.IntegralHeight = false;
+            this.cbbStone.Location = new System.Drawing.Point(244, 183);
+            this.cbbStone.Name = "cbbStone";
+            this.cbbStone.Size = new System.Drawing.Size(346, 29);
+            this.cbbStone.TabIndex = 26;
+            // 
             // label41
             // 
             this.label41.AutoSize = true;
@@ -867,8 +942,10 @@
             // 
             // cbbDriverSummary
             // 
+            this.cbbDriverSummary.DropDownHeight = 300;
             this.cbbDriverSummary.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbDriverSummary.FormattingEnabled = true;
+            this.cbbDriverSummary.IntegralHeight = false;
             this.cbbDriverSummary.Location = new System.Drawing.Point(244, 136);
             this.cbbDriverSummary.Name = "cbbDriverSummary";
             this.cbbDriverSummary.Size = new System.Drawing.Size(346, 29);
@@ -886,8 +963,10 @@
             // 
             // cbbCustomerSummary
             // 
+            this.cbbCustomerSummary.DropDownHeight = 300;
             this.cbbCustomerSummary.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbCustomerSummary.FormattingEnabled = true;
+            this.cbbCustomerSummary.IntegralHeight = false;
             this.cbbCustomerSummary.Location = new System.Drawing.Point(244, 92);
             this.cbbCustomerSummary.Name = "cbbCustomerSummary";
             this.cbbCustomerSummary.Size = new System.Drawing.Size(346, 29);
@@ -972,6 +1051,7 @@
             this.tbCustomerId.Size = new System.Drawing.Size(87, 27);
             this.tbCustomerId.TabIndex = 19;
             this.tbCustomerId.TextChanged += new System.EventHandler(this.tbCustomerId_TextChanged);
+            this.tbCustomerId.Leave += new System.EventHandler(this.tbCustomerId_Leave);
             // 
             // label11
             // 
@@ -991,6 +1071,7 @@
             this.tbCustomerName.Size = new System.Drawing.Size(253, 27);
             this.tbCustomerName.TabIndex = 17;
             this.tbCustomerName.TextChanged += new System.EventHandler(this.tbCustomerName_TextChanged);
+            this.tbCustomerName.Leave += new System.EventHandler(this.tbCustomerName_Leave);
             // 
             // label9
             // 
@@ -1523,11 +1604,6 @@
             // cbMill
             // 
             this.cbMill.FormattingEnabled = true;
-            this.cbMill.Items.AddRange(new object[] {
-            "ไม่มี",
-            "โรงโม่ 1",
-            "โรงโม่ 2",
-            "โรงโม่ 3"});
             this.cbMill.Location = new System.Drawing.Point(247, 91);
             this.cbMill.Name = "cbMill";
             this.cbMill.Size = new System.Drawing.Size(346, 29);
@@ -1856,25 +1932,6 @@
             // 
             this.weightTableAdapter.ClearBeforeFill = true;
             // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.Location = new System.Drawing.Point(157, 187);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(58, 21);
-            this.label42.TabIndex = 27;
-            this.label42.Text = "ชนิดหิน";
-            // 
-            // cbbStone
-            // 
-            this.cbbStone.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbbStone.FormattingEnabled = true;
-            this.cbbStone.Location = new System.Drawing.Point(244, 183);
-            this.cbbStone.Name = "cbbStone";
-            this.cbbStone.Size = new System.Drawing.Size(346, 29);
-            this.cbbStone.TabIndex = 26;
-            // 
             // ucReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2038,6 +2095,20 @@
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.DateTimePicker dtFromOut;
         private System.Windows.Forms.DateTimePicker dtToOut;
+        private System.Windows.Forms.TabPage tabPage13;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.DateTimePicker dtToSummary;
+        private System.Windows.Forms.DateTimePicker dtFromSummary;
+        private System.Windows.Forms.Button btPrintSummary;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.ComboBox cbbCustomerSummary;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.ComboBox cbbDriverSummary;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ComboBox cbbStone;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.ComboBox cbbSite;
         private System.Windows.Forms.DataGridViewTextBoxColumn วันที่;
         private System.Windows.Forms.DataGridViewTextBoxColumn เลขที่เอกสาร;
         private System.Windows.Forms.DataGridViewTextBoxColumn รหัสลูกค้า;
@@ -2074,17 +2145,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ชนิดvat;
         private System.Windows.Forms.DataGridViewTextBoxColumn ล้าง;
         private System.Windows.Forms.DataGridViewTextBoxColumn ขนส่ง;
-        private System.Windows.Forms.TabPage tabPage13;
-        private System.Windows.Forms.Label label38;
-        private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.DateTimePicker dtToSummary;
-        private System.Windows.Forms.DateTimePicker dtFromSummary;
-        private System.Windows.Forms.Button btPrintSummary;
-        private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.ComboBox cbbCustomerSummary;
-        private System.Windows.Forms.Label label41;
-        private System.Windows.Forms.ComboBox cbbDriverSummary;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.ComboBox cbbStone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn หมายเหตุ;
+        private System.Windows.Forms.DataGridViewTextBoxColumn หน้างาน;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }

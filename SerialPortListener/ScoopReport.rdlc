@@ -631,42 +631,6 @@
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="ชื่อผู้ตัก1">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value />
-                                  <Style>
-                                    <FontFamily>Angsana New</FontFamily>
-                                    <FontSize>16pt</FontSize>
-                                    <FontWeight>Bold</FontWeight>
-                                  </Style>
-                                </TextRun>
-                              </TextRuns>
-                              <Style>
-                                <TextAlign>Left</TextAlign>
-                              </Style>
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>ชื่อผู้ตัก1</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>None</Style>
-                            </Border>
-                            <PaddingLeft>1pt</PaddingLeft>
-                            <PaddingRight>1pt</PaddingRight>
-                            <PaddingTop>1pt</PaddingTop>
-                            <PaddingBottom>1pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="ชื่อผู้ตัก">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -674,7 +638,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value />
+                                  <Value>=Fields!ชื่อผู้ตัก.Value</Value>
                                   <Style>
                                     <FontFamily>Angsana New</FontFamily>
                                     <FontSize>16pt</FontSize>
@@ -699,9 +663,10 @@
                             <PaddingBottom>1pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <ColSpan>9</ColSpan>
+                        <ColSpan>10</ColSpan>
                       </CellContents>
                     </TablixCell>
+                    <TablixCell />
                     <TablixCell />
                     <TablixCell />
                     <TablixCell />
@@ -2725,7 +2690,7 @@
                               <Paragraph>
                                 <TextRuns>
                                   <TextRun>
-                                    <Value>=Fields!ชื่อผู้ตัก.Value</Value>
+                                    <Value>ผู้ตัก</Value>
                                     <Style>
                                       <FontFamily>Angsana New</FontFamily>
                                       <FontSize>16pt</FontSize>
