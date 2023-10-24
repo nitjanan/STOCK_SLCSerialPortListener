@@ -18,6 +18,10 @@ namespace SerialPortListener
             //string cs = "DSN=PostgreSQLM";
             string cs = "DSN=PostgreSQLSTOCK";
             //string cs = "DSN=PostgreSQLS";
+            //string cs = "DSN=PostgreSQLCenterS";
+            //string cs = "DSN=PostgreSQLCenterM";
+            //string cs = "DSN=PostgreSQLCenterSTOCK";
+            //string cs = "DSN=PostgreSQLCenterALL";
             conn = new OdbcConnection(cs);
             cmd = new OdbcCommand();
         }
