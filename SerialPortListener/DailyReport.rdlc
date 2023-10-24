@@ -1610,7 +1610,6 @@
                             <PaddingBottom>0.25pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                   </TablixCells>
@@ -3306,7 +3305,7 @@
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=Parameters!PDateFrom.Value</Value>
+                      <Value>=Parameters!PDateTo.Value</Value>
                       <Style>
                         <FontFamily>Angsana New</FontFamily>
                         <FontSize>16pt</FontSize>
