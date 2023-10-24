@@ -624,8 +624,10 @@ namespace SerialPortListener
                 calculateWeight();
                 _spManager.StartListening();
 
+                dtWeightInTime.Text = DateTime.Now.ToShortTimeString();
+
                 //disable after read in
-                if(!Globals.isPermissionTop())
+                if (!Globals.isPermissionTop())
                     disableBtAfterRead(1);
             }
             catch (Exception) {
@@ -852,8 +854,10 @@ namespace SerialPortListener
                 calculateWeight();
                 _spManager.StartListening();
 
+                dtWeightOutTime.Text = DateTime.Now.ToShortTimeString();
+
                 //disable after read out
-                if(!Globals.isPermissionTop())
+                if (!Globals.isPermissionTop())
                     disableBtAfterRead(2);
             }
             catch (Exception) {
