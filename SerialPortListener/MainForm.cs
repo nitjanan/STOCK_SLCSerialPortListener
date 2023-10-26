@@ -145,7 +145,7 @@ namespace SerialPortListener
             // login admin ให้เปลี่ยน
             if (Globals.isPermissionTop())
             {
-                getAndSetFirstUser();
+                //getAndSetFirstUser();
             }
             else {
                 tbScaleId.Text = Globals.Username;
@@ -570,37 +570,26 @@ namespace SerialPortListener
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
 
                 string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("p"));
+                string remainingText = newString.Substring(newString.LastIndexOf("q"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
                 if (mc.Count > 0)
                 {
-                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                    {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                        //tbWeigtData.ForeColor = Color.LightCoral;
-                    }
-                    else
-                    {
-                        tbWeigtData.ForeColor = Color.LightGreen;
-                    }
-
-                    /* stock หินใหญ่
                     //tbWeigtData.ForeColor = Color.LightGreen;
                     if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
                     {
                         //ไม่ต้องทำไร
                     }
-                    else if (Int32.Parse(mc[0].Value) < 10 ) { 
+                    else if (Int32.Parse(mc[0].Value) < 10)
+                    {
                         tbWeigtData.Text = "0";
                         //tbWeigtData.ForeColor = Color.LightGreen;
-                    }   
+                    }
                     else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
                     {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                        tbWeigtData.Text = mc[0].Value;
                         //tbWeigtData.ForeColor = Color.LightCoral;
                     }
-                    */
 
                 }
             }
@@ -2717,6 +2706,31 @@ namespace SerialPortListener
             {
                 tbScoopId.Text = "";
             }
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            /* autoComplete ผู้ตัก */
+            autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
+            autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
+
+            /* autoComplete ลูกค้า */
+            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
+            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+
+            /* autoComplete ผู้ขับ */
+            autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
+            autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
+
+            /* autoComplete ทะเบียนรถ */
+            autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
+            autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
+
+            Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
+
+            fillStoneCombo();
+            fillMillCombo();
+            fillSiteCombo();
         }
     }
 }

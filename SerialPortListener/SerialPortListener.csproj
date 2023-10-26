@@ -767,6 +767,7 @@
     <None Include="Resources\print_32px1.png" />
     <None Include="Resources\search_32px1.png" />
     <None Include="Resources\billing_machine_32px.png" />
+    <None Include="Resources\refresh_32px.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
