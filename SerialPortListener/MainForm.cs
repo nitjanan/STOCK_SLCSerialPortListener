@@ -145,7 +145,7 @@ namespace SerialPortListener
             // login admin ให้เปลี่ยน
             if (Globals.isPermissionTop())
             {
-                getAndSetFirstUser();
+                //getAndSetFirstUser();
             }
             else {
                 tbScaleId.Text = Globals.Username;
@@ -2706,6 +2706,31 @@ namespace SerialPortListener
             {
                 tbScoopId.Text = "";
             }
+        }
+
+        private void btRefresh_Click(object sender, EventArgs e)
+        {
+            /* autoComplete ผู้ตัก */
+            autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
+            autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
+
+            /* autoComplete ลูกค้า */
+            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
+            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+
+            /* autoComplete ผู้ขับ */
+            autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
+            autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
+
+            /* autoComplete ทะเบียนรถ */
+            autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
+            autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
+
+            Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
+
+            fillStoneCombo();
+            fillMillCombo();
+            fillSiteCombo();
         }
     }
 }
