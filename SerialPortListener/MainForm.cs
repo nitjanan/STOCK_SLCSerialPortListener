@@ -564,7 +564,7 @@ namespace SerialPortListener
                 /* เครื่องพี่จ๋า */
                 //M3
                 string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("q"));
+                string remainingText = newString.Substring(newString.LastIndexOf("p"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
                 if (mc.Count > 0)
