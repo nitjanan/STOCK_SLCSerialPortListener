@@ -181,7 +181,7 @@ namespace SerialPortListener
             dtWeightOutTime.Text = DateTime.Now.ToShortTimeString();
             tbQ.Text = "0.00";
             rbbNonVat.Checked = false;
-            rbbVat.Checked = true;
+            rbbVat.Checked = false;
             rbCleanStone.Checked = false;
             rbCleanWater.Checked = false;
             rbCleanNo.Checked = false;
@@ -1285,7 +1285,7 @@ namespace SerialPortListener
         }
 
         private string getMillRadioValue() {
-            string value = " ";
+            string value = "";
             if (rbMill1.Checked)
                 value = rbMill1.Text;
             else if (rbMill2.Checked)
@@ -1299,7 +1299,7 @@ namespace SerialPortListener
 
         private string getCleanRadioValue()
         {
-            string value = " ";
+            string value = "";
             if (rbCleanStone.Checked)
                 value = rbCleanStone.Text;
             else if (rbCleanWater.Checked)
@@ -1310,7 +1310,7 @@ namespace SerialPortListener
         }
         private string getPayRadioValue()
         {
-            string value = " ";
+            string value = "";
             if (rbCash.Checked)
                 value = rbCash.Text;
             else if (rbCredit.Checked)
@@ -1347,6 +1347,10 @@ namespace SerialPortListener
             {
                 value = "ใบส่งสินค้า";
                 getDefaultCompany();
+            }
+            else
+            {
+                value = "";
             }
             return value;
         }
@@ -1734,9 +1738,9 @@ namespace SerialPortListener
             Weight.StoneColor = strNotEmty(cbbStoneColor.Text);
             Weight.Site = strNotEmty(tbSiteName.Text);
             Weight.ApproveName = strNotEmty(tbApproveName.Text);
-            Weight.Pay = getPayRadioValue();
-            Weight.VatType = getVatRadioValuePrint();
-            Weight.Clean = getCleanRadioValue();
+            Weight.Pay = strNotEmty(getPayRadioValue());
+            Weight.VatType = strNotEmty(getVatRadioValuePrint());
+            Weight.Clean = strNotEmty(getCleanRadioValue());
             Weight.Transport = strNotEmty(cbbTransport.Text);
             Weight.ScoopName = strNotEmty(tbScoopName.Text);
             Weight.Note = strNotEmty(tbNote.Text);
@@ -3039,14 +3043,14 @@ namespace SerialPortListener
 
         private void checkNumWeightError(TextBox tb)
         {
-            if (tb.Text.Length < 9 && !checkZeroStr(tb.Text))
+            if (tb.Text.Length < 5 && !checkZeroStr(tb.Text))
             {
                 MessageBox.Show("ช่อง " + tb.AccessibleName + "มีน้ำหนักน้อยเกินไป กรุณากรอกข้อมูลใหม่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tb.Focus();
             }
-            else if (tb.Text.Length == 9)
+            else if (tb.Text.Length == 5)
             {
-                char lastNumber = tb.Text[5];
+                char lastNumber = tb.Text[4];
                 if (lastNumber != '0')
                 {
                     MessageBox.Show("ช่อง " + tb.AccessibleName + "ไม่ได้ลงท้ายด้วย 0 กรุณากรอกข้อมูลใหม่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3054,7 +3058,7 @@ namespace SerialPortListener
                     tb.Focus();
                 }
             }
-            else if (tb.Text.Length > 9)
+            else if (tb.Text.Length > 5)
             {
                 MessageBox.Show("ช่อง " + tb.AccessibleName + "มีน้ำหนักเกิน กรุณากรอกข้อมูลใหม่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tb.Text = "0.00";

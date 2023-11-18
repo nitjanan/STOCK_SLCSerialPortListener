@@ -956,7 +956,7 @@ namespace SerialPortListener
                 Weight.Q = dgvDailyReport.CurrentRow.Cells["คิว"].Value.ToString();
                 Weight.ApproveName = strNotEmty(dgvDailyReport.CurrentRow.Cells["ชื่อผู้อนุมัติจ่าย"].Value.ToString());
                 Weight.AmountVat = numberFormat(dgvDailyReport.CurrentRow.Cells["จำนวนเงินสุทธิ"].Value.ToString(), 2);
-                Weight.VatType = dgvDailyReport.CurrentRow.Cells["ชนิดvat"].Value.ToString();
+                Weight.VatType = strNotEmty(dgvDailyReport.CurrentRow.Cells["ชนิดvat"].Value.ToString());
                 Weight.StoneColor = strNotEmty(dgvDailyReport.CurrentRow.Cells["ประเภทหิน"].Value.ToString());
                 Weight.Note = strNotEmty(dgvDailyReport.CurrentRow.Cells["หมายเหตุ"].Value.ToString());
                 Weight.Team = strNotEmty(dgvDailyReport.CurrentRow.Cells["ทีม"].Value.ToString());
