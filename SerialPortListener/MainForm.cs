@@ -588,9 +588,6 @@ namespace SerialPortListener
                 string remainingText = newString.Substring(newString.LastIndexOf("p"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
-
-                //MatchCollection mc = Regex.Matches(str, @"\d+");
-
                 if (mc.Count > 0)
                 {
                     if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
