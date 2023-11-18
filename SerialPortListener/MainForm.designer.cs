@@ -154,6 +154,12 @@
             this.btSave = new System.Windows.Forms.Button();
             this.ucTruck = new SerialPortListener.ucTruck();
             this.serialSettingsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbStoneTypeName = new System.Windows.Forms.TextBox();
+            this.tbStoneTypeId = new System.Windows.Forms.TextBox();
+            this.tbMillName = new System.Windows.Forms.TextBox();
+            this.tbMillId = new System.Windows.Forms.TextBox();
+            this.tbSiteName = new System.Windows.Forms.TextBox();
+            this.tbSiteId = new System.Windows.Forms.TextBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel3.SuspendLayout();
@@ -183,7 +189,6 @@
             // 
             this.tbWeightIn.AccessibleName = "น้ำหนักเข้า";
             this.tbWeightIn.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.tbWeightIn.Enabled = false;
             this.tbWeightIn.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbWeightIn.Location = new System.Drawing.Point(438, 56);
             this.tbWeightIn.Name = "tbWeightIn";
@@ -192,6 +197,7 @@
             this.tbWeightIn.Text = "0.00";
             this.tbWeightIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbWeightIn.TextChanged += new System.EventHandler(this.tbWeightIn_TextChanged);
+            this.tbWeightIn.Leave += new System.EventHandler(this.tbWeightIn_Leave);
             // 
             // btReadIn
             // 
@@ -448,6 +454,7 @@
             this.tbWeightOut.Text = "0.00";
             this.tbWeightOut.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.tbWeightOut.TextChanged += new System.EventHandler(this.tbWeightOut_TextChanged);
+            this.tbWeightOut.Leave += new System.EventHandler(this.tbWeightOut_Leave);
             // 
             // btReadOut
             // 
@@ -839,7 +846,7 @@
             this.tbScaleId.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbScaleId.Location = new System.Drawing.Point(375, 327);
             this.tbScaleId.Name = "tbScaleId";
-            this.tbScaleId.Size = new System.Drawing.Size(66, 34);
+            this.tbScaleId.Size = new System.Drawing.Size(77, 34);
             this.tbScaleId.TabIndex = 23;
             this.tbScaleId.TextChanged += new System.EventHandler(this.tbScaleId_TextChanged);
             // 
@@ -884,9 +891,9 @@
             this.tbScaleName.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.tbScaleName.Enabled = false;
             this.tbScaleName.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbScaleName.Location = new System.Drawing.Point(447, 327);
+            this.tbScaleName.Location = new System.Drawing.Point(458, 327);
             this.tbScaleName.Name = "tbScaleName";
-            this.tbScaleName.Size = new System.Drawing.Size(252, 34);
+            this.tbScaleName.Size = new System.Drawing.Size(241, 34);
             this.tbScaleName.TabIndex = 24;
             this.tbScaleName.TextChanged += new System.EventHandler(this.tbScaleName_TextChanged);
             // 
@@ -1086,10 +1093,11 @@
             this.cbbStoneType.FormattingEnabled = true;
             this.cbbStoneType.IntegralHeight = false;
             this.cbbStoneType.ItemHeight = 24;
-            this.cbbStoneType.Location = new System.Drawing.Point(375, 196);
+            this.cbbStoneType.Location = new System.Drawing.Point(205, 199);
             this.cbbStoneType.Name = "cbbStoneType";
-            this.cbbStoneType.Size = new System.Drawing.Size(324, 32);
+            this.cbbStoneType.Size = new System.Drawing.Size(77, 32);
             this.cbbStoneType.TabIndex = 15;
+            this.cbbStoneType.Visible = false;
             this.cbbStoneType.SelectedIndexChanged += new System.EventHandler(this.cbbStoneType_SelectedIndexChanged);
             // 
             // groupBox1
@@ -1593,10 +1601,11 @@
             this.cbbMill.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbMill.FormattingEnabled = true;
             this.cbbMill.IntegralHeight = false;
-            this.cbbMill.Location = new System.Drawing.Point(375, 238);
+            this.cbbMill.Location = new System.Drawing.Point(205, 241);
             this.cbbMill.Name = "cbbMill";
-            this.cbbMill.Size = new System.Drawing.Size(324, 32);
+            this.cbbMill.Size = new System.Drawing.Size(77, 32);
             this.cbbMill.TabIndex = 128;
+            this.cbbMill.Visible = false;
             // 
             // cbbSite
             // 
@@ -1606,10 +1615,11 @@
             this.cbbSite.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbbSite.FormattingEnabled = true;
             this.cbbSite.IntegralHeight = false;
-            this.cbbSite.Location = new System.Drawing.Point(375, 283);
+            this.cbbSite.Location = new System.Drawing.Point(205, 286);
             this.cbbSite.Name = "cbbSite";
-            this.cbbSite.Size = new System.Drawing.Size(324, 32);
+            this.cbbSite.Size = new System.Drawing.Size(77, 32);
             this.cbbSite.TabIndex = 129;
+            this.cbbSite.Visible = false;
             // 
             // label36
             // 
@@ -1742,11 +1752,77 @@
             // 
             this.serialSettingsBindingSource.DataSource = typeof(SerialPortListener.Serial.SerialSettings);
             // 
+            // tbStoneTypeName
+            // 
+            this.tbStoneTypeName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbStoneTypeName.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbStoneTypeName.Location = new System.Drawing.Point(458, 196);
+            this.tbStoneTypeName.Name = "tbStoneTypeName";
+            this.tbStoneTypeName.Size = new System.Drawing.Size(241, 34);
+            this.tbStoneTypeName.TabIndex = 135;
+            this.tbStoneTypeName.Leave += new System.EventHandler(this.tbStoneTypeName_Leave);
+            // 
+            // tbStoneTypeId
+            // 
+            this.tbStoneTypeId.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbStoneTypeId.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbStoneTypeId.Location = new System.Drawing.Point(373, 196);
+            this.tbStoneTypeId.Name = "tbStoneTypeId";
+            this.tbStoneTypeId.Size = new System.Drawing.Size(79, 34);
+            this.tbStoneTypeId.TabIndex = 134;
+            this.tbStoneTypeId.Leave += new System.EventHandler(this.tbStoneTypeId_Leave);
+            // 
+            // tbMillName
+            // 
+            this.tbMillName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbMillName.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbMillName.Location = new System.Drawing.Point(458, 238);
+            this.tbMillName.Name = "tbMillName";
+            this.tbMillName.Size = new System.Drawing.Size(241, 34);
+            this.tbMillName.TabIndex = 137;
+            this.tbMillName.Leave += new System.EventHandler(this.tbMillName_Leave);
+            // 
+            // tbMillId
+            // 
+            this.tbMillId.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbMillId.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbMillId.Location = new System.Drawing.Point(373, 238);
+            this.tbMillId.Name = "tbMillId";
+            this.tbMillId.Size = new System.Drawing.Size(79, 34);
+            this.tbMillId.TabIndex = 136;
+            this.tbMillId.Leave += new System.EventHandler(this.tbMillId_Leave);
+            // 
+            // tbSiteName
+            // 
+            this.tbSiteName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbSiteName.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSiteName.Location = new System.Drawing.Point(458, 281);
+            this.tbSiteName.Name = "tbSiteName";
+            this.tbSiteName.Size = new System.Drawing.Size(241, 34);
+            this.tbSiteName.TabIndex = 139;
+            this.tbSiteName.Leave += new System.EventHandler(this.tbSiteName_Leave);
+            // 
+            // tbSiteId
+            // 
+            this.tbSiteId.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbSiteId.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbSiteId.Location = new System.Drawing.Point(373, 281);
+            this.tbSiteId.Name = "tbSiteId";
+            this.tbSiteId.Size = new System.Drawing.Size(79, 34);
+            this.tbSiteId.TabIndex = 138;
+            this.tbSiteId.Leave += new System.EventHandler(this.tbSiteId_Leave);
+            // 
             // MainForm
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.Honeydew;
             this.ClientSize = new System.Drawing.Size(1208, 686);
+            this.Controls.Add(this.tbSiteName);
+            this.Controls.Add(this.tbSiteId);
+            this.Controls.Add(this.tbMillName);
+            this.Controls.Add(this.tbMillId);
+            this.Controls.Add(this.tbStoneTypeName);
+            this.Controls.Add(this.tbStoneTypeId);
             this.Controls.Add(this.btRefresh);
             this.Controls.Add(this.label37);
             this.Controls.Add(this.tbNote);
@@ -1986,6 +2062,12 @@
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label lbCompanyCode;
         private System.Windows.Forms.Button btRefresh;
+        private System.Windows.Forms.TextBox tbStoneTypeName;
+        private System.Windows.Forms.TextBox tbStoneTypeId;
+        private System.Windows.Forms.TextBox tbMillName;
+        private System.Windows.Forms.TextBox tbMillId;
+        private System.Windows.Forms.TextBox tbSiteName;
+        private System.Windows.Forms.TextBox tbSiteId;
     }
 }
 

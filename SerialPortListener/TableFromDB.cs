@@ -58,6 +58,9 @@ namespace SerialPortListener
             public String clean;
             public String transport;
             public String note;
+            public String siteId;
+            public String stoneTypeId;
+            public String millId;
         }
         public TableFromDB(MainForm parent)
         {
@@ -191,6 +194,10 @@ namespace SerialPortListener
                 data.driverId = tableDataFromDB.CurrentRow.Cells["รหัสคนขับ"].Value.ToString();
                 data.carLicenseId = tableDataFromDB.CurrentRow.Cells["รหัสทะเบียนรถ"].Value.ToString();
                 data.note = tableDataFromDB.CurrentRow.Cells["หมายเหตุ"].Value.ToString();
+
+                data.siteId = tableDataFromDB.CurrentRow.Cells["site_id"].Value.ToString();
+                data.millId = tableDataFromDB.CurrentRow.Cells["mill_id"].Value.ToString();
+                data.stoneTypeId = tableDataFromDB.CurrentRow.Cells["stone_type_id"].Value.ToString();
 
                 //set Mode Weight
                 /*
