@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.btSave = new System.Windows.Forms.Button();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
-            this.basecustomerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.customerDataSet = new SerialPortListener.customerDataSet();
-            this.base_customerTableAdapter = new SerialPortListener.customerDataSetTableAdapters.base_customerTableAdapter();
             this.รหัสลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ชื่อลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ที่อยู่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ส่งที่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.basecustomerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.customerDataSet = new SerialPortListener.customerDataSet();
+            this.base_customerTableAdapter = new SerialPortListener.customerDataSetTableAdapters.base_customerTableAdapter();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecustomerBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.customerDataSet)).BeginInit();
@@ -76,20 +76,6 @@
             this.dgvCustomer.TabIndex = 2;
             this.dgvCustomer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvCustomer_KeyDown);
             // 
-            // basecustomerBindingSource
-            // 
-            this.basecustomerBindingSource.DataMember = "base_customer";
-            this.basecustomerBindingSource.DataSource = this.customerDataSet;
-            // 
-            // customerDataSet
-            // 
-            this.customerDataSet.DataSetName = "customerDataSet";
-            this.customerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // base_customerTableAdapter
-            // 
-            this.base_customerTableAdapter.ClearBeforeFill = true;
-            // 
             // รหัสลูกค้า
             // 
             this.รหัสลูกค้า.DataPropertyName = "รหัสลูกค้า";
@@ -119,6 +105,20 @@
             this.ส่งที่.Visible = false;
             this.ส่งที่.Width = 150;
             // 
+            // basecustomerBindingSource
+            // 
+            this.basecustomerBindingSource.DataMember = "base_customer";
+            this.basecustomerBindingSource.DataSource = this.customerDataSet;
+            // 
+            // customerDataSet
+            // 
+            this.customerDataSet.DataSetName = "customerDataSet";
+            this.customerDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // base_customerTableAdapter
+            // 
+            this.base_customerTableAdapter.ClearBeforeFill = true;
+            // 
             // TableCustomer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -132,7 +132,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
             this.Name = "TableCustomer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "หน้างาน";
+            this.Text = " ";
             this.Load += new System.EventHandler(this.TableCustomer_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecustomerBindingSource)).EndInit();

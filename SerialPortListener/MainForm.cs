@@ -582,27 +582,24 @@ namespace SerialPortListener
             try
             {
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
-
                 string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("q"));
+                string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
+
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
                 if (mc.Count > 0)
                 {
-                    //tbWeigtData.ForeColor = Color.LightGreen;
-                    if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
+                    if (mc.Count > 0)
                     {
-                        //ไม่ต้องทำไร
-                    }
-                    else if (Int32.Parse(mc[0].Value) < 10)
-                    {
-                        tbWeigtData.Text = "0";
-                        //tbWeigtData.ForeColor = Color.LightGreen;
-                    }
-                    else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                    {
-                        tbWeigtData.Text = mc[0].Value;
-                        //tbWeigtData.ForeColor = Color.LightCoral;
+                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                        {
+                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                            //tbWeigtData.ForeColor = Color.LightCoral;
+                        }
+                        else
+                        {
+                            tbWeigtData.ForeColor = Color.LightGreen;
+                        }
                     }
 
                 }
@@ -2657,6 +2654,7 @@ namespace SerialPortListener
             {
                 tbCarLicense.Text = "";
             }
+            getWeightInOnDay(tbCarLicenseId);
         }
 
         private void tbCarLicense_Leave(object sender, EventArgs e)
@@ -2691,6 +2689,44 @@ namespace SerialPortListener
             else
             {
                 tbCarLicenseId.Text = "";
+            }
+
+            getWeightInOnDay(tbCarLicense);
+        }
+
+        private void getWeightInOnDay(TextBox tb)
+        {
+            string today = DateTime.Now.ToString("yyyy-MM-dd");
+
+            if ((tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text)) && tbWeightIn.Enabled)
+            {
+                //sql
+                OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+                pgCommand.CommandText = "SELECT น้ำหนักรถ FROM public.weight where วันที่ = '" + today + "' and ทะเบียนรถ = '" + tbCarLicense.Text + "' ORDER BY weight_id DESC LIMIT 1 ";
+                try
+                {
+                    dl.connect();
+                    OdbcDataReader reader = pgCommand.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        string rdStr = reader["น้ำหนักรถ"].ToString();
+                        tbWeightIn.Text = tonTokg(rdStr);
+                    }
+                    //sql รีเซตค่าหากหาข้อมูลไม่เจอ
+                    if (!reader.HasRows)
+                    {
+                        tbWeightIn.Text = "0.00";
+                    }
+
+                }
+                catch (Exception)
+                {
+                }
+                dl.close();
+            }
+            else
+            {
+                tbWeightIn.Text = "0.00";
             }
         }
 
@@ -3069,5 +3105,6 @@ namespace SerialPortListener
             }
 
         }
+
     }
 }
