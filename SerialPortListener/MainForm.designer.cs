@@ -189,6 +189,7 @@
             // 
             this.tbWeightIn.AccessibleName = "น้ำหนักเข้า";
             this.tbWeightIn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbWeightIn.Enabled = false;
             this.tbWeightIn.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbWeightIn.Location = new System.Drawing.Point(438, 56);
             this.tbWeightIn.Name = "tbWeightIn";
