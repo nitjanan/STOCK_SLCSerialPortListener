@@ -198,7 +198,7 @@ namespace SerialPortListener
             disableBtAfterRead(0);
 
             //if user admin enable all 
-            if (Globals.isPermissionTop())
+            if (Globals.isPermissionEditWeight())
                 disableBtAfterRead(999);
         }
 
@@ -434,7 +434,7 @@ namespace SerialPortListener
             disableBtAfterRead(1);
 
             //if user admin enable all
-            if (Globals.isPermissionTop())
+            if (Globals.isPermissionEditWeight())
             {
                 disableBtAfterRead(999);
             }
@@ -663,10 +663,7 @@ namespace SerialPortListener
                 tbCarLicenseId.Enabled = true;
                 tbCarCity.Enabled = true;
 
-                //dtWeightInDate.Enabled = true;
-                //dtWeightInTime.Enabled = true;
-                //dtWeightOutDate.Enabled = true;
-                //dtWeightOutTime.Enabled = true;
+                tbWeightIn.Enabled = true;
             }
             else if (mode.Equals(1))
             {
@@ -714,11 +711,8 @@ namespace SerialPortListener
                 tbWeightTotal.Enabled = true;
                 tbQ.Enabled = true;
 
-                if (!checkZeroStr(tbWeightIn.Text))
-                    tbWeightIn.Enabled = false;
-
-                if (!checkZeroStr(tbWeightOut.Text))
-                    tbWeightOut.Enabled = false;
+                tbCarLicense.Enabled = true;
+                tbCarCity.Enabled = true;
             }
         }
 
@@ -2521,9 +2515,6 @@ namespace SerialPortListener
             AfterGetDataFromTable();
 
             rbWeightIn.Checked = true;
-
-            if(!Globals.isPermissionTop())
-                btReadOut.Enabled = false;
 
         }
 
