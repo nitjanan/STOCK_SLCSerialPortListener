@@ -668,7 +668,7 @@ namespace SerialPortListener
                 tbCarLicenseId.Enabled = true;
                 tbCarCity.Enabled = true;
 
-                tbWeightIn.Enabled = true;
+                //39 ไม่เปิดให้คีย์ นน. tbWeightIn.Enabled = true;
             }
             else if (mode.Equals(1))
             {
@@ -2650,7 +2650,7 @@ namespace SerialPortListener
             {
                 tbCarLicense.Text = "";
             }
-            getWeightInOnDay(tbCarLicenseId);
+            //39 ไม่ต้องดึงน้ำหนักเข้า auto getWeightInOnDay(tbCarLicenseId);
         }
 
         private void tbCarLicense_Leave(object sender, EventArgs e)
@@ -2687,7 +2687,7 @@ namespace SerialPortListener
                 tbCarLicenseId.Text = "";
             }
 
-            getWeightInOnDay(tbCarLicense);
+            //39 ไม่ต้องดึงน้ำหนักเข้า auto getWeightInOnDay(tbCarLicense);
         }
 
         private void getWeightInOnDay(TextBox tb)
