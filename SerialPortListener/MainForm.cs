@@ -3078,14 +3078,13 @@ namespace SerialPortListener
 
         private void checkNumWeightError(TextBox tb)
         {
-            /*
+ 
             if (tb.Text.Length < 5 && !checkZeroStr(tb.Text))
             {
                 MessageBox.Show("ช่อง " + tb.AccessibleName + "มีน้ำหนักน้อยเกินไป กรุณากรอกข้อมูลใหม่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tb.Focus();
             }
-            else*/
-            if (tb.Text.Length == 5)
+            else if (tb.Text.Length == 5)
             {
                 char lastNumber = tb.Text[4];
                 if (lastNumber != '0')
