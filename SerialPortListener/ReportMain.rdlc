@@ -28,10 +28,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PCompanyName</rd:DefaultName>
-                <Top>0.31cm</Top>
+                <Top>0.34526cm</Top>
                 <Left>0.36425cm</Left>
-                <Height>0.71466cm</Height>
-                <Width>8.67864cm</Width>
+                <Height>0.78524cm</Height>
+                <Width>8.64337cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -43,7 +43,6 @@
                 </Style>
               </Textbox>
               <Textbox Name="PAddress">
-                <CanGrow>true</CanGrow>
                 <KeepTogether>true</KeepTogether>
                 <Paragraphs>
                   <Paragraph>
@@ -51,7 +50,7 @@
                       <TextRun>
                         <Value>=Parameters!PAddress.Value</Value>
                         <Style>
-                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontFamily>Leelawadee UI Semilight</FontFamily>
                           <FontSize>11pt</FontSize>
                         </Style>
                       </TextRun>
@@ -62,10 +61,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PAddress</rd:DefaultName>
-                <Top>0.48675in</Top>
-                <Left>0.14341in</Left>
-                <Height>0.22933in</Height>
-                <Width>3.41679in</Width>
+                <Top>0.46608in</Top>
+                <Left>0.14006in</Left>
+                <Height>0.27777in</Height>
+                <Width>3.40625in</Width>
                 <ZIndex>1</ZIndex>
                 <Style>
                   <Border>
@@ -192,7 +191,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>ต้นทาง</Value>
+                        <Value>โรงโม่ </Value>
                         <Style>
                           <FontFamily>Yu Gothic UI Semilight</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -1848,9 +1847,9 @@
                 </Paragraphs>
                 <rd:DefaultName>Textbox10</rd:DefaultName>
                 <Top>2.20219in</Top>
-                <Left>3.62964in</Left>
+                <Left>3.67131in</Left>
                 <Height>0.25in</Height>
-                <Width>0.38471in</Width>
+                <Width>0.34304in</Width>
                 <ZIndex>59</ZIndex>
                 <Visibility>
                   <Hidden>true</Hidden>
@@ -2146,6 +2145,7 @@
               </Textbox>
             </ReportItems>
             <KeepTogether>true</KeepTogether>
+            <Left>0.00749cm</Left>
             <Height>10.9728cm</Height>
             <Width>18.51344cm</Width>
             <Style>
