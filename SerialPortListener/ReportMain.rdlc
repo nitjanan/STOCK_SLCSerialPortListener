@@ -17,7 +17,7 @@
                         <Value>=Parameters!PCompanyName.Value</Value>
                         <Style>
                           <FontFamily>Yu Gothic UI Semilight</FontFamily>
-                          <FontSize>12pt</FontSize>
+                          <FontSize>14pt</FontSize>
                           <FontWeight>Bold</FontWeight>
                         </Style>
                       </TextRun>
@@ -28,10 +28,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PCompanyName</rd:DefaultName>
-                <Top>0.77772cm</Top>
-                <Left>2.20816cm</Left>
+                <Top>0.31cm</Top>
+                <Left>0.36425cm</Left>
                 <Height>0.71466cm</Height>
-                <Width>6.94057cm</Width>
+                <Width>8.67864cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -51,8 +51,8 @@
                       <TextRun>
                         <Value>=Parameters!PAddress.Value</Value>
                         <Style>
-                          <FontFamily>Leelawadee UI Semilight</FontFamily>
-                          <FontSize>9pt</FontSize>
+                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontSize>11pt</FontSize>
                         </Style>
                       </TextRun>
                     </TextRuns>
@@ -62,14 +62,11 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PAddress</rd:DefaultName>
-                <Top>0.30619in</Top>
-                <Left>2.61563in</Left>
+                <Top>0.48675in</Top>
+                <Left>0.14341in</Left>
                 <Height>0.22933in</Height>
-                <Width>0.97234in</Width>
+                <Width>3.41679in</Width>
                 <ZIndex>1</ZIndex>
-                <Visibility>
-                  <Hidden>true</Hidden>
-                </Visibility>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -1850,10 +1847,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>Textbox10</rd:DefaultName>
-                <Top>0.50774in</Top>
-                <Left>2.61563in</Left>
+                <Top>2.20219in</Top>
+                <Left>3.62964in</Left>
                 <Height>0.25in</Height>
-                <Width>0.97234in</Width>
+                <Width>0.38471in</Width>
                 <ZIndex>59</ZIndex>
                 <Visibility>
                   <Hidden>true</Hidden>
@@ -1973,21 +1970,6 @@
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Image Name="Image2">
-                <Source>Embedded</Source>
-                <Value>unilogo</Value>
-                <Sizing>FitProportional</Sizing>
-                <Top>0.09427in</Top>
-                <Left>0.11563in</Left>
-                <Height>0.66347in</Height>
-                <Width>0.75373in</Width>
-                <ZIndex>63</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                </Style>
-              </Image>
               <Textbox Name="Textbox22">
                 <CanGrow>true</CanGrow>
                 <KeepTogether>true</KeepTogether>
@@ -2013,7 +1995,7 @@
                 <Left>0.10173in</Left>
                 <Height>0.25in</Height>
                 <Width>0.99678in</Width>
-                <ZIndex>64</ZIndex>
+                <ZIndex>63</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2046,7 +2028,7 @@
                 <Left>1.09851in</Left>
                 <Height>0.25in</Height>
                 <Width>2.48945in</Width>
-                <ZIndex>65</ZIndex>
+                <ZIndex>64</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2082,7 +2064,7 @@
                 <Left>0.11564in</Left>
                 <Height>0.25in</Height>
                 <Width>0.99679in</Width>
-                <ZIndex>66</ZIndex>
+                <ZIndex>65</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2115,7 +2097,7 @@
                 <Left>2.82555cm</Left>
                 <Height>0.635cm</Height>
                 <Width>6.28793cm</Width>
-                <ZIndex>67</ZIndex>
+                <ZIndex>66</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2151,7 +2133,7 @@
                 <Left>6.11157in</Left>
                 <Height>0.25in</Height>
                 <Width>1.07712in</Width>
-                <ZIndex>68</ZIndex>
+                <ZIndex>67</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
