@@ -1216,6 +1216,7 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>transportDataSet</DataSetName>
+            <Left>0.00001cm</Left>
             <Height>1.8cm</Height>
             <Width>19.92309cm</Width>
             <Style>
@@ -1254,6 +1255,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
+              <Left>0.00001cm</Left>
               <Height>0.6cm</Height>
               <Width>18.05809cm</Width>
               <Style>
@@ -1317,6 +1319,7 @@
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.6cm</Top>
+              <Left>0.00001cm</Left>
               <Height>0.6cm</Height>
               <Width>18.05809cm</Width>
               <ZIndex>1</ZIndex>
@@ -1350,7 +1353,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox134</rd:DefaultName>
-              <Left>18.05809cm</Left>
+              <Left>18.0581cm</Left>
               <Height>0.6cm</Height>
               <Width>1.865cm</Width>
               <ZIndex>2</ZIndex>
@@ -1371,6 +1374,50 @@
             </Border>
           </Style>
         </PageHeader>
+        <PageFooter>
+          <Height>0.6cm</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="Textbox3">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>FM-PD-003-1 Rev.00</Value>
+                      <Style>
+                        <FontFamily>Angsana New</FontFamily>
+                        <FontSize>14pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Height>0.6cm</Height>
+              <Width>19.9231cm</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </PageFooter>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
         <LeftMargin>0.5cm</LeftMargin>
