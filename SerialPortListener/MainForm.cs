@@ -196,8 +196,11 @@ namespace SerialPortListener
             calculatenumQ();
 
             disableBtAfterRead(0);
-
             //if user admin enable all 
+            if (Globals.isPermissionTop())
+                disableBtAfterRead(3);
+
+            //if user edit weight enable all
             if (Globals.isPermissionEditWeight())
                 disableBtAfterRead(999);
         }
@@ -582,26 +585,31 @@ namespace SerialPortListener
             try
             {
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
-                /* เครื่องพี่จ๋า */
+                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
+                //ค่าบวกจับ p ค่าลบจับ r
+                var lastOperatorIndex = newString.LastIndexOfAny(new char[] { 'p', 'q' });
+                string remainingText = newString.Substring(lastOperatorIndex);
 
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("KN"));
-                string remainingText = newString.Substring(newString.LastIndexOf("\r"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-                /* เครื่องพี่รุ่ง */
-                //MatchCollection mc = Regex.Matches(str, @"\d+");
 
                 if (mc.Count > 0)
                 {
-                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    //tbWeigtData.ForeColor = Color.LightGreen;
+                    if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
                     {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                        //ไม่ต้องทำไร
+                    }
+                    else if (Int32.Parse(mc[0].Value) < 10)
+                    {
+                        tbWeigtData.Text = "0";
+                        //tbWeigtData.ForeColor = Color.LightGreen;
+                    }
+                    else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    {
+                        tbWeigtData.Text = mc[0].Value;
                         //tbWeigtData.ForeColor = Color.LightCoral;
                     }
-                    else
-                    {
-                        tbWeigtData.ForeColor = Color.LightGreen;
-                    }
+
                 }
             }
             catch (Exception ex)
@@ -663,7 +671,7 @@ namespace SerialPortListener
                 tbCarLicenseId.Enabled = true;
                 tbCarCity.Enabled = true;
 
-                tbWeightIn.Enabled = true;
+                //39 ไม่เปิดให้คีย์ นน. tbWeightIn.Enabled = true;
             }
             else if (mode.Equals(1))
             {
@@ -690,6 +698,13 @@ namespace SerialPortListener
                 tbWeightOut.Enabled = false;
                 tbWeightTotal.Enabled = false;
                 tbQ.Enabled = false;
+            }
+            else if (mode.Equals(3))//open all admin add
+            {
+                tbWeightIn.Enabled = true;
+                tbWeightOut.Enabled = true;
+                tbWeightTotal.Enabled = true;
+                tbQ.Enabled = true;
             }
             else if (mode.Equals(4))//disable all
             {
@@ -2645,7 +2660,7 @@ namespace SerialPortListener
             {
                 tbCarLicense.Text = "";
             }
-            getWeightInOnDay(tbCarLicenseId);
+            //39 ไม่ต้องดึงน้ำหนักเข้า auto getWeightInOnDay(tbCarLicenseId);
         }
 
         private void tbCarLicense_Leave(object sender, EventArgs e)
@@ -2682,7 +2697,7 @@ namespace SerialPortListener
                 tbCarLicenseId.Text = "";
             }
 
-            getWeightInOnDay(tbCarLicense);
+            //39 ไม่ต้องดึงน้ำหนักเข้า auto getWeightInOnDay(tbCarLicense);
         }
 
         private void getWeightInOnDay(TextBox tb)
@@ -3073,12 +3088,14 @@ namespace SerialPortListener
 
         private void checkNumWeightError(TextBox tb)
         {
+            /*
             if (tb.Text.Length < 5 && !checkZeroStr(tb.Text))
             {
                 MessageBox.Show("ช่อง " + tb.AccessibleName + "มีน้ำหนักน้อยเกินไป กรุณากรอกข้อมูลใหม่", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tb.Focus();
             }
-            else if (tb.Text.Length == 5)
+            else*/
+            if (tb.Text.Length == 5)
             {
                 char lastNumber = tb.Text[4];
                 if (lastNumber != '0')
