@@ -196,8 +196,11 @@ namespace SerialPortListener
             calculatenumQ();
 
             disableBtAfterRead(0);
-
             //if user admin enable all 
+            if (Globals.isPermissionTop())
+                disableBtAfterRead(3);
+
+            //if user edit weight enable all
             if (Globals.isPermissionEditWeight())
                 disableBtAfterRead(999);
         }
@@ -695,6 +698,13 @@ namespace SerialPortListener
                 tbWeightOut.Enabled = false;
                 tbWeightTotal.Enabled = false;
                 tbQ.Enabled = false;
+            }
+            else if (mode.Equals(3))//open all admin add
+            {
+                tbWeightIn.Enabled = true;
+                tbWeightOut.Enabled = true;
+                tbWeightTotal.Enabled = true;
+                tbQ.Enabled = true;
             }
             else if (mode.Equals(4))//disable all
             {
