@@ -1243,7 +1243,6 @@
               </TablixMembers>
             </TablixRowHierarchy>
             <DataSetName>customerDataSet</DataSetName>
-            <Left>0cm</Left>
             <Height>3cm</Height>
             <Width>18.41498cm</Width>
             <Style>
@@ -1283,7 +1282,6 @@
               </Paragraphs>
               <rd:DefaultName>Textbox119</rd:DefaultName>
               <Top>0.6cm</Top>
-              <Left>0cm</Left>
               <Height>0.6cm</Height>
               <Width>7.58001cm</Width>
               <Style>
@@ -1444,7 +1442,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>บริษัท โชคพนาไมนิ่ง จำกัด</Value>
+                      <Value>บริษัทโชคพนาไมนิ่ง จำกัด สาขาที่00007</Value>
                       <Style>
                         <FontFamily>Angsana New</FontFamily>
                         <FontSize>14pt</FontSize>
@@ -1456,7 +1454,6 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox119</rd:DefaultName>
-              <Left>0cm</Left>
               <Height>0.6cm</Height>
               <Width>7.58001cm</Width>
               <ZIndex>5</ZIndex>
