@@ -67,6 +67,15 @@ namespace SerialPortListener
             getSettingDefault();
 
             _spManager.StartListening();
+
+            timerWeight.Interval = 5000; // 5 seconds
+            timerWeight.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            _spManager.StopListening();
+            _spManager.StartListening();
         }
 
         public void getSettingDefault()
@@ -570,7 +579,7 @@ namespace SerialPortListener
                 return;
             }
 
-            int maxTextLength = 1000; // maximum text length in text box
+            int maxTextLength = 50; // maximum text length in text box
             if (tbData.TextLength > maxTextLength)
                 tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
 
@@ -2150,6 +2159,7 @@ namespace SerialPortListener
             tbCarTeam.AutoCompleteCustomSource = collCarTeam;  
         }
 
+        //timer old Tick 18-08-2025
         private void timerWeight_Tick(object sender, EventArgs e)
         {
             tbWeigtData.Text = tbWeigtData.Text;
