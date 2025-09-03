@@ -14,7 +14,7 @@
                   <Paragraph>
                     <TextRuns>
                       <TextRun>
-                        <Value>=Parameters!PCompanyName.Value</Value>
+                        <Value>บริษัท โชคพนาไมนิ่ง จำกัด</Value>
                         <Style>
                           <FontFamily>Yu Gothic UI Semilight</FontFamily>
                           <FontSize>12pt</FontSize>
@@ -28,10 +28,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PCompanyName</rd:DefaultName>
-                <Top>0.77772cm</Top>
+                <Top>0.43389cm</Top>
                 <Left>2.20816cm</Left>
                 <Height>0.71466cm</Height>
-                <Width>6.94057cm</Width>
+                <Width>6.79946cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2152,6 +2152,42 @@
                 <Height>0.25in</Height>
                 <Width>1.07712in</Width>
                 <ZIndex>68</ZIndex>
+                <Style>
+                  <Border>
+                    <Style>None</Style>
+                  </Border>
+                  <PaddingLeft>2pt</PaddingLeft>
+                  <PaddingRight>2pt</PaddingRight>
+                  <PaddingTop>2pt</PaddingTop>
+                  <PaddingBottom>2pt</PaddingBottom>
+                </Style>
+              </Textbox>
+              <Textbox Name="PCompanyName2">
+                <CanGrow>true</CanGrow>
+                <KeepTogether>true</KeepTogether>
+                <Paragraphs>
+                  <Paragraph>
+                    <TextRuns>
+                      <TextRun>
+                        <Value>สาขาที่ 00008</Value>
+                        <Style>
+                          <FontFamily>Yu Gothic UI Semilight</FontFamily>
+                          <FontSize>12pt</FontSize>
+                          <FontWeight>Bold</FontWeight>
+                        </Style>
+                      </TextRun>
+                    </TextRuns>
+                    <Style>
+                      <TextAlign>Center</TextAlign>
+                    </Style>
+                  </Paragraph>
+                </Paragraphs>
+                <rd:DefaultName>PCompanyName</rd:DefaultName>
+                <Top>1.06918cm</Top>
+                <Left>2.20816cm</Left>
+                <Height>0.71466cm</Height>
+                <Width>6.79946cm</Width>
+                <ZIndex>69</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
