@@ -2173,7 +2173,7 @@
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Top>0.6cm</Top>
               <Height>0.6cm</Height>
-              <Width>5.76728cm</Width>
+              <Width>11.33976cm</Width>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2198,34 +2198,14 @@
                         <FontWeight>Bold</FontWeight>
                       </Style>
                     </TextRun>
-                  </TextRuns>
-                  <Style>
-                    <TextAlign>Right</TextAlign>
-                  </Style>
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>PDateFrom</rd:DefaultName>
-              <Top>0.6cm</Top>
-              <Left>5.76728cm</Left>
-              <Height>0.6cm</Height>
-              <Width>5.57248cm</Width>
-              <ZIndex>1</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="PDateTo">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
+                    <TextRun>
+                      <Value> - </Value>
+                      <Style>
+                        <FontFamily>Angsana New</FontFamily>
+                        <FontSize>16pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
                     <TextRun>
                       <Value>=Parameters!PDateTo.Value</Value>
                       <Style>
@@ -2235,50 +2215,17 @@
                       </Style>
                     </TextRun>
                   </TextRuns>
-                  <Style />
-                </Paragraph>
-              </Paragraphs>
-              <rd:DefaultName>PDateTo</rd:DefaultName>
-              <Top>0.6cm</Top>
-              <Left>14.14373cm</Left>
-              <Height>0.6cm</Height>
-              <Width>3.43813cm</Width>
-              <ZIndex>2</ZIndex>
-              <Style>
-                <Border>
-                  <Style>None</Style>
-                </Border>
-                <PaddingLeft>2pt</PaddingLeft>
-                <PaddingRight>2pt</PaddingRight>
-                <PaddingTop>2pt</PaddingTop>
-                <PaddingBottom>2pt</PaddingBottom>
-              </Style>
-            </Textbox>
-            <Textbox Name="Textbox54">
-              <CanGrow>true</CanGrow>
-              <KeepTogether>true</KeepTogether>
-              <Paragraphs>
-                <Paragraph>
-                  <TextRuns>
-                    <TextRun>
-                      <Value>-</Value>
-                      <Style>
-                        <FontFamily>Angsana New</FontFamily>
-                        <FontSize>16pt</FontSize>
-                      </Style>
-                    </TextRun>
-                  </TextRuns>
                   <Style>
-                    <TextAlign>Center</TextAlign>
+                    <TextAlign>Left</TextAlign>
                   </Style>
                 </Paragraph>
               </Paragraphs>
-              <rd:DefaultName>Textbox54</rd:DefaultName>
+              <rd:DefaultName>PDateFrom</rd:DefaultName>
               <Top>0.6cm</Top>
               <Left>11.33976cm</Left>
               <Height>0.6cm</Height>
-              <Width>2.80397cm</Width>
-              <ZIndex>3</ZIndex>
+              <Width>6.2421cm</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2312,7 +2259,7 @@
               <Left>17.58186cm</Left>
               <Height>0.6cm</Height>
               <Width>2.34124cm</Width>
-              <ZIndex>4</ZIndex>
+              <ZIndex>2</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2330,7 +2277,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>บริษัท โชคพนาไมนิ่ง จำกัด สาขาที่ 00008</Value>
+                      <Value>บริษัท โชคพนาไมนิ่ง จำกัด (เหมืองแร่คุณธวัช)</Value>
                       <Style>
                         <FontFamily>Angsana New</FontFamily>
                         <FontSize>14pt</FontSize>
@@ -2343,8 +2290,8 @@
               </Paragraphs>
               <rd:DefaultName>Textbox1</rd:DefaultName>
               <Height>0.6cm</Height>
-              <Width>5.76728cm</Width>
-              <ZIndex>5</ZIndex>
+              <Width>11.33976cm</Width>
+              <ZIndex>3</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -2387,6 +2334,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox3</rd:DefaultName>
+              <Top>0cm</Top>
               <Height>0.6cm</Height>
               <Width>19.9231cm</Width>
               <Style>
