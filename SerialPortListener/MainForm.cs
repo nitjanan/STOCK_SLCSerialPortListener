@@ -22,6 +22,7 @@ namespace SerialPortListener
     public partial class MainForm : Form
     {
         SerialPortManager _spManager;
+        private System.Windows.Forms.Timer _noDataTimer;
         Datalayer dl;
         String strCalQ = "1.00";
         AutoCompleteStringCollection collCarTeam = new AutoCompleteStringCollection();
@@ -553,62 +554,82 @@ namespace SerialPortListener
             _spManager.NewSerialDataRecieved += new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
+            // --- Timer setup ---
+            _noDataTimer = new System.Windows.Forms.Timer();
+            _noDataTimer.Interval = 1500; // 1.5 seconds timeout
+            _noDataTimer.Tick += (s, e) =>
+            {
+                tbWeigtData.Text = "Error";
+                tbWeigtData.ForeColor = Color.DarkRed;
+                _noDataTimer.Stop(); // stop until next valid data
+            };
         }
 
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            _noDataTimer?.Dispose();
             _spManager.Dispose();
         }
 
         void _spManager_NewSerialDataRecieved(object sender, SerialDataEventArgs e)
         {
-            if (this.InvokeRequired)
-            {
-                // Using this.Invoke causes deadlock when closing serial port, and BeginInvoke is good practice anyway.
-                this.BeginInvoke(new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved), new object[] { sender, e });
-                return;
-            }
 
-            int maxTextLength = 1000; // maximum text length in text box
-            if (tbData.TextLength > maxTextLength)
-                tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
-
-            // This application is connected to a GPS sending ASCCI characters, so data is converted to text
-            string str = Encoding.ASCII.GetString(e.Data);
-            tbData.AppendText(str);
-            tbData.ScrollToCaret();
-
-            try
-            {
-                //แสดงเลขน้ำหนักที่กำลังวิ่ง
-
-
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(",Kg"));
-                string remainingText = newString.Substring(newString.LastIndexOf("ST,GS,"));
-
-                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-
-                if (mc.Count > 0)
+                if (this.InvokeRequired)
                 {
-                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    this.BeginInvoke(new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved), new object[] { sender, e });
+                    return;
+                }
+
+                try
+                {
+                    int maxTextLength = 500; // maximum text length in text box
+                    if (tbData.TextLength > maxTextLength)
+                        tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
+
+                    // This application is connected to a GPS sending ASCCI characters, so data is converted to text
+                    string str = Encoding.ASCII.GetString(e.Data);
+                    tbData.AppendText(str);
+                    tbData.ScrollToCaret();
+
+
+                    //แสดงเลขน้ำหนักที่กำลังวิ่ง
+
+
+                    string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(",Kg"));
+                    string remainingText = newString.Substring(newString.LastIndexOf("ST,GS,"));
+
+                    MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+
+
+                    if (mc.Count > 0)
                     {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                        //tbWeigtData.ForeColor = Color.LightCoral;
+                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                        {
+                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                        }
+                        else
+                        {
+                            tbWeigtData.ForeColor = Color.LightGreen;
+                        }
+
+                        // ✅ Restart timeout timer
+                        _noDataTimer.Stop();
+                        _noDataTimer.Start();
                     }
                     else
                     {
-                        tbWeigtData.ForeColor = Color.LightGreen;
+                        tbWeigtData.Text = "Error";
+                        tbWeigtData.ForeColor = Color.DarkRed;
                     }
-
                 }
-            }
-            catch (Exception ex)
-            {
-                tbWeigtData.Text = "Error";
-                tbWeigtData.ForeColor = Color.DarkRed;
-            }
+                catch (Exception ex)
+                {
+                    // When port is closed or error occurs
+                    tbWeigtData.Text = "Error";
+                    tbWeigtData.ForeColor = Color.DarkRed;
+                }
+
 
         }
 
