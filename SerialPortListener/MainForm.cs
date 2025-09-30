@@ -606,7 +606,8 @@ namespace SerialPortListener
             }
             catch (Exception ex)
             {
-
+                tbWeigtData.Text = "Error";
+                tbWeigtData.ForeColor = Color.DarkRed;
             }
 
         }
