@@ -196,6 +196,8 @@ namespace SerialPortListener
             calculatenumQ();
 
             disableBtAfterRead(0);
+            if (Globals.isPermissionTop())
+                disableBtAfterRead(3);
 
             //if user admin enable all 
             if (Globals.isPermissionEditWeight())
@@ -663,7 +665,8 @@ namespace SerialPortListener
                 tbCarLicenseId.Enabled = true;
                 tbCarCity.Enabled = true;
 
-                tbWeightIn.Enabled = true;
+                //ที่กงตาก เปิดคีย์ได้
+                tbWeightIn.Enabled = false;
             }
             else if (mode.Equals(1))
             {
@@ -690,6 +693,11 @@ namespace SerialPortListener
                 tbWeightOut.Enabled = false;
                 tbWeightTotal.Enabled = false;
                 tbQ.Enabled = false;
+            }
+            if (mode.Equals(3))
+            {
+                tbWeightIn.Enabled = true;
+                tbWeightOut.Enabled = true;
             }
             else if (mode.Equals(4))//disable all
             {
