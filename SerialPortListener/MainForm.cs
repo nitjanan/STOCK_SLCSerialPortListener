@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -66,7 +66,8 @@ namespace SerialPortListener
 
             getSettingDefault();
 
-            _spManager.StartListening();
+            // Default COM port reader to stop state on program launch
+            // _spManager.StartListening();
         }
 
         public void getSettingDefault()
@@ -549,6 +550,8 @@ namespace SerialPortListener
             parityComboBox.DataSource = Enum.GetValues(typeof(System.IO.Ports.Parity));
             stopBitsComboBox.DataSource = Enum.GetValues(typeof(System.IO.Ports.StopBits));
             */
+
+            ucHelp.SetSerialPortManager(_spManager);
 
             _spManager.NewSerialDataRecieved += new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
