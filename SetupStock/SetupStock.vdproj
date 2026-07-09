@@ -135,12 +135,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_63DA6EEDAD9C666709FACEAACCA9B4E9"
-        "OwnerKey" = "8:_493165952E14036857B00E3FAF9D9DBD"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_656649A7E4236776C803F5D60D7FF4A5"
         "OwnerKey" = "8:_C352328718C74B0D8F9A42BB50C8FD62"
         "MsmSig" = "8:_UNDEFINED"
@@ -340,12 +334,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F043E19591361DD5AE18CB8214CA2D4F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_C352328718C74B0D8F9A42BB50C8FD62"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -457,6 +445,12 @@
         "OwnerKey" = "8:_4A4380C6739EF10DC627E26016564E2A"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F043E19591361DD5AE18CB8214CA2D4F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -475,6 +469,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -491,6 +493,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -1235,7 +1245,7 @@
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:SetupStock_Exp"
+        "ProductName" = "8:SetupStock_DOExp"
         "ProductCode" = "8:{62B3E74C-D0E9-4D5B-A94C-354FC2887BCC}"
         "PackageCode" = "8:{870457F5-CE18-4498-94B1-BA5906D99C4A}"
         "UpgradeCode" = "8:{ADE06BC1-F2B8-4E22-BAD1-992C205BF2EA}"
@@ -1248,7 +1258,7 @@
         "Manufacturer" = "8:Userpc"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:SetupStock_Exp"
+        "Title" = "8:SetupStock_DOExp"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Userpc"
         "Keywords" = "8:"
