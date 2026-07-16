@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -53,6 +53,12 @@ namespace SerialPortListener.Serial
             set { _currentSerialSettings = value; }
         }
 
+        private bool _isListening = false;
+        public bool IsListening
+        {
+            get { return _isListening; }
+        }
+
         #endregion
 
         #region Event handlers
@@ -89,6 +95,7 @@ namespace SerialPortListener.Serial
         /// </summary>
         public void StartListening()
         {
+            _isListening = true;
             // Closing serial port if it is open
             if (_serialPort != null && _serialPort.IsOpen)
                     _serialPort.Close();
@@ -118,7 +125,11 @@ namespace SerialPortListener.Serial
         /// </summary>
         public void StopListening()
         {
-            _serialPort.Close();
+            _isListening = false;
+            if (_serialPort != null)
+            {
+                _serialPort.Close();
+            }
         }
 
 
@@ -145,17 +156,36 @@ namespace SerialPortListener.Serial
         // Part of basic design pattern for implementing Dispose
         protected virtual void Dispose(bool disposing)
         {
-            if (disposing)
+            try
             {
-                _serialPort.DataReceived -= new SerialDataReceivedEventHandler(_serialPort_DataReceived);
+                if (disposing && _serialPort != null)
+                {
+                    _serialPort.DataReceived -= new SerialDataReceivedEventHandler(_serialPort_DataReceived);
+                }
             }
-            // Releasing serial port (and other unmanaged objects)
-            if (_serialPort != null)
+            catch (Exception)
             {
-                if (_serialPort.IsOpen)
-                    _serialPort.Close();
+                // Ignore errors on unsubscription
+            }
 
-                _serialPort.Dispose();
+            try
+            {
+                // Releasing serial port (and other unmanaged objects)
+                if (_serialPort != null)
+                {
+                    if (_serialPort.IsOpen)
+                        _serialPort.Close();
+
+                    _serialPort.Dispose();
+                }
+            }
+            catch (Exception)
+            {
+                // Ignore errors when closing/disposing the serial port
+            }
+            finally
+            {
+                _serialPort = null;
             }
         }
 

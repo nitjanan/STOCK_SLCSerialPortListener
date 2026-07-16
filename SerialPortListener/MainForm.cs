@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -67,7 +67,20 @@ namespace SerialPortListener
 
             getSettingDefault();
 
-            _spManager.StartListening();
+            // Default COM port reader to stop state on program launch
+            // _spManager.StartListening();
+
+            timerWeight.Interval = 5000; // 5 seconds
+            timerWeight.Tick += Timer_Tick;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            if (_spManager.IsListening)
+            {
+                _spManager.StopListening();
+                _spManager.StartListening();
+            }
         }
 
         public void getSettingDefault()
@@ -551,6 +564,8 @@ namespace SerialPortListener
             stopBitsComboBox.DataSource = Enum.GetValues(typeof(System.IO.Ports.StopBits));
             */
 
+            ucHelp.SetSerialPortManager(_spManager);
+
             _spManager.NewSerialDataRecieved += new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
@@ -629,7 +644,6 @@ namespace SerialPortListener
                     tbWeigtData.Text = "Error";
                     tbWeigtData.ForeColor = Color.DarkRed;
                 }
-
 
         }
 
@@ -2172,6 +2186,7 @@ namespace SerialPortListener
             tbCarTeam.AutoCompleteCustomSource = collCarTeam;  
         }
 
+        //timer old Tick 18-08-2025
         private void timerWeight_Tick(object sender, EventArgs e)
         {
             tbWeigtData.Text = tbWeigtData.Text;

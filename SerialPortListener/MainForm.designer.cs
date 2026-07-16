@@ -177,11 +177,11 @@
             this.tbData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbData.Location = new System.Drawing.Point(1139, 262);
+            this.tbData.Location = new System.Drawing.Point(1139, 196);
             this.tbData.Multiline = true;
             this.tbData.Name = "tbData";
             this.tbData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbData.Size = new System.Drawing.Size(59, 77);
+            this.tbData.Size = new System.Drawing.Size(59, 143);
             this.tbData.TabIndex = 13;
             this.tbData.Visible = false;
             // 
@@ -614,7 +614,7 @@
             this.rbMill1.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbMill1.Location = new System.Drawing.Point(6, 15);
             this.rbMill1.Name = "rbMill1";
-            this.rbMill1.Size = new System.Drawing.Size(81, 29);
+            this.rbMill1.Size = new System.Drawing.Size(84, 29);
             this.rbMill1.TabIndex = 18;
             this.rbMill1.Text = "โรงโม่ 1";
             this.rbMill1.UseVisualStyleBackColor = false;
@@ -628,7 +628,7 @@
             this.rbMill2.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbMill2.Location = new System.Drawing.Point(91, 15);
             this.rbMill2.Name = "rbMill2";
-            this.rbMill2.Size = new System.Drawing.Size(81, 29);
+            this.rbMill2.Size = new System.Drawing.Size(84, 29);
             this.rbMill2.TabIndex = 19;
             this.rbMill2.Text = "โรงโม่ 2";
             this.rbMill2.UseVisualStyleBackColor = false;
@@ -778,7 +778,7 @@
             this.label12.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.Location = new System.Drawing.Point(40, 60);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(100, 26);
+            this.label12.Size = new System.Drawing.Size(99, 26);
             this.label12.TabIndex = 64;
             this.label12.Text = "น้ำหนักเข้า";
             // 
@@ -1136,7 +1136,7 @@
             this.rbMill3.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbMill3.Location = new System.Drawing.Point(178, 15);
             this.rbMill3.Name = "rbMill3";
-            this.rbMill3.Size = new System.Drawing.Size(81, 29);
+            this.rbMill3.Size = new System.Drawing.Size(84, 29);
             this.rbMill3.TabIndex = 20;
             this.rbMill3.Text = "โรงโม่ 3";
             this.rbMill3.UseVisualStyleBackColor = false;
@@ -1164,7 +1164,7 @@
             this.rbTrans.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbTrans.Location = new System.Drawing.Point(129, 11);
             this.rbTrans.Name = "rbTrans";
-            this.rbTrans.Size = new System.Drawing.Size(71, 25);
+            this.rbTrans.Size = new System.Drawing.Size(73, 25);
             this.rbTrans.TabIndex = 14;
             this.rbTrans.Text = "เงินโอน";
             this.rbTrans.UseVisualStyleBackColor = false;
@@ -1373,7 +1373,6 @@
             // timerWeight
             // 
             this.timerWeight.Interval = 1000;
-            this.timerWeight.Tick += new System.EventHandler(this.timerWeight_Tick);
             // 
             // tbWeigtData
             // 
@@ -1549,7 +1548,7 @@
             this.rbWeightIn.ForeColor = System.Drawing.Color.DarkGreen;
             this.rbWeightIn.Location = new System.Drawing.Point(876, 60);
             this.rbWeightIn.Name = "rbWeightIn";
-            this.rbWeightIn.Size = new System.Drawing.Size(85, 32);
+            this.rbWeightIn.Size = new System.Drawing.Size(84, 32);
             this.rbWeightIn.TabIndex = 126;
             this.rbWeightIn.TabStop = true;
             this.rbWeightIn.Text = "ชั่งเข้า";
