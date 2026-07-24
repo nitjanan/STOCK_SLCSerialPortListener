@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,6 +25,8 @@ namespace SerialPortListener
     public partial class MainForm : Form
     {
         SerialPortManager _spManager;
+        private readonly object _rxLock = new object();
+        private StringBuilder _rxBuffer = new StringBuilder();
         Datalayer dl;
         String strCalQ = "1.00";
         AutoCompleteStringCollection collCarTeam = new AutoCompleteStringCollection();
@@ -40,6 +42,12 @@ namespace SerialPortListener
         bool isCheckedCleanNo = false;
         bool isCheckedSelfPick = false;
         bool isCheckedSendTo = false;
+
+        // Populated by getSettingDefault(); reused by fillStoneCombo/fillMillCombo/fillSiteCombo
+        // so the combo boxes and the id/name autocomplete boxes don't each re-query the same table.
+        List<ComboboxValue> _stoneTypeCache;
+        List<ComboboxValue> _millCache;
+        List<ComboboxValue> _siteCache;
 
         class ComboboxValue
         {
@@ -77,6 +85,14 @@ namespace SerialPortListener
             this.Load += async (s, e) => await CheckForUpdateAsync(silent: true);
 
             // _spManager.StartListening();
+
+            // Throttles UI updates from incoming serial data instead of restarting the port
+            // (Tick handler already wired up in InitializeComponent())
+            timerWeight.Interval = 200;
+
+            // Start/Stop is controlled from ucHelp, which shares this MainForm's _spManager.
+            // The tick handler no-ops when the buffer is empty, so it's safe to run always.
+            timerWeight.Start();
         }
 
         // ปุ่ม "ตรวจสอบอัพเดท" อยู่ที่ ucBackup ; MainForm รับ event มาทำงานเพราะ logic ต้องใช้ dl, findBWS(), GetJwtToken()
@@ -291,40 +307,31 @@ namespace SerialPortListener
             lbCompanyCode.Text = Company.Code;
 
             /* autoComplete ผู้ตัก */
-            autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
-            autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
+            autoCompleteSettingPair(tbScoopId, "รหัสผู้ตัก", tbScoopName, "ชื่อผู้ตัก", "base_scoop", "where company = '" + Company.Code + "'");
 
             /* autoComplete ผู้ชั่ง */
-            autoCompleteSetting(tbScaleId, "username", "users");
-            autoCompleteSetting(tbScaleName, "firstname", "users");
+            autoCompleteSettingPair(tbScaleId, "username", tbScaleName, "firstname", "users", "");
 
             /* autoComplete ผู้อนุมัติ */
-            autoCompleteSetting(tbApproveId, "รหัสผู้อนุมัติจ่าย", "base_approve");
-            autoCompleteSetting(tbApproveName, "ชื่อผู้อนุมัติจ่าย", "base_approve");
+            autoCompleteSettingPair(tbApproveId, "รหัสผู้อนุมัติจ่าย", tbApproveName, "ชื่อผู้อนุมัติจ่าย", "base_approve", "");
 
             /* autoComplete จังหวัด */
             autoCompleteSetting(tbCarCity, "ชื่อจังหวัด", "base_car_city");
 
             /* autoComplete ลูกค้า */
-            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
-            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+            autoCompleteSettingPair(tbCustomerId, "รหัสลูกค้า", tbCustomerName, "ชื่อลูกค้า", "base_customer", "where weight_type = 2 or weight_type = 3");
 
             /* autoComplete ผู้ขับ */
-            autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
-            autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
+            autoCompleteSettingPair(tbDriverId, "รหัสผู้ขับ", tbDriverName, "ชื่อผู้ขับ", "base_driver", "where company = '" + Company.Code + "'");
 
-            autoCompleteSettingByWeightType(tbMillId, "รหัสโรงโม่", "base_mill");
-            autoCompleteSettingByWeightType(tbMillName, "ชื่อโรงโม่", "base_mill");
+            autoCompleteSettingPair(tbMillId, "รหัสโรงโม่", tbMillName, "ชื่อโรงโม่", "base_mill", "where weight_type = 2 or weight_type = 3", rows => _millCache = rows);
 
-            autoCompleteSettingByWeightType(tbSiteId, "base_site_id", "base_site");
-            autoCompleteSettingByWeightType(tbSiteName, "base_site_name", "base_site");
+            autoCompleteSettingPair(tbSiteId, "base_site_id", tbSiteName, "base_site_name", "base_site", "where weight_type = 2 or weight_type = 3", rows => _siteCache = rows);
 
-            autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
-            autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
+            autoCompleteSettingPair(tbStoneTypeId, "รหัสหิน", tbStoneTypeName, "ชื่อหิน", "base_stone_type", "where inactive = false", rows => _stoneTypeCache = rows);
 
             /* autoComplete ทะเบียนรถ */
-            autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
-            autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
+            autoCompleteSettingPair(tbCarLicenseId, "รหัสทะเบียนรถ", tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration", "where company = '" + Company.Code + "'");
 
             Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
 
@@ -512,6 +519,11 @@ namespace SerialPortListener
             //เพิ่ม combobox
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT * FROM public.base_stone_type where inactive = false ";
+            if (_stoneTypeCache != null)
+            {
+                cbbStoneType.Items.AddRange(_stoneTypeCache.ToArray());
+                return;
+            }
             try
             {
                 dl.connect();
@@ -532,6 +544,11 @@ namespace SerialPortListener
         {
             //ล้างก่อน
             cbbMill.Items.Clear();
+            if (_millCache != null)
+            {
+                cbbMill.Items.AddRange(_millCache.ToArray());
+                return;
+            }
             //เพิ่ม combobox
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT * FROM public.base_mill where weight_type = 2 or weight_type = 3";
@@ -557,6 +574,11 @@ namespace SerialPortListener
         {
             //ล้างก่อน
             cbbSite.Items.Clear();
+            if (_siteCache != null)
+            {
+                cbbSite.Items.AddRange(_siteCache.ToArray());
+                return;
+            }
             //เพิ่ม combobox
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT base_site_id, base_site_name FROM public.base_site where weight_type = 2 or weight_type = 3";
@@ -783,66 +805,21 @@ namespace SerialPortListener
             }
         }
 
+        // Runs on the SerialPort's background thread. Only buffers data - no UI access here,
+        // so a burst of fast-arriving data can't flood the UI thread's Invoke queue.
         void _spManager_NewSerialDataRecieved(object sender, SerialDataEventArgs e)
         {
-            if (this.InvokeRequired)
-            {
-                // Using this.Invoke causes deadlock when closing serial port, and BeginInvoke is good practice anyway.
-                this.BeginInvoke(new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved), new object[] { sender, e });
-                return;
-            }
-
-            int maxTextLength = 1000; // maximum text length in text box
-            if (tbData.TextLength > maxTextLength)
-                tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
-
-            // This application is connected to a GPS sending ASCCI characters, so data is converted to text
-            string str = Encoding.ASCII.GetString(e.Data);
-            tbData.AppendText(str);
-            tbData.ScrollToCaret();
-
             try
             {
-                //แสดงเลขน้ำหนักที่กำลังวิ่ง
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
-
-                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-                if (mc.Count > 0)
+                string str = Encoding.ASCII.GetString(e.Data);
+                lock (_rxLock)
                 {
-                    if (mc.Count > 0)
-                    {
-                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                        {
-                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                            //tbWeigtData.ForeColor = Color.LightCoral;
-                        }
-                        else
-                        {
-                            tbWeigtData.ForeColor = Color.LightGreen;
-                        }
-                    }
-
+                    _rxBuffer.Append(str);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
             }
-
-        }
-
-        // Handles the "Start Listening"-buttom click event
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            _spManager.StartListening();
-        }
-
-        // Handles the "Stop Listening"-buttom click event
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            _spManager.StopListening();
         }
 
         private void btRead_Click(object sender, EventArgs e)
@@ -1712,6 +1689,51 @@ namespace SerialPortListener
             dl.close();
         }
 
+        /* Fills two autocomplete textboxes (id + name) from a single query/connection instead of two,
+         * since the previous code ran the same "SELECT * FROM table [where]" twice just to split out one column each time. */
+        private void autoCompleteSettingPair(TextBox tbId, string fieldId, TextBox tbName, string fieldName, string tableName, string whereClause, Action<List<ComboboxValue>> onRow)
+        {
+            tbId.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tbId.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            tbName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tbName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            AutoCompleteStringCollection collId = new AutoCompleteStringCollection();
+            AutoCompleteStringCollection collName = new AutoCompleteStringCollection();
+            List<ComboboxValue> rowCache = onRow != null ? new List<ComboboxValue>() : null;
+
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT * FROM public." + tableName + (string.IsNullOrEmpty(whereClause) ? "" : " " + whereClause);
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    string idVal = reader[fieldId].ToString();
+                    string nameVal = reader[fieldName].ToString();
+                    collId.Add(idVal);
+                    collName.Add(nameVal);
+                    rowCache?.Add(new ComboboxValue(idVal, nameVal));
+                }
+            }
+            catch (Exception)
+            {
+            }
+            tbId.AutoCompleteCustomSource = collId;
+            tbName.AutoCompleteCustomSource = collName;
+            dl.close();
+
+            if (rowCache != null)
+                onRow(rowCache);
+        }
+
+        // overload without row-capture callback, used where the combo cache isn't needed
+        private void autoCompleteSettingPair(TextBox tbId, string fieldId, TextBox tbName, string fieldName, string tableName, string whereClause)
+        {
+            autoCompleteSettingPair(tbId, fieldId, tbName, fieldName, tableName, whereClause, null);
+        }
+
         private void tbCustomerName_TextChanged(object sender, EventArgs e)
         {
             //customerNameTextChanged();
@@ -2378,9 +2400,93 @@ namespace SerialPortListener
             tbCarTeam.AutoCompleteCustomSource = collCarTeam;  
         }
 
+        // Runs on the UI thread on a fixed interval, draining whatever arrived since the
+        // last tick in one go and updating the UI once, instead of once per DataReceived event.
         private void timerWeight_Tick(object sender, EventArgs e)
         {
-            tbWeigtData.Text = tbWeigtData.Text;
+            string pending;
+            lock (_rxLock)
+            {
+                if (_rxBuffer.Length == 0)
+                    return;
+                pending = _rxBuffer.ToString();
+                _rxBuffer.Clear();
+            }
+
+            int maxTextLength = 50; // maximum text length in text box
+            if (tbData.TextLength > maxTextLength)
+                tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
+
+            // This application is connected to a GPS sending ASCCI characters, so data is converted to text
+            tbData.AppendText(pending);
+            tbData.ScrollToCaret();
+
+            /*
+            try
+            {
+                //แสดงเลขน้ำหนักที่กำลังวิ่ง
+                //JOB ขาออก (เครื่องแม่)
+                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(""));
+                string remainingText = newString.Substring(newString.LastIndexOf("q"));
+
+                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+
+                if (mc.Count > 0)
+                {
+                    if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
+                    {
+                        string tmp = mc[0].Value;
+                        tbWeigtData.Text = tmp.Remove(tmp.Length - 1);
+                    }
+                    else if (Int32.Parse(mc[0].Value) < 10)
+                    {
+                        tbWeigtData.Text = "0";
+                    }
+                    else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    {
+                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            */
+
+            
+            // JOB ขาเข้า และ  New ล่างสุด 13-08-2025 และ ผลิต
+            try
+            {
+                //แสดงเลขน้ำหนักที่กำลังวิ่ง
+                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
+                string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
+
+                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+
+
+                if (mc.Count > 0)
+                {
+                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    {
+                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                        //tbWeigtData.ForeColor = Color.LightCoral;
+                    }
+                    else
+                    {
+                        tbWeigtData.ForeColor = Color.LightGreen;
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+
         }
 
         private Boolean checkCancelAction()
@@ -2728,7 +2834,7 @@ namespace SerialPortListener
             clickWeightIn();
         }
 
-        private void clickWeightIn() 
+        private void clickWeightIn()
         {
             ucTruck.BringToFront();
             ucTruck.Show();
