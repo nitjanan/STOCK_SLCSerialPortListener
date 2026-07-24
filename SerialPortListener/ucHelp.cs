@@ -24,6 +24,10 @@ namespace SerialPortListener
         }
         private SerialPortListener.Serial.SerialPortManager _spManager;
 
+        private readonly object _rxLock = new object();
+        private StringBuilder _rxBuffer = new StringBuilder();
+        private const int MaxRxTextLength = 2000;
+
         public ucHelp()
         {
             InitializeComponent();
@@ -106,21 +110,47 @@ namespace SerialPortListener
             _spManager.NewSerialDataRecieved += _spManager_NewSerialDataRecieved;
         }
 
+        // Runs on the SerialPort's background thread. Only buffers data - no UI access here,
+        // so a burst of fast-arriving data can't flood the UI thread's Invoke queue.
         private void _spManager_NewSerialDataRecieved(object sender, SerialPortListener.Serial.SerialDataEventArgs e)
         {
-            if (this.InvokeRequired)
+            try
             {
-                this.BeginInvoke(new EventHandler<SerialPortListener.Serial.SerialDataEventArgs>(_spManager_NewSerialDataRecieved), new object[] { sender, e });
-                return;
+                string str = System.Text.Encoding.ASCII.GetString(e.Data);
+                lock (_rxLock)
+                {
+                    _rxBuffer.Append(str);
+                }
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        // Runs on the UI thread on a fixed interval, draining whatever arrived since the last
+        // tick in one go, instead of once per DataReceived event.
+        private void timerRx_Tick(object sender, EventArgs e)
+        {
+            string pending;
+            lock (_rxLock)
+            {
+                if (_rxBuffer.Length == 0)
+                    return;
+                pending = _rxBuffer.ToString();
+                _rxBuffer.Clear();
             }
 
-            int maxTextLength = 2000; // maximum text length in text box
-            if (txtDataReceived.TextLength > maxTextLength)
-                txtDataReceived.Text = txtDataReceived.Text.Remove(0, txtDataReceived.TextLength - maxTextLength);
-
-            string str = System.Text.Encoding.ASCII.GetString(e.Data);
-            txtDataReceived.AppendText(str);
-            txtDataReceived.ScrollToCaret();
+            try
+            {
+                txtDataReceived.AppendText(pending);
+                if (txtDataReceived.TextLength > MaxRxTextLength)
+                    txtDataReceived.Text = txtDataReceived.Text.Remove(0, txtDataReceived.TextLength - MaxRxTextLength);
+                txtDataReceived.SelectionStart = txtDataReceived.Text.Length;
+                txtDataReceived.ScrollToCaret();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void btnStart_Click(object sender, EventArgs e)
@@ -130,6 +160,7 @@ namespace SerialPortListener
                 try
                 {
                     _spManager.StartListening();
+                    timerRx.Start();
                 }
                 catch (Exception ex)
                 {
@@ -145,6 +176,7 @@ namespace SerialPortListener
                 try
                 {
                     _spManager.StopListening();
+                    timerRx.Stop();
                 }
                 catch (Exception ex)
                 {
