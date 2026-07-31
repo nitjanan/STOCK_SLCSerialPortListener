@@ -105,6 +105,9 @@
     <Reference Include="System">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Device" />
     <Reference Include="System.Xml.Linq" />
@@ -167,6 +170,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>cleanDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="AppUpdateService.cs" />
     <Compile Include="Company.cs" />
     <Compile Include="customerDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
