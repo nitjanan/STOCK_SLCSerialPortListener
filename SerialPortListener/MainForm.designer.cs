@@ -1751,7 +1751,7 @@
             // serialSettingsBindingSource
             // 
             this.serialSettingsBindingSource.DataSource = typeof(SerialPortListener.Serial.SerialSettings);
-            // 
+            //
             // tbStoneTypeName
             // 
             this.tbStoneTypeName.Anchor = System.Windows.Forms.AnchorStyles.None;
