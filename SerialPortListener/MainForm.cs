@@ -68,6 +68,7 @@ namespace SerialPortListener
 
             // Default COM port reader to stop state on program launch
             SetupCheckUpdateButton();
+            ucBackup.CheckUpdateRequested += BtnCheckUpdate_Click;
 
             // เช็คอัพเดทแบบเงียบตอนเปิดโปรแกรม — ถ้าเชื่อมต่อ Server ไม่ได้ต้องไม่ทำให้ฟอร์มเปิดไม่ขึ้น
             // ใช้ BeginInvoke ให้รันหลังจากฟอร์มแสดงผลเสร็จแล้ว และไม่ await ใน constructor (fire-and-forget)
@@ -76,33 +77,17 @@ namespace SerialPortListener
             // _spManager.StartListening();
         }
 
-        // ปุ่มเช็คอัพเดทโปรแกรม เพิ่มแบบ dynamic ไม่แตะ Designer.cs
-        private Button btnCheckUpdate;
-
-        private void SetupCheckUpdateButton()
-        {
-            btnCheckUpdate = new Button
-            {
-                Text = "ตรวจสอบอัพเดท",
-                AutoSize = true,
-                Anchor = AnchorStyles.Top | AnchorStyles.Right,
-                Location = new System.Drawing.Point(this.ClientSize.Width - 100, 5)
-            };
-            btnCheckUpdate.Click += BtnCheckUpdate_Click;
-            this.Controls.Add(btnCheckUpdate);
-            btnCheckUpdate.BringToFront();
-        }
-
+        // ปุ่ม "ตรวจสอบอัพเดท" อยู่ที่ ucBackup ; MainForm รับ event มาทำงานเพราะ logic ต้องใช้ dl, findBWS(), GetJwtToken()
         private async void BtnCheckUpdate_Click(object sender, EventArgs e)
         {
-            btnCheckUpdate.Enabled = false;
+            ucBackup.CheckUpdateButtonEnabled = false;
             try
             {
                 await CheckForUpdateAsync(silent: false);
             }
             finally
             {
-                btnCheckUpdate.Enabled = true;
+                ucBackup.CheckUpdateButtonEnabled = true;
             }
         }
 
@@ -2876,7 +2861,7 @@ namespace SerialPortListener
             }
         }
 
-        private void btRefresh_Click(object sender, EventArgs e)
+        private async void btRefresh_Click(object sender, EventArgs e)
         {
             /* autoComplete ผู้ตัก */
             autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
@@ -2904,7 +2889,7 @@ namespace SerialPortListener
             autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
             autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
 
-            Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
+            setautoCompleteCustomer("รหัสลูกค้า", "ชื่อลูกค้า", "base_customer");
 
             //fillStoneCombo();
             //fillMillCombo();
