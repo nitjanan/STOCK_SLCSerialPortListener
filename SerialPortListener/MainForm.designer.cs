@@ -298,7 +298,7 @@
             this.btMenu5.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btMenu5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btMenu5.Font = new System.Drawing.Font("Century Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btMenu5.Image = global::SerialPortListener.Properties.Resources.data_backup_32px;
+            this.btMenu5.Image = global::SerialPortListener.Properties.Resources.database_management;
             this.btMenu5.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btMenu5.Location = new System.Drawing.Point(9, 293);
             this.btMenu5.Name = "btMenu5";
@@ -1750,7 +1750,7 @@
             // serialSettingsBindingSource
             // 
             this.serialSettingsBindingSource.DataSource = typeof(SerialPortListener.Serial.SerialSettings);
-            //
+            // 
             // tbStoneTypeName
             // 
             this.tbStoneTypeName.Anchor = System.Windows.Forms.AnchorStyles.None;
