@@ -14,6 +14,9 @@ using Devart.Data.PostgreSql;
 using static SerialPortListener.TableFromDB;
 using System.Data.Odbc;
 using Microsoft.VisualBasic;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 
 namespace SerialPortListener
@@ -67,7 +70,6 @@ namespace SerialPortListener
             getSettingDefault();
 
             // Default COM port reader to stop state on program launch
-            SetupCheckUpdateButton();
             ucBackup.CheckUpdateRequested += BtnCheckUpdate_Click;
 
             // เช็คอัพเดทแบบเงียบตอนเปิดโปรแกรม — ถ้าเชื่อมต่อ Server ไม่ได้ต้องไม่ทำให้ฟอร์มเปิดไม่ขึ้น
@@ -169,6 +171,119 @@ namespace SerialPortListener
                     MessageBox.Show("เกิดข้อผิดพลาดระหว่างเช็ค/ติดตั้งอัพเดท: " + ex.Message, "เช็คอัพเดท",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private async Task<string> GetJwtToken(HttpClient client, string baseUrl, string username, string password)
+        {
+            try
+            {
+                string jwtUrl = $"{baseUrl}/jwt/create/";
+
+                var loginData = new
+                {
+                    username = username,
+                    password = password
+                };
+
+                string loginJson =
+                    JsonConvert.SerializeObject(loginData);
+
+                var loginContent =
+                    new StringContent(
+                        loginJson,
+                        Encoding.UTF8,
+                        "application/json"
+                    );
+
+                HttpResponseMessage jwtResponse =
+                    await client.PostAsync(jwtUrl, loginContent);
+
+                if (!jwtResponse.IsSuccessStatusCode)
+                {
+                    string jwtError =
+                        await jwtResponse.Content.ReadAsStringAsync();
+
+                    return null;
+                }
+
+                string jwtResult =
+                    await jwtResponse.Content.ReadAsStringAsync();
+
+                dynamic jwtObj =
+                    JsonConvert.DeserializeObject(jwtResult);
+
+                return jwtObj.access.ToString();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private string findBWS()
+        {
+            string code = "";
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT code FROM base_weight_station WHERE base_weight_station_id = 1";
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    code = reader["code"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+
+            return code;
+        }
+
+        private string getBaseApi(int mode, int base_api_id)
+        {
+            string url = "";
+            string username = "";
+            string password = "";
+            string comp_code = "";
+            string token = "";
+
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT url, username, password, comp_code, token FROM base_api where id = " + base_api_id;
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    url = reader["url"].ToString();
+                    username = reader["username"].ToString();
+                    password = reader["password"].ToString();
+                    comp_code = reader["comp_code"].ToString();
+                    token = reader["token"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+
+            if (mode.Equals(1))
+                return url;
+            else if (mode.Equals(2))
+                return username;
+            else if (mode.Equals(3))
+                return password;
+            else if (mode.Equals(4))
+                return comp_code;
+            else if (mode.Equals(5))
+                return token;
+            else
+                return "";
         }
 
         public void getSettingDefault()
@@ -2922,8 +3037,6 @@ namespace SerialPortListener
 
             autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
             autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
-
-            setautoCompleteCustomer("รหัสลูกค้า", "ชื่อลูกค้า", "base_customer");
 
             //fillStoneCombo();
             //fillMillCombo();
