@@ -152,8 +152,11 @@ namespace SerialPortListener
 
                             string json = await response.Content.ReadAsStringAsync();
                             JArray items = JsonConvert.DeserializeObject<JArray>(json);
-                            if (items == null)
+                            if (items == null || items.Count == 0)
+                            {
+                                progress.Log($"{table.TableName} : ไม่มีข้อมูลใหม่ (0 รายการ) URL: {url}");
                                 continue;
+                            }
 
                             foreach (JObject item in items)
                             {
