@@ -110,14 +110,7 @@ namespace SerialPortListener.Serial
 
             // Subscribe to event and open serial port for data
             _serialPort.DataReceived += new SerialDataReceivedEventHandler(_serialPort_DataReceived);
-            try
-            {
-                _serialPort.Open();
-            }
-            catch (Exception ex) { 
-            
-            }
-
+            _serialPort.Open();
         }
 
         /// <summary>
