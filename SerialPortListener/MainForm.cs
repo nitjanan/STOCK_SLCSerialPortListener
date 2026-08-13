@@ -135,8 +135,10 @@ namespace SerialPortListener
                     if (accessToken == null)
                     {
                         if (!silent)
+                        {
                             MessageBox.Show("ไม่สามารถเชื่อมต่อ Server เพื่อเช็คอัพเดทได้", "เช็คอัพเดท",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
                         return;
                     }
 
@@ -146,8 +148,10 @@ namespace SerialPortListener
                     if (release == null || !AppUpdateService.IsNewerVersion(release.version, currentVersion))
                     {
                         if (!silent)
+                        {
                             MessageBox.Show($"คุณใช้เวอร์ชันล่าสุดแล้ว ({currentVersion})", "เช็คอัพเดท",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         return;
                     }
 
@@ -184,8 +188,14 @@ namespace SerialPortListener
             catch (Exception ex)
             {
                 if (!silent)
+                {
                     MessageBox.Show("เกิดข้อผิดพลาดระหว่างเช็ค/ติดตั้งอัพเดท: " + ex.Message, "เช็คอัพเดท",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                ucBackup.CheckUpdateButtonEnabled = true;
             }
         }
 
