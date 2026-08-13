@@ -213,7 +213,7 @@ namespace SerialPortListener
             this.tbRx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbRx.Size = new System.Drawing.Size(205, 250);
             this.tbRx.TabIndex = 14;
-            //
+            // 
             // timerRx
             // 
             this.timerRx.Interval = 200;
