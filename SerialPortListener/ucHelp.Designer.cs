@@ -43,7 +43,6 @@ namespace SerialPortListener
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnSavePort = new System.Windows.Forms.Button();
-            this.tbRx = new System.Windows.Forms.TextBox();
             this.timerRx = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
@@ -159,13 +158,13 @@ namespace SerialPortListener
             this.txtDataReceived.Name = "txtDataReceived";
             this.txtDataReceived.ReadOnly = true;
             this.txtDataReceived.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDataReceived.Size = new System.Drawing.Size(131, 189);
+            this.txtDataReceived.Size = new System.Drawing.Size(131, 242);
             this.txtDataReceived.TabIndex = 12;
             // 
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(54, 244);
+            this.btnStart.Location = new System.Drawing.Point(75, 244);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(110, 35);
             this.btnStart.TabIndex = 13;
@@ -176,7 +175,7 @@ namespace SerialPortListener
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.Location = new System.Drawing.Point(184, 244);
+            this.btnStop.Location = new System.Drawing.Point(203, 244);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(110, 35);
             this.btnStop.TabIndex = 14;
@@ -190,29 +189,13 @@ namespace SerialPortListener
             this.btnSavePort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSavePort.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSavePort.ForeColor = System.Drawing.Color.Green;
-            this.btnSavePort.Location = new System.Drawing.Point(77, 300);
+            this.btnSavePort.Location = new System.Drawing.Point(75, 301);
             this.btnSavePort.Name = "btnSavePort";
-            this.btnSavePort.Size = new System.Drawing.Size(234, 30);
+            this.btnSavePort.Size = new System.Drawing.Size(238, 30);
             this.btnSavePort.TabIndex = 15;
             this.btnSavePort.Text = "save config ";
             this.btnSavePort.UseVisualStyleBackColor = false;
             this.btnSavePort.Click += new System.EventHandler(this.btnSavePort_Click);
-            // 
-            // tbRx
-            // 
-            this.tbRx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbRx.BackColor = System.Drawing.Color.White;
-            this.tbRx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbRx.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRx.Location = new System.Drawing.Point(360, 232);
-            this.tbRx.Multiline = true;
-            this.tbRx.Name = "tbRx";
-            this.tbRx.ReadOnly = true;
-            this.tbRx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbRx.Size = new System.Drawing.Size(131, 162);
-            this.tbRx.TabIndex = 14;
             // 
             // timerRx
             // 
@@ -223,7 +206,6 @@ namespace SerialPortListener
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.tbRx);
             this.Controls.Add(this.btnSavePort);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -261,7 +243,6 @@ namespace SerialPortListener
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnSavePort;
-        private System.Windows.Forms.TextBox tbRx;
         private System.Windows.Forms.Timer timerRx;
     }
 }
