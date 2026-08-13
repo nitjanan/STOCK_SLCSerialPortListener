@@ -46,7 +46,7 @@ namespace SerialPortListener
             this.tbRx = new System.Windows.Forms.TextBox();
             this.timerRx = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
-            //
+            // 
             // lblPort
             // 
             this.lblPort.AutoSize = true;
@@ -183,9 +183,9 @@ namespace SerialPortListener
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            //
+            // 
             // btnSavePort
-            //
+            // 
             this.btnSavePort.BackColor = System.Drawing.Color.White;
             this.btnSavePort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSavePort.Font = new System.Drawing.Font("Century Gothic", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -197,21 +197,21 @@ namespace SerialPortListener
             this.btnSavePort.Text = "save config ";
             this.btnSavePort.UseVisualStyleBackColor = false;
             this.btnSavePort.Click += new System.EventHandler(this.btnSavePort_Click);
-            //
+            // 
             // tbRx
-            //
-            this.tbRx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            // 
+            this.tbRx.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tbRx.BackColor = System.Drawing.Color.White;
             this.tbRx.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbRx.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbRx.Location = new System.Drawing.Point(326, 41);
+            this.tbRx.Location = new System.Drawing.Point(360, 232);
             this.tbRx.Multiline = true;
             this.tbRx.Name = "tbRx";
             this.tbRx.ReadOnly = true;
             this.tbRx.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbRx.Size = new System.Drawing.Size(205, 250);
+            this.tbRx.Size = new System.Drawing.Size(131, 162);
             this.tbRx.TabIndex = 14;
             // 
             // timerRx
