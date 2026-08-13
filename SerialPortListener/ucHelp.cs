@@ -62,7 +62,7 @@ namespace SerialPortListener
         {
             bool canEdit = Globals.isPermissionAddSetting();
 
-            cboPort.Enabled = canEdit && btnStop.Enabled == false;
+            cboPort.Enabled = canEdit;
             btnSavePort.Visible = canEdit;
             btnSavePort.Enabled = canEdit;
         }
@@ -161,6 +161,9 @@ namespace SerialPortListener
             if (!string.IsNullOrEmpty(savedPort) && cboPort.Items.Contains(savedPort))
             {
                 cboPort.SelectedItem = savedPort;
+                // cboPort.SelectedIndexChanged isn't wired up yet at this point (see below),
+                // so settings.PortName must be synced here explicitly or it stays stale.
+                settings.PortName = savedPort;
             }
 
             // Bind Parity ComboBox
@@ -237,6 +240,11 @@ namespace SerialPortListener
             {
                 try
                 {
+                    // Belt-and-suspenders: make sure the port actually opened matches what's
+                    // shown on screen, regardless of when the combo's change handlers were wired.
+                    if (cboPort.SelectedItem != null)
+                        _spManager.CurrentSerialSettings.PortName = cboPort.SelectedItem.ToString();
+
                     _spManager.StartListening();
                     timerRx.Start();
                 }
