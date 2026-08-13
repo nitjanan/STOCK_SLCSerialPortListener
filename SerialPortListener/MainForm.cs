@@ -2421,43 +2421,6 @@ namespace SerialPortListener
             tbData.AppendText(pending);
             tbData.ScrollToCaret();
 
-            /*
-            try
-            {
-                //แสดงเลขน้ำหนักที่กำลังวิ่ง
-                //JOB ขาออก (เครื่องแม่)
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(""));
-                string remainingText = newString.Substring(newString.LastIndexOf("q"));
-
-                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-                if (mc.Count > 0)
-                {
-                    if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
-                    {
-                        string tmp = mc[0].Value;
-                        tbWeigtData.Text = tmp.Remove(tmp.Length - 1);
-                    }
-                    else if (Int32.Parse(mc[0].Value) < 10)
-                    {
-                        tbWeigtData.Text = "0";
-                    }
-                    else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                    {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            */
-
-            
-            // JOB ขาเข้า และ  New ล่างสุด 13-08-2025 และ ผลิต
             try
             {
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
@@ -2466,17 +2429,19 @@ namespace SerialPortListener
 
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
-
                 if (mc.Count > 0)
                 {
-                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    if (mc.Count > 0)
                     {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                        //tbWeigtData.ForeColor = Color.LightCoral;
-                    }
-                    else
-                    {
-                        tbWeigtData.ForeColor = Color.LightGreen;
+                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                        {
+                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                            //tbWeigtData.ForeColor = Color.LightCoral;
+                        }
+                        else
+                        {
+                            tbWeigtData.ForeColor = Color.LightGreen;
+                        }
                     }
 
                 }
@@ -2485,7 +2450,6 @@ namespace SerialPortListener
             {
 
             }
-
 
         }
 
