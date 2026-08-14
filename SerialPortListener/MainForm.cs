@@ -3129,35 +3129,43 @@ namespace SerialPortListener
 
         private async void btRefresh_Click(object sender, EventArgs e)
         {
-            /* autoComplete ผู้ตัก */
-            autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
-            autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
 
-            /* autoComplete ลูกค้า */
-            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
-            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+            // ดาวน์โหลดการตั้งค่าล่าสุดด้วย logic เดียวกับ btDLSetting_Click ใน ucBackup
+            try
+            {
+                bool downloaded = await ucBackup.DownloadSettingAsync(this);
+                if (downloaded)
+                {
+                    /* autoComplete ผู้ตัก */
+                    autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
+                    autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
 
-            /* autoComplete ผู้ขับ */
-            autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
-            autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
+                    /* autoComplete ลูกค้า */
+                    autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
+                    autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
 
-            /* autoComplete ทะเบียนรถ */
-            autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
-            autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
+                    /* autoComplete ผู้ขับ */
+                    autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
+                    autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
 
+                    /* autoComplete ทะเบียนรถ */
+                    autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
+                    autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
 
-            autoCompleteSettingByWeightType(tbMillId, "รหัสโรงโม่", "base_mill");
-            autoCompleteSettingByWeightType(tbMillName, "ชื่อโรงโม่", "base_mill");
+                    autoCompleteSettingByWeightType(tbMillId, "รหัสโรงโม่", "base_mill");
+                    autoCompleteSettingByWeightType(tbMillName, "ชื่อโรงโม่", "base_mill");
 
-            autoCompleteSettingByWeightType(tbSiteId, "base_site_id", "base_site");
-            autoCompleteSettingByWeightType(tbSiteName, "base_site_name", "base_site");
+                    autoCompleteSettingByWeightType(tbSiteId, "base_site_id", "base_site");
+                    autoCompleteSettingByWeightType(tbSiteName, "base_site_name", "base_site");
 
-            autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
-            autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
-
-            //fillStoneCombo();
-            //fillMillCombo();
-            //fillSiteCombo();
+                    autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
+                    autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ดาวน์โหลดการตั้งค่าไม่สำเร็จ: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
