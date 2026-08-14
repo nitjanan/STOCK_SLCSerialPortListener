@@ -1660,7 +1660,7 @@
             // 
             this.btRefresh.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btRefresh.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btRefresh.Image = global::SerialPortListener.Properties.Resources.refresh_32px;
+            this.btRefresh.Image = global::SerialPortListener.Properties.Resources.download;
             this.btRefresh.Location = new System.Drawing.Point(462, 67);
             this.btRefresh.Name = "btRefresh";
             this.btRefresh.Size = new System.Drawing.Size(44, 44);
