@@ -105,11 +105,13 @@ namespace SerialPortListener
             }
         }
 
+
         // เทียบกับ btDLSetting_Click แต่แยกออกมาให้เรียกใช้จากที่อื่นได้ (เช่น btRefresh ใน MainForm)
-        public async Task DownloadSettingAsync(Form owner)
+        public async Task<bool> DownloadSettingAsync(Form owner)
         {
             frmDownloadProgress progress = new frmDownloadProgress();
             progress.Show(owner);
+            bool success = false;
 
             try
             {
@@ -126,7 +128,7 @@ namespace SerialPortListener
                     {
                         progress.Log("Authentication failed.");
                         MessageBox.Show("เข้าสู่ระบบ API ไม่สำเร็จ", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
+                        return false;
                     }
                     progress.Log("Authentication successful.");
 
@@ -156,7 +158,7 @@ namespace SerialPortListener
                             JArray items = JsonConvert.DeserializeObject<JArray>(json);
                             if (items == null || items.Count == 0)
                             {
-                                progress.Log($"{table.TableName} : ไม่มีข้อมูลใหม่ (0 รายการ) URL: {url}");
+                                progress.Log($"{table.TableName} : ไม่มีข้อมูลใหม่ (0 รายการ)");
                                 continue;
                             }
 
@@ -186,18 +188,23 @@ namespace SerialPortListener
 
                     MessageBox.Show(summary, "ดาวน์โหลดการตั้งค่า", MessageBoxButtons.OK,
                         errors.Length > 0 ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+
+                    success = true;
                 }
             }
             catch (Exception ex)
             {
                 progress.Log("Error: " + ex.Message);
                 MessageBox.Show("เกิดข้อผิดพลาด: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                success = false;
             }
             finally
             {
                 progress.AllowClose();
                 progress.Close();
             }
+
+            return success;
         }
 
         // เทียบกับ getBaseApi() ใน MainForm.cs : mode 1=url, 2=username, 3=password, 4=comp_code, 5=token
