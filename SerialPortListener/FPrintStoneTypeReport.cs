@@ -21,19 +21,27 @@ namespace SerialPortListener
 
         private void FPrintStoneTypeReport_Load(object sender, EventArgs e)
         {
-            Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
-            };
+            try
+            {
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
+                };
 
-            this.rvStoneTypeReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            this.rvStoneTypeReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
-            this.rvStoneTypeReport.LocalReport.DataSources.Clear();
-            this.rvStoneTypeReport.LocalReport.DataSources.Add(_rs);
-            this.rvStoneTypeReport.LocalReport.SetParameters(p);
-            this.rvStoneTypeReport.LocalReport.DisplayName = "รายงานสรุปตามประเภทหินประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
+                this.rvStoneTypeReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                this.rvStoneTypeReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+                this.rvStoneTypeReport.LocalReport.DataSources.Clear();
+                this.rvStoneTypeReport.LocalReport.DataSources.Add(_rs);
+                this.rvStoneTypeReport.LocalReport.SetParameters(p);
+                this.rvStoneTypeReport.LocalReport.DisplayName = "รายงานสรุปตามประเภทหินประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
 
-            this.rvStoneTypeReport.RefreshReport();
+                this.rvStoneTypeReport.RefreshReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ReportErrorHelper.BuildMessage(ex), "พิมพ์รายงานไม่สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }

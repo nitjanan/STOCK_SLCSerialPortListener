@@ -21,19 +21,27 @@ namespace SerialPortListener
 
         private void FPrintTransportByTeamReport_Load(object sender, EventArgs e)
         {
-            Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
-            };
+            try
+            {
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
+                };
 
-            this.rvTransportByTeamReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            this.rvTransportByTeamReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
-            this.rvTransportByTeamReport.LocalReport.DataSources.Clear();
-            this.rvTransportByTeamReport.LocalReport.DataSources.Add(_rs);
-            this.rvTransportByTeamReport.LocalReport.SetParameters(p);
-            this.rvTransportByTeamReport.LocalReport.DisplayName = "รายงานขนส่งตามทีมประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
+                this.rvTransportByTeamReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                this.rvTransportByTeamReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+                this.rvTransportByTeamReport.LocalReport.DataSources.Clear();
+                this.rvTransportByTeamReport.LocalReport.DataSources.Add(_rs);
+                this.rvTransportByTeamReport.LocalReport.SetParameters(p);
+                this.rvTransportByTeamReport.LocalReport.DisplayName = "รายงานขนส่งตามทีมประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
 
-            this.rvTransportByTeamReport.RefreshReport();
+                this.rvTransportByTeamReport.RefreshReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ReportErrorHelper.BuildMessage(ex), "พิมพ์รายงานไม่สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }
