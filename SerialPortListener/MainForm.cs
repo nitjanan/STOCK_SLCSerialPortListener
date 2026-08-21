@@ -2490,7 +2490,6 @@ namespace SerialPortListener
 
             }
 
-
         }
 
         private Boolean checkCancelAction()
