@@ -24,6 +24,12 @@ namespace SerialPortListener
         public ucBackup()
         {
             InitializeComponent();
+
+            // ป้องกัน Visual Studio Designer พัง: ตอนเปิด MainForm ใน Designer, มันจะสร้าง ucBackup จริง
+            // ซึ่งถ้าไปต่อ DB/อ่านไฟล์ config ใน constructor จะทำให้ designer โหลดไม่ได้
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime)
+                return;
+
             dl = new Datalayer();
 
             bool isConnected = dl.connect();
