@@ -21,20 +21,27 @@ namespace SerialPortListener
 
         private void FPrintSiteReport_Load(object sender, EventArgs e)
         {
-            
-            Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
-            };
-            
+            try
+            {
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
+                };
 
-            this.rvSiteReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            this.rvSiteReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
-            this.rvSiteReport.LocalReport.DataSources.Clear();
-            this.rvSiteReport.LocalReport.DataSources.Add(_rs);
-            this.rvSiteReport.LocalReport.SetParameters(p);
-            this.rvSiteReport.LocalReport.DisplayName = "รายงานสรุปแยกหน้างานประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
-            this.rvSiteReport.RefreshReport();
+
+                this.rvSiteReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                this.rvSiteReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+                this.rvSiteReport.LocalReport.DataSources.Clear();
+                this.rvSiteReport.LocalReport.DataSources.Add(_rs);
+                this.rvSiteReport.LocalReport.SetParameters(p);
+                this.rvSiteReport.LocalReport.DisplayName = "รายงานสรุปแยกหน้างานประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
+                this.rvSiteReport.RefreshReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ReportErrorHelper.BuildMessage(ex), "พิมพ์รายงานไม่สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }

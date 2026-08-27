@@ -12,7 +12,7 @@ namespace SerialPortListener.Serial
     /// </summary>
     public class SerialSettings : INotifyPropertyChanged
     {
-        
+        //เข้า , ออก(แม่), ล่างและผลิต
         public event PropertyChangedEventHandler PropertyChanged;
         string _portName = "COM23";//COM1
         string[] _portNameCollection;

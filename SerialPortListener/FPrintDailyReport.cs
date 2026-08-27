@@ -23,17 +23,25 @@ namespace SerialPortListener
 
         private void FPrintDailyReport_Load(object sender, EventArgs e)
         {
-            Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightDailyReport.DateFrom),
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightDailyReport.DateTo),
-            };
-            this.rvDailyReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            this.rvDailyReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
-            this.rvDailyReport.LocalReport.DataSources.Clear();
-            this.rvDailyReport.LocalReport.DataSources.Add(_rs);
-            this.rvDailyReport.LocalReport.SetParameters(p);
-            this.rvDailyReport.LocalReport.DisplayName = "รายงานการชั่งสินค้าประจำวันที่ "+ WeightDailyReport.DateFrom.Replace('/', '-') +" ถึง "+ WeightDailyReport.DateTo.Replace('/', '-');
-            this.rvDailyReport.RefreshReport();
+            try
+            {
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightDailyReport.DateFrom),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightDailyReport.DateTo),
+                };
+                this.rvDailyReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                this.rvDailyReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+                this.rvDailyReport.LocalReport.DataSources.Clear();
+                this.rvDailyReport.LocalReport.DataSources.Add(_rs);
+                this.rvDailyReport.LocalReport.SetParameters(p);
+                this.rvDailyReport.LocalReport.DisplayName = "รายงานการชั่งสินค้าประจำวันที่ "+ WeightDailyReport.DateFrom.Replace('/', '-') +" ถึง "+ WeightDailyReport.DateTo.Replace('/', '-');
+                this.rvDailyReport.RefreshReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ReportErrorHelper.BuildMessage(ex), "พิมพ์รายงานไม่สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }

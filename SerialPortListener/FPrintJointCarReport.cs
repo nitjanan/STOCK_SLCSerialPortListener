@@ -21,19 +21,26 @@ namespace SerialPortListener
 
         private void FPrintJointCarReport_Load(object sender, EventArgs e)
         {
+            try
+            {
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
+                };
 
-            Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
-            };
-
-            this.rvJointCarReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            this.rvJointCarReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
-            this.rvJointCarReport.LocalReport.DataSources.Clear();
-            this.rvJointCarReport.LocalReport.DataSources.Add(_rs);
-            this.rvJointCarReport.LocalReport.SetParameters(p);
-            this.rvJointCarReport.LocalReport.DisplayName = "รายงานทะเบียนรถร่วมประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
-            this.rvJointCarReport.RefreshReport();
+                this.rvJointCarReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                this.rvJointCarReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+                this.rvJointCarReport.LocalReport.DataSources.Clear();
+                this.rvJointCarReport.LocalReport.DataSources.Add(_rs);
+                this.rvJointCarReport.LocalReport.SetParameters(p);
+                this.rvJointCarReport.LocalReport.DisplayName = "รายงานทะเบียนรถร่วมประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
+                this.rvJointCarReport.RefreshReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ReportErrorHelper.BuildMessage(ex), "พิมพ์รายงานไม่สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }

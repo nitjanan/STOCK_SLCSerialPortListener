@@ -23,20 +23,28 @@ namespace SerialPortListener
 
         private void FPrintCleanReport_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'cleanDataSet.weight' table. You can move, or remove it, as needed.
-            //this.weightTableAdapter.Fill(this.cleanDataSet.weight);
-            Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
-                new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
-            };
+            try
+            {
+                // TODO: This line of code loads data into the 'cleanDataSet.weight' table. You can move, or remove it, as needed.
+                //this.weightTableAdapter.Fill(this.cleanDataSet.weight);
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
+                };
 
-            this.rvCleanReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
-            this.rvCleanReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
-            this.rvCleanReport.LocalReport.DataSources.Clear();
-            this.rvCleanReport.LocalReport.DataSources.Add(_rs);
-            this.rvCleanReport.LocalReport.DisplayName = "รายงานล้างสเปร์ยประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
-            this.rvCleanReport.LocalReport.SetParameters(p);
-            this.rvCleanReport.RefreshReport();
+                this.rvCleanReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
+                this.rvCleanReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
+                this.rvCleanReport.LocalReport.DataSources.Clear();
+                this.rvCleanReport.LocalReport.DataSources.Add(_rs);
+                this.rvCleanReport.LocalReport.DisplayName = "รายงานล้างสเปร์ยประจำวันที่ " + WeightTempReport.DateFrom.Replace('/', '-') + " ถึง " + WeightTempReport.DateTo.Replace('/', '-');
+                this.rvCleanReport.LocalReport.SetParameters(p);
+                this.rvCleanReport.RefreshReport();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ReportErrorHelper.BuildMessage(ex), "พิมพ์รายงานไม่สำเร็จ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+            }
         }
     }
 }

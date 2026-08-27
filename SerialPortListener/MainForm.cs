@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +14,9 @@ using Devart.Data.PostgreSql;
 using static SerialPortListener.TableFromDB;
 using System.Data.Odbc;
 using Microsoft.VisualBasic;
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;
 
 
 namespace SerialPortListener
@@ -23,6 +26,8 @@ namespace SerialPortListener
     {
         SerialPortManager _spManager;
         private System.Windows.Forms.Timer _noDataTimer;
+        private readonly object _rxLock = new object();
+        private StringBuilder _rxBuffer = new StringBuilder();
         Datalayer dl;
         String strCalQ = "1.00";
         AutoCompleteStringCollection collCarTeam = new AutoCompleteStringCollection();
@@ -38,6 +43,12 @@ namespace SerialPortListener
         bool isCheckedCleanNo = false;
         bool isCheckedSelfPick = false;
         bool isCheckedSendTo = false;
+
+        // Populated by getSettingDefault(); reused by fillStoneCombo/fillMillCombo/fillSiteCombo
+        // so the combo boxes and the id/name autocomplete boxes don't each re-query the same table.
+        List<ComboboxValue> _stoneTypeCache;
+        List<ComboboxValue> _millCache;
+        List<ComboboxValue> _siteCache;
 
         class ComboboxValue
         {
@@ -68,19 +79,238 @@ namespace SerialPortListener
             getSettingDefault();
 
             // Default COM port reader to stop state on program launch
+            ucBackup.CheckUpdateRequested += BtnCheckUpdate_Click;
+
+            // เช็คอัพเดทแบบเงียบตอนเปิดโปรแกรม — ถ้าเชื่อมต่อ Server ไม่ได้ต้องไม่ทำให้ฟอร์มเปิดไม่ขึ้น
+            // ใช้ BeginInvoke ให้รันหลังจากฟอร์มแสดงผลเสร็จแล้ว และไม่ await ใน constructor (fire-and-forget)
+            this.Load += async (s, e) => await CheckForUpdateAsync(silent: true);
+
             // _spManager.StartListening();
 
-            timerWeight.Interval = 5000; // 5 seconds
-            timerWeight.Tick += Timer_Tick;
+            // Throttles UI updates from incoming serial data instead of restarting the port
+            timerWeight.Interval = 200;
+            timerWeight.Tick += timerWeight_Tick;
+
+            // Start/Stop is controlled from ucHelp, which shares this MainForm's _spManager.
+            // The tick handler no-ops when the buffer is empty, so it's safe to run always.
+            timerWeight.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        // ปุ่ม "ตรวจสอบอัพเดท" อยู่ที่ ucBackup ; MainForm รับ event มาทำงานเพราะ logic ต้องใช้ dl, findBWS(), GetJwtToken()
+        private async void BtnCheckUpdate_Click(object sender, EventArgs e)
         {
-            if (_spManager.IsListening)
+            ucBackup.CheckUpdateButtonEnabled = false;
+            try
             {
-                _spManager.StopListening();
-                _spManager.StartListening();
+                await CheckForUpdateAsync(silent: false);
             }
+            finally
+            {
+                ucBackup.CheckUpdateButtonEnabled = true;
+            }
+        }
+
+        // silent = true: เรียกตอนเปิดโปรแกรม — ถ้าต่อ Server ไม่ได้หรือเป็นเวอร์ชันล่าสุดอยู่แล้วจะไม่ขึ้น MessageBox กวนใจ
+        // silent = false: เรียกจากปุ่ม "ตรวจสอบอัพเดท" — แจ้งผลทุกกรณี
+        // ทุก exception ถูกดักไว้ในนี้ทั้งหมด เพื่อไม่ให้ปัญหาการเช็คอัพเดทกระทบการเปิดฟอร์มหลักของโปรแกรม
+        private async Task CheckForUpdateAsync(bool silent)
+        {
+            try
+            {
+                string baseUrl = getBaseApi(1, 1);
+                string apiUsername = getBaseApi(2, 1);
+                string apiPassword = getBaseApi(3, 1);
+
+                using (HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
+                {
+                    string accessToken;
+                    try
+                    {
+                        accessToken = await GetJwtToken(client, baseUrl, apiUsername, apiPassword);
+                    }
+                    catch (Exception)
+                    {
+                        accessToken = null;
+                    }
+
+                    if (accessToken == null)
+                    {
+                        if (!silent)
+                        {
+                            MessageBox.Show("ไม่สามารถเชื่อมต่อ Server เพื่อเช็คอัพเดทได้", "เช็คอัพเดท",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        return;
+                    }
+
+                    AppReleaseInfo release = await AppUpdateService.GetLatestReleaseAsync(client, baseUrl, accessToken);
+                    Version currentVersion = AppUpdateService.CurrentVersion;
+
+                    if (release == null || !AppUpdateService.IsNewerVersion(release.version, currentVersion))
+                    {
+                        if (!silent)
+                        {
+                            MessageBox.Show($"คุณใช้เวอร์ชันล่าสุดแล้ว ({currentVersion})", "เช็คอัพเดท",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        return;
+                    }
+
+                    string message = $"พบเวอร์ชันใหม่ {release.version}\r\n\r\n{release.release_notes}\r\n\r\nต้องการดาวน์โหลดและติดตั้งตอนนี้หรือไม่?";
+                    DialogResult confirm = MessageBox.Show(message, "พบอัพเดทใหม่",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                    if (confirm != DialogResult.Yes)
+                        return;
+
+                    string installerPath = await AppUpdateService.DownloadInstallerAsync(client, release, baseUrl);
+
+                    bool sqlApplied = false;
+                    if (!string.IsNullOrEmpty(release.sql_script_url))
+                    {
+                        dl.connect();
+                        try
+                        {
+                            sqlApplied = await AppUpdateService.DownloadAndRunSqlScriptAsync(client, release, baseUrl, dl.sqlConn());
+                        }
+                        finally
+                        {
+                            dl.close();
+                        }
+                    }
+
+                    await AppUpdateService.LogUpdateAsync(
+                        client, baseUrl, accessToken, Environment.MachineName,
+                        currentVersion.ToString(), release.version, true, findBWS(), sqlApplied);
+
+                    AppUpdateService.RunInstallerAndExit(installerPath);
+                }
+            }
+            catch (Exception ex)
+            {
+                if (!silent)
+                {
+                    MessageBox.Show("เกิดข้อผิดพลาดระหว่างเช็ค/ติดตั้งอัพเดท: " + ex.Message, "เช็คอัพเดท",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            finally
+            {
+                ucBackup.CheckUpdateButtonEnabled = true;
+            }
+        }
+
+        private async Task<string> GetJwtToken(HttpClient client, string baseUrl, string username, string password)
+        {
+            try
+            {
+                string jwtUrl = $"{baseUrl}/jwt/create/";
+
+                var loginData = new
+                {
+                    username = username,
+                    password = password
+                };
+
+                string loginJson =
+                    JsonConvert.SerializeObject(loginData);
+
+                var loginContent =
+                    new StringContent(
+                        loginJson,
+                        Encoding.UTF8,
+                        "application/json"
+                    );
+
+                HttpResponseMessage jwtResponse =
+                    await client.PostAsync(jwtUrl, loginContent);
+
+                if (!jwtResponse.IsSuccessStatusCode)
+                {
+                    string jwtError =
+                        await jwtResponse.Content.ReadAsStringAsync();
+
+                    return null;
+                }
+
+                string jwtResult =
+                    await jwtResponse.Content.ReadAsStringAsync();
+
+                dynamic jwtObj =
+                    JsonConvert.DeserializeObject(jwtResult);
+
+                return jwtObj.access.ToString();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private string findBWS()
+        {
+            string code = "";
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT code FROM base_weight_station WHERE base_weight_station_id = 1";
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    code = reader["code"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+
+            return code;
+        }
+
+        private string getBaseApi(int mode, int base_api_id)
+        {
+            string url = "";
+            string username = "";
+            string password = "";
+            string comp_code = "";
+            string token = "";
+
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT url, username, password, comp_code, token FROM base_api where id = " + base_api_id;
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    url = reader["url"].ToString();
+                    username = reader["username"].ToString();
+                    password = reader["password"].ToString();
+                    comp_code = reader["comp_code"].ToString();
+                    token = reader["token"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            dl.close();
+
+            if (mode.Equals(1))
+                return url;
+            else if (mode.Equals(2))
+                return username;
+            else if (mode.Equals(3))
+                return password;
+            else if (mode.Equals(4))
+                return comp_code;
+            else if (mode.Equals(5))
+                return token;
+            else
+                return "";
         }
 
         public void getSettingDefault()
@@ -88,40 +318,31 @@ namespace SerialPortListener
             lbCompanyCode.Text = Company.Code;
 
             /* autoComplete ผู้ตัก */
-            autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
-            autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
+            autoCompleteSettingPair(tbScoopId, "รหัสผู้ตัก", tbScoopName, "ชื่อผู้ตัก", "base_scoop", "where company = '" + Company.Code + "'");
 
             /* autoComplete ผู้ชั่ง */
-            autoCompleteSetting(tbScaleId, "username", "users");
-            autoCompleteSetting(tbScaleName, "firstname", "users");
+            autoCompleteSettingPair(tbScaleId, "username", tbScaleName, "firstname", "users", "");
 
             /* autoComplete ผู้อนุมัติ */
-            autoCompleteSetting(tbApproveId, "รหัสผู้อนุมัติจ่าย", "base_approve");
-            autoCompleteSetting(tbApproveName, "ชื่อผู้อนุมัติจ่าย", "base_approve");
+            autoCompleteSettingPair(tbApproveId, "รหัสผู้อนุมัติจ่าย", tbApproveName, "ชื่อผู้อนุมัติจ่าย", "base_approve", "");
 
             /* autoComplete จังหวัด */
             autoCompleteSetting(tbCarCity, "ชื่อจังหวัด", "base_car_city");
 
             /* autoComplete ลูกค้า */
-            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
-            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+            autoCompleteSettingPair(tbCustomerId, "รหัสลูกค้า", tbCustomerName, "ชื่อลูกค้า", "base_customer", "where weight_type = 2 or weight_type = 3");
 
             /* autoComplete ผู้ขับ */
-            autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
-            autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
+            autoCompleteSettingPair(tbDriverId, "รหัสผู้ขับ", tbDriverName, "ชื่อผู้ขับ", "base_driver", "where company = '" + Company.Code + "'");
 
-            autoCompleteSettingByWeightType(tbMillId, "รหัสโรงโม่", "base_mill");
-            autoCompleteSettingByWeightType(tbMillName, "ชื่อโรงโม่", "base_mill");
+            autoCompleteSettingPair(tbMillId, "รหัสโรงโม่", tbMillName, "ชื่อโรงโม่", "base_mill", "where weight_type = 2 or weight_type = 3", rows => _millCache = rows);
 
-            autoCompleteSettingByWeightType(tbSiteId, "base_site_id", "base_site");
-            autoCompleteSettingByWeightType(tbSiteName, "base_site_name", "base_site");
+            autoCompleteSettingPair(tbSiteId, "base_site_id", tbSiteName, "base_site_name", "base_site", "where weight_type = 2 or weight_type = 3", rows => _siteCache = rows);
 
-            autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
-            autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
+            autoCompleteSettingPair(tbStoneTypeId, "รหัสหิน", tbStoneTypeName, "ชื่อหิน", "base_stone_type", "where inactive = false", rows => _stoneTypeCache = rows);
 
             /* autoComplete ทะเบียนรถ */
-            autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
-            autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
+            autoCompleteSettingPair(tbCarLicenseId, "รหัสทะเบียนรถ", tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration", "where company = '" + Company.Code + "'");
 
             Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
 
@@ -309,6 +530,11 @@ namespace SerialPortListener
             //เพิ่ม combobox
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT * FROM public.base_stone_type where inactive = false ";
+            if (_stoneTypeCache != null)
+            {
+                cbbStoneType.Items.AddRange(_stoneTypeCache.ToArray());
+                return;
+            }
             try
             {
                 dl.connect();
@@ -329,6 +555,11 @@ namespace SerialPortListener
         {
             //ล้างก่อน
             cbbMill.Items.Clear();
+            if (_millCache != null)
+            {
+                cbbMill.Items.AddRange(_millCache.ToArray());
+                return;
+            }
             //เพิ่ม combobox
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT * FROM public.base_mill where weight_type = 2 or weight_type = 3";
@@ -354,6 +585,11 @@ namespace SerialPortListener
         {
             //ล้างก่อน
             cbbSite.Items.Clear();
+            if (_siteCache != null)
+            {
+                cbbSite.Items.AddRange(_siteCache.ToArray());
+                return;
+            }
             //เพิ่ม combobox
             OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
             pgCommand.CommandText = "SELECT base_site_id, base_site_name FROM public.base_site where weight_type = 2 or weight_type = 3";
@@ -587,76 +823,21 @@ namespace SerialPortListener
             _spManager.Dispose();
         }
 
+        // Runs on the SerialPort's background thread. Only buffers data - no UI access here,
+        // so a burst of fast-arriving data can't flood the UI thread's Invoke queue.
         void _spManager_NewSerialDataRecieved(object sender, SerialDataEventArgs e)
         {
-
-                if (this.InvokeRequired)
+            try
+            {
+                string str = Encoding.ASCII.GetString(e.Data);
+                lock (_rxLock)
                 {
-                    this.BeginInvoke(new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved), new object[] { sender, e });
-                    return;
+                    _rxBuffer.Append(str);
                 }
-
-                try
-                {
-                    int maxTextLength = 500; // maximum text length in text box
-                    if (tbData.TextLength > maxTextLength)
-                        tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
-
-                    // This application is connected to a GPS sending ASCCI characters, so data is converted to text
-                    string str = Encoding.ASCII.GetString(e.Data);
-                    tbData.AppendText(str);
-                    tbData.ScrollToCaret();
-
-
-                    //แสดงเลขน้ำหนักที่กำลังวิ่ง
-
-
-                    string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(",Kg"));
-                    string remainingText = newString.Substring(newString.LastIndexOf("ST,GS,"));
-
-                    MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-
-                    if (mc.Count > 0)
-                    {
-                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                        {
-                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                        }
-                        else
-                        {
-                            tbWeigtData.ForeColor = Color.LightGreen;
-                        }
-
-                        // ✅ Restart timeout timer
-                        _noDataTimer.Stop();
-                        _noDataTimer.Start();
-                    }
-                    else
-                    {
-                        tbWeigtData.Text = "Error";
-                        tbWeigtData.ForeColor = Color.DarkRed;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // When port is closed or error occurs
-                    tbWeigtData.Text = "Error";
-                    tbWeigtData.ForeColor = Color.DarkRed;
-                }
-
-        }
-
-        // Handles the "Start Listening"-buttom click event
-        private void btnStart_Click(object sender, EventArgs e)
-        {
-            _spManager.StartListening();
-        }
-
-        // Handles the "Stop Listening"-buttom click event
-        private void btnStop_Click(object sender, EventArgs e)
-        {
-            _spManager.StopListening();
+            }
+            catch (Exception)
+            {
+            }
         }
 
         private void btRead_Click(object sender, EventArgs e)
@@ -1520,6 +1701,51 @@ namespace SerialPortListener
             dl.close();
         }
 
+        /* Fills two autocomplete textboxes (id + name) from a single query/connection instead of two,
+         * since the previous code ran the same "SELECT * FROM table [where]" twice just to split out one column each time. */
+        private void autoCompleteSettingPair(TextBox tbId, string fieldId, TextBox tbName, string fieldName, string tableName, string whereClause, Action<List<ComboboxValue>> onRow)
+        {
+            tbId.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tbId.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            tbName.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            tbName.AutoCompleteSource = AutoCompleteSource.CustomSource;
+
+            AutoCompleteStringCollection collId = new AutoCompleteStringCollection();
+            AutoCompleteStringCollection collName = new AutoCompleteStringCollection();
+            List<ComboboxValue> rowCache = onRow != null ? new List<ComboboxValue>() : null;
+
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT * FROM public." + tableName + (string.IsNullOrEmpty(whereClause) ? "" : " " + whereClause);
+            try
+            {
+                dl.connect();
+                OdbcDataReader reader = pgCommand.ExecuteReader();
+                while (reader.Read())
+                {
+                    string idVal = reader[fieldId].ToString();
+                    string nameVal = reader[fieldName].ToString();
+                    collId.Add(idVal);
+                    collName.Add(nameVal);
+                    rowCache?.Add(new ComboboxValue(idVal, nameVal));
+                }
+            }
+            catch (Exception)
+            {
+            }
+            tbId.AutoCompleteCustomSource = collId;
+            tbName.AutoCompleteCustomSource = collName;
+            dl.close();
+
+            if (rowCache != null)
+                onRow(rowCache);
+        }
+
+        // overload without row-capture callback, used where the combo cache isn't needed
+        private void autoCompleteSettingPair(TextBox tbId, string fieldId, TextBox tbName, string fieldName, string tableName, string whereClause)
+        {
+            autoCompleteSettingPair(tbId, fieldId, tbName, fieldName, tableName, whereClause, null);
+        }
+
         private void tbCustomerName_TextChanged(object sender, EventArgs e)
         {
             //customerNameTextChanged();
@@ -2186,10 +2412,101 @@ namespace SerialPortListener
             tbCarTeam.AutoCompleteCustomSource = collCarTeam;  
         }
 
-        //timer old Tick 18-08-2025
+        // Runs on the UI thread on a fixed interval, draining whatever arrived since the
+        // last tick in one go and updating the UI once, instead of once per DataReceived event.
         private void timerWeight_Tick(object sender, EventArgs e)
         {
-            tbWeigtData.Text = tbWeigtData.Text;
+            string pending;
+            lock (_rxLock)
+            {
+                if (_rxBuffer.Length == 0)
+                    return;
+                pending = _rxBuffer.ToString();
+                _rxBuffer.Clear();
+            }
+
+            int maxTextLength = 500; // maximum text length in text box
+            if (tbData.TextLength > maxTextLength)
+                tbData.Text = tbData.Text.Remove(0, tbData.TextLength - maxTextLength);
+
+            // This application is connected to a GPS sending ASCCI characters, so data is converted to text
+            tbData.AppendText(pending);
+            tbData.ScrollToCaret();
+
+            /*
+            try
+            {
+                //แสดงเลขน้ำหนักที่กำลังวิ่ง
+                //JOB ขาออก (เครื่องแม่)
+                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(""));
+                string remainingText = newString.Substring(newString.LastIndexOf("q"));
+
+                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+
+                if (mc.Count > 0)
+                {
+                    if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
+                    {
+                        string tmp = mc[0].Value;
+                        tbWeigtData.Text = tmp.Remove(tmp.Length - 1);
+                    }
+                    else if (Int32.Parse(mc[0].Value) < 10)
+                    {
+                        tbWeigtData.Text = "0";
+                    }
+                    else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    {
+                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            */
+
+            
+            // NSM parsing: weight number between "ST,GS," and ",Kg"
+            try
+            {
+                //แสดงเลขน้ำหนักที่กำลังวิ่ง
+                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(",Kg"));
+                string remainingText = newString.Substring(newString.LastIndexOf("ST,GS,"));
+
+                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+
+
+                if (mc.Count > 0)
+                {
+                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    {
+                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                    }
+                    else
+                    {
+                        tbWeigtData.ForeColor = Color.LightGreen;
+                    }
+
+                    // Restart timeout timer
+                    _noDataTimer.Stop();
+                    _noDataTimer.Start();
+                }
+                else
+                {
+                    tbWeigtData.Text = "Error";
+                    tbWeigtData.ForeColor = Color.DarkRed;
+                }
+            }
+            catch (Exception ex)
+            {
+                // When port is closed or error occurs
+                tbWeigtData.Text = "Error";
+                tbWeigtData.ForeColor = Color.DarkRed;
+            }
+
         }
 
         private Boolean checkCancelAction()
@@ -2537,7 +2854,7 @@ namespace SerialPortListener
             clickWeightIn();
         }
 
-        private void clickWeightIn() 
+        private void clickWeightIn()
         {
             ucTruck.BringToFront();
             ucTruck.Show();
@@ -2552,7 +2869,6 @@ namespace SerialPortListener
             AfterGetDataFromTable();
 
             rbWeightIn.Checked = true;
-
         }
 
         private void rbWeightOut_Click(object sender, EventArgs e)
@@ -2827,39 +3143,45 @@ namespace SerialPortListener
             }
         }
 
-        private void btRefresh_Click(object sender, EventArgs e)
+        private async void btRefresh_Click(object sender, EventArgs e)
         {
-            /* autoComplete ผู้ตัก */
-            autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
-            autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
 
-            /* autoComplete ลูกค้า */
-            autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
-            autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
+            // ดาวน์โหลดการตั้งค่าล่าสุดด้วย logic เดียวกับ btDLSetting_Click ใน ucBackup
+            try
+            {
+                bool downloaded = await ucBackup.DownloadSettingAsync(this);
+                if (downloaded)
+                {
+                    /* autoComplete ผู้ตัก */
+                    autoCompleteSettingByCompany(tbScoopId, "รหัสผู้ตัก", "base_scoop");
+                    autoCompleteSettingByCompany(tbScoopName, "ชื่อผู้ตัก", "base_scoop");
 
-            /* autoComplete ผู้ขับ */
-            autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
-            autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
+                    /* autoComplete ลูกค้า */
+                    autoCompleteSettingByWeightType(tbCustomerId, "รหัสลูกค้า", "base_customer");
+                    autoCompleteSettingByWeightType(tbCustomerName, "ชื่อลูกค้า", "base_customer");
 
-            /* autoComplete ทะเบียนรถ */
-            autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
-            autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
+                    /* autoComplete ผู้ขับ */
+                    autoCompleteSettingByCompany(tbDriverId, "รหัสผู้ขับ", "base_driver");
+                    autoCompleteSettingByCompany(tbDriverName, "ชื่อผู้ขับ", "base_driver");
 
+                    /* autoComplete ทะเบียนรถ */
+                    autoCompleteSettingByCompany(tbCarLicenseId, "รหัสทะเบียนรถ", "base_car_registration");
+                    autoCompleteSettingByCompany(tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration");
 
-            autoCompleteSettingByWeightType(tbMillId, "รหัสโรงโม่", "base_mill");
-            autoCompleteSettingByWeightType(tbMillName, "ชื่อโรงโม่", "base_mill");
+                    autoCompleteSettingByWeightType(tbMillId, "รหัสโรงโม่", "base_mill");
+                    autoCompleteSettingByWeightType(tbMillName, "ชื่อโรงโม่", "base_mill");
 
-            autoCompleteSettingByWeightType(tbSiteId, "base_site_id", "base_site");
-            autoCompleteSettingByWeightType(tbSiteName, "base_site_name", "base_site");
+                    autoCompleteSettingByWeightType(tbSiteId, "base_site_id", "base_site");
+                    autoCompleteSettingByWeightType(tbSiteName, "base_site_name", "base_site");
 
-            autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
-            autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
-
-            Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
-
-            //fillStoneCombo();
-            //fillMillCombo();
-            //fillSiteCombo();
+                    autoCompleteSettingInactive(tbStoneTypeId, "รหัสหิน", "base_stone_type");
+                    autoCompleteSettingInactive(tbStoneTypeName, "ชื่อหิน", "base_stone_type");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ดาวน์โหลดการตั้งค่าไม่สำเร็จ: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 
