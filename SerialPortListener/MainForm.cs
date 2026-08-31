@@ -2434,26 +2434,22 @@ namespace SerialPortListener
             try
             {
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
+                //M3
                 string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
-
+                string remainingText = newString.Substring(newString.LastIndexOf("p"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
                 if (mc.Count > 0)
                 {
-                    if (mc.Count > 0)
+                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
                     {
-                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                        {
-                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                            //tbWeigtData.ForeColor = Color.LightCoral;
-                        }
-                        else
-                        {
-                            tbWeigtData.ForeColor = Color.LightGreen;
-                        }
+                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                        //tbWeigtData.ForeColor = Color.LightCoral;
                     }
-
+                    else
+                    {
+                        tbWeigtData.ForeColor = Color.LightGreen;
+                    }
                 }
             }
             catch (Exception ex)
