@@ -2428,26 +2428,27 @@ namespace SerialPortListener
             try
             {
                 //แสดงเลขน้ำหนักที่กำลังวิ่ง
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
+                /* เครื่องพี่จ๋า */
 
+                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("kg"));
+                string remainingText = newString.Substring(newString.LastIndexOf("\r"));
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+
+
+                /* เครื่องพี่รุ่ง */
+                //MatchCollection mc = Regex.Matches(str, @"\d+");
 
                 if (mc.Count > 0)
                 {
-                    if (mc.Count > 0)
+                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
                     {
-                        if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                        {
-                            tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                            //tbWeigtData.ForeColor = Color.LightCoral;
-                        }
-                        else
-                        {
-                            tbWeigtData.ForeColor = Color.LightGreen;
-                        }
+                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
+                        //tbWeigtData.ForeColor = Color.LightCoral;
                     }
-
+                    else
+                    {
+                        tbWeigtData.ForeColor = Color.LightGreen;
+                    }
                 }
             }
             catch (Exception ex)
