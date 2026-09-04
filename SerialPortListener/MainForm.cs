@@ -3042,7 +3042,9 @@ namespace SerialPortListener
         {
             string today = DateTime.Now.ToString("yyyy-MM-dd");
 
-            if ((tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text)) && tbWeightIn.Enabled)
+            //หมายเหตุ: branch นี้ designer ตั้ง tbWeightIn.Enabled = false (ต่างจาก NSM_stock) จึงไม่เช็ค Enabled
+            //การเซ็ต .Text ทำได้แม้ TextBox ถูก disable อยู่
+            if (tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text))
             {
                 //sql
                 OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
