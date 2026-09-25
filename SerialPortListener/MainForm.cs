@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -2462,78 +2462,55 @@ namespace SerialPortListener
             tbData.AppendText(pending);
             tbData.ScrollToCaret();
 
-            /*
-            try
-            {
-                //แสดงเลขน้ำหนักที่กำลังวิ่ง
-                //JOB ขาออก (เครื่องแม่)
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf(""));
-                string remainingText = newString.Substring(newString.LastIndexOf("q"));
-
-                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-                if (mc.Count > 0)
-                {
-                    if (Int32.Parse(mc[0].Value) % 10 != 0 || Int32.Parse(mc[0].Value) > 100000)
-                    {
-                        string tmp = mc[0].Value;
-                        tbWeigtData.Text = tmp.Remove(tmp.Length - 1);
-                    }
-                    else if (Int32.Parse(mc[0].Value) < 10)
-                    {
-                        tbWeigtData.Text = "0";
-                    }
-                    else if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
-                    {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            */
-
-            
             // JOB ขาเข้า และ  New ล่างสุด 13-08-2025 และ ผลิต
+            string parsedWeight = ParseWeightFromBuffer(tbData.Text, tbWeigtData.Text, out bool matchedButUnchanged);
+            if (parsedWeight != null)
+            {
+                tbWeigtData.Text = parsedWeight;
+                //tbWeigtData.ForeColor = Color.LightCoral;
+
+                // Adapted from Master_Blue_1: any change in the incoming weight restarts
+                // the settle window before the read buttons become usable again.
+                _weightIsStable = false;
+                RefreshReadButtonsEnabledState();
+                _weightStableTimer.Stop();
+                _weightStableTimer.Start();
+            }
+            else if (matchedButUnchanged)
+            {
+                tbWeigtData.ForeColor = Color.LightGreen;
+            }
+
+        }
+
+        // Extracted from timerWeight_Tick so the exact same parsing rule can be reused
+        // by ucHelp's scale-data test panel, without duplicating the regex logic.
+        // Returns the new (trimmed/padded) weight text if the parsed value differs from
+        // previousDisplayedValue, or null if nothing matched / the buffer couldn't be parsed.
+        // matchedButUnchanged is true when a value matched but is the same as before.
+        internal static string ParseWeightFromBuffer(string accumulatedText, string previousDisplayedValue, out bool matchedButUnchanged)
+        {
+            matchedButUnchanged = false;
             try
             {
-                //แสดงเลขน้ำหนักที่กำลังวิ่ง
-                string newString = tbData.Text.Remove(tbData.Text.LastIndexOf("\r"));
+                string newString = accumulatedText.Remove(accumulatedText.LastIndexOf("\r"));
                 string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
 
                 MatchCollection mc = Regex.Matches(remainingText, @"\d+");
 
-
                 if (mc.Count > 0)
                 {
-                    if (String.Compare(tbWeigtData.Text, mc[0].Value) != 0)
+                    if (String.Compare(previousDisplayedValue, mc[0].Value) != 0)
                     {
-                        tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                        //tbWeigtData.ForeColor = Color.LightCoral;
-
-                        // Adapted from Master_Blue_1: any change in the incoming weight restarts
-                        // the settle window before the read buttons become usable again.
-                        _weightIsStable = false;
-                        RefreshReadButtonsEnabledState();
-                        _weightStableTimer.Stop();
-                        _weightStableTimer.Start();
+                        return mc[0].Value.TrimStart('0').PadLeft(1, '0');
                     }
-                    else
-                    {
-                        tbWeigtData.ForeColor = Color.LightGreen;
-                    }
-
+                    matchedButUnchanged = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
             }
-
+            return null;
         }
 
         private Boolean checkCancelAction()
