@@ -2512,6 +2512,7 @@ namespace SerialPortListener
                     case WeightFormat.NsmCsv: value = TryParse_NsmCsv(accumulatedText); break;
                     case WeightFormat.SrdSigned: value = TryParse_SrdSigned(accumulatedText); break;
                     case WeightFormat.TymFixedWidth: value = TryParse_TymFixedWidth(accumulatedText); break;
+                    case WeightFormat.FixedOffsetTail: value = TryParse_FixedOffsetTail(accumulatedText); break;
                     case WeightFormat.ParenCR:
                     default: value = TryParse_ParenCR(accumulatedText); break;
                 }
@@ -2658,6 +2659,22 @@ namespace SerialPortListener
             }
 
             return null;
+        }
+
+        // รูปแบบเดิม/สำรอง: เดิมทีปุ่มอ่านน้ำหนักตัดข้อมูล 7 ตัวอักษรจากตำแหน่งคงที่ (15 ตัวท้ายบัฟเฟอร์)
+        // แล้วหาเลขในช่วงนั้น โดยไม่สนใจโครงสร้าง/ตัวคั่นของข้อความเลย พบเป็น dead code ที่ถูก comment
+        // ไว้เหมือนกันในเกือบทุก branch (ถูกแทนที่ด้วย parser แบบมีตัวคั่นในหน้าจอไปแล้ว) เก็บไว้เป็นตัวเลือก
+        // สำรองเผื่อมีตาชั่งรุ่นเก่าที่ยังพึ่งพาตำแหน่งคงที่แบบนี้อยู่
+        private static string TryParse_FixedOffsetTail(string text)
+        {
+            const int TailLength = 15;
+            const int WindowLength = 7;
+
+            if (string.IsNullOrEmpty(text) || text.Length < TailLength) return null;
+
+            string substring = text.Substring(text.Length - TailLength, WindowLength);
+            Match m = Regex.Match(substring, @"\d+");
+            return m.Success ? m.Value : null;
         }
 
         private Boolean checkCancelAction()

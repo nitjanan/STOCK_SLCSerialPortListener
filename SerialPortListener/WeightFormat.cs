@@ -13,6 +13,7 @@ namespace SerialPortListener
         NsmCsv,
         SrdSigned,
         TymFixedWidth,
+        FixedOffsetTail,
     }
 
     // รายการรูปแบบทั้งหมดสำหรับผูกกับ combo box ตัวเลือกใน ucHelp
@@ -43,6 +44,7 @@ namespace SerialPortListener
             new Option(WeightFormat.NsmCsv, "แบบ ST,GS,...,Kg"),
             new Option(WeightFormat.SrdSigned, "แบบมีเครื่องหมายลบ"),
             new Option(WeightFormat.TymFixedWidth, "แบบฟิลด์คงที่ *0 (12 หลัก)"),
+            new Option(WeightFormat.FixedOffsetTail, "แบบตำแหน่งคงที่ท้ายบัฟเฟอร์ (ของเดิม/สำรอง)"),
         };
     }
 }
