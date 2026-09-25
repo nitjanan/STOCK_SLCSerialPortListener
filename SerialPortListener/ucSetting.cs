@@ -81,6 +81,9 @@ namespace SerialPortListener
         {
             dl = new Datalayer();
             InitializeComponent();
+
+            cboReportLogo.DataSource = ReportLogoSettings.All;
+            SelectCurrentReportLogoInCombo();
         }
 
         private void ucSetting_Load(object sender, EventArgs e)
@@ -101,6 +104,44 @@ namespace SerialPortListener
                 tcSetting.TabPages.Remove(tabPage8);
                 //แถบรถร่วม
                 tcSetting.TabPages.Remove(tabPage9);
+                //แถบโลโก้ใบชั่ง
+                tcSetting.TabPages.Remove(tabPage12);
+            }
+        }
+
+        // เลือกรายการใน combo ให้ตรงกับโลโก้ที่บันทึกไว้อยู่ในปัจจุบัน (ค่าเริ่มต้นถ้ายังไม่เคยตั้งค่า)
+        private void SelectCurrentReportLogoInCombo()
+        {
+            ReportLogo current = ReportLogoSettings.GetSelectedLogo();
+            foreach (ReportLogoSettings.Option option in cboReportLogo.Items)
+            {
+                if (option.Logo == current)
+                {
+                    cboReportLogo.SelectedItem = option;
+                    return;
+                }
+            }
+        }
+
+        private void btnSaveReportLogo_Click(object sender, EventArgs e)
+        {
+            if (!Globals.isPermissionAddSetting())
+            {
+                MessageBox.Show("คุณไม่มีสิทธิ์บันทึกการตั้งค่านี้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var option = cboReportLogo.SelectedItem as ReportLogoSettings.Option;
+            ReportLogo selected = option != null ? option.Logo : ReportLogo.Default;
+
+            try
+            {
+                ReportLogoSettings.SaveSelectedLogo(selected);
+                MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "โลโก้ใบชั่ง", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("บันทึกการตั้งค่าไม่สำเร็จ: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

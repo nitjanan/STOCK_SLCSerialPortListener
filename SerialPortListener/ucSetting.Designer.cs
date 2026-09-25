@@ -127,6 +127,10 @@
             this.btDelDriver = new System.Windows.Forms.Button();
             this.btSaveDriver = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.lblReportLogo = new System.Windows.Forms.Label();
+            this.cboReportLogo = new System.Windows.Forms.ComboBox();
+            this.btnSaveReportLogo = new System.Windows.Forms.Button();
             this.btDelCarRegistration = new System.Windows.Forms.Button();
             this.btSaveCarRegistration = new System.Windows.Forms.Button();
             this.dgvCarRegistration = new System.Windows.Forms.DataGridView();
@@ -200,6 +204,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truck_mDataSet)).BeginInit();
             this.tabPage11.SuspendLayout();
+            this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarRegistration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecarregistrationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).BeginInit();
@@ -224,6 +229,7 @@
             this.tcSetting.Controls.Add(this.tabPage9);
             this.tcSetting.Controls.Add(this.tabPage10);
             this.tcSetting.Controls.Add(this.tabPage11);
+            this.tcSetting.Controls.Add(this.tabPage12);
             this.tcSetting.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tcSetting.Location = new System.Drawing.Point(3, 3);
             this.tcSetting.Name = "tcSetting";
@@ -1252,7 +1258,53 @@
             this.tabPage11.Size = new System.Drawing.Size(753, 460);
             this.tabPage11.TabIndex = 10;
             this.tabPage11.Text = "ทะเบียนรถ";
-            // 
+            //
+            // tabPage12
+            //
+            this.tabPage12.BackColor = System.Drawing.Color.FloralWhite;
+            this.tabPage12.Controls.Add(this.btnSaveReportLogo);
+            this.tabPage12.Controls.Add(this.cboReportLogo);
+            this.tabPage12.Controls.Add(this.lblReportLogo);
+            this.tabPage12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage12.Location = new System.Drawing.Point(4, 26);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(753, 460);
+            this.tabPage12.TabIndex = 11;
+            this.tabPage12.Text = "โลโก้ใบชั่ง";
+            //
+            // lblReportLogo
+            //
+            this.lblReportLogo.AutoSize = true;
+            this.lblReportLogo.Location = new System.Drawing.Point(30, 30);
+            this.lblReportLogo.Name = "lblReportLogo";
+            this.lblReportLogo.Size = new System.Drawing.Size(206, 24);
+            this.lblReportLogo.TabIndex = 0;
+            this.lblReportLogo.Text = "โลโก้บนใบชั่งน้ำหนัก";
+            //
+            // cboReportLogo
+            //
+            this.cboReportLogo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboReportLogo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboReportLogo.FormattingEnabled = true;
+            this.cboReportLogo.Location = new System.Drawing.Point(30, 65);
+            this.cboReportLogo.Name = "cboReportLogo";
+            this.cboReportLogo.Size = new System.Drawing.Size(320, 32);
+            this.cboReportLogo.TabIndex = 1;
+            //
+            // btnSaveReportLogo
+            //
+            this.btnSaveReportLogo.BackColor = System.Drawing.Color.White;
+            this.btnSaveReportLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveReportLogo.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveReportLogo.ForeColor = System.Drawing.Color.Green;
+            this.btnSaveReportLogo.Location = new System.Drawing.Point(30, 115);
+            this.btnSaveReportLogo.Name = "btnSaveReportLogo";
+            this.btnSaveReportLogo.Size = new System.Drawing.Size(320, 40);
+            this.btnSaveReportLogo.TabIndex = 2;
+            this.btnSaveReportLogo.Text = "บันทึก";
+            this.btnSaveReportLogo.UseVisualStyleBackColor = false;
+            this.btnSaveReportLogo.Click += new System.EventHandler(this.btnSaveReportLogo_Click);
+            //
             // btDelCarRegistration
             // 
             this.btDelCarRegistration.BackColor = System.Drawing.Color.IndianRed;
@@ -1506,6 +1558,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource3)).EndInit();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1647,5 +1701,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ชื่อลูกค้า;
         private System.Windows.Forms.DataGridViewTextBoxColumn ที่อยู่;
         private System.Windows.Forms.DataGridViewTextBoxColumn ส่งที่;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.Label lblReportLogo;
+        private System.Windows.Forms.ComboBox cboReportLogo;
+        private System.Windows.Forms.Button btnSaveReportLogo;
     }
 }
