@@ -84,6 +84,7 @@ namespace SerialPortListener
 
             cboReportLogo.DataSource = ReportLogoSettings.All;
             SelectCurrentReportLogoInCombo();
+            chkAutoFillWeightIn.Checked = MainFormSettings.GetAutoFillWeightInEnabled();
         }
 
         private void ucSetting_Load(object sender, EventArgs e)
@@ -137,7 +138,8 @@ namespace SerialPortListener
             try
             {
                 ReportLogoSettings.SaveSelectedLogo(selected);
-                MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "โลโก้ใบชั่ง", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MainFormSettings.SetAutoFillWeightInEnabled(chkAutoFillWeightIn.Checked);
+                MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "ตั้งค่าทั่วไป", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {

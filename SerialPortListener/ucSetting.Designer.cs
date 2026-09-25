@@ -67,6 +67,10 @@
             this.btDelCustomer = new System.Windows.Forms.Button();
             this.btSaveCustomer = new System.Windows.Forms.Button();
             this.dgvCustomer = new System.Windows.Forms.DataGridView();
+            this.รหัสลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ชื่อลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ที่อยู่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ส่งที่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.basecustomerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.baseCustomerDataSet = new SerialPortListener.baseCustomerDataSet();
             this.tabPage6 = new System.Windows.Forms.TabPage();
@@ -127,10 +131,6 @@
             this.btDelDriver = new System.Windows.Forms.Button();
             this.btSaveDriver = new System.Windows.Forms.Button();
             this.tabPage11 = new System.Windows.Forms.TabPage();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.lblReportLogo = new System.Windows.Forms.Label();
-            this.cboReportLogo = new System.Windows.Forms.ComboBox();
-            this.btnSaveReportLogo = new System.Windows.Forms.Button();
             this.btDelCarRegistration = new System.Windows.Forms.Button();
             this.btSaveCarRegistration = new System.Windows.Forms.Button();
             this.dgvCarRegistration = new System.Windows.Forms.DataGridView();
@@ -139,6 +139,11 @@
             this.ประเภทรถ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.basecarregistrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSet3 = new SerialPortListener.truckDataSet3();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.btnSaveReportLogo = new System.Windows.Forms.Button();
+            this.cboReportLogo = new System.Windows.Forms.ComboBox();
+            this.lblReportLogo = new System.Windows.Forms.Label();
+            this.chkAutoFillWeightIn = new System.Windows.Forms.CheckBox();
             this.basedriverBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSet1 = new SerialPortListener.truckDataSet1();
             this.base_stone_typeTableAdapter = new SerialPortListener.baseStoneTypeDataSetTableAdapters.base_stone_typeTableAdapter();
@@ -158,10 +163,6 @@
             this.basedriverBindingSource3 = new System.Windows.Forms.BindingSource(this.components);
             this.base_driverTableAdapter2 = new SerialPortListener.truckDataSet2TableAdapters.base_driverTableAdapter();
             this.base_car_registrationTableAdapter = new SerialPortListener.truckDataSet3TableAdapters.base_car_registrationTableAdapter();
-            this.รหัสลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ชื่อลูกค้า = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ที่อยู่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ส่งที่ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tcSetting.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScale)).BeginInit();
@@ -204,10 +205,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truck_mDataSet)).BeginInit();
             this.tabPage11.SuspendLayout();
-            this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarRegistration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecarregistrationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).BeginInit();
+            this.tabPage12.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truck_mDataSet1)).BeginInit();
@@ -218,6 +219,7 @@
             // 
             // tcSetting
             // 
+            this.tcSetting.Controls.Add(this.tabPage12);
             this.tcSetting.Controls.Add(this.tabPage1);
             this.tcSetting.Controls.Add(this.tabPage2);
             this.tcSetting.Controls.Add(this.tabPage3);
@@ -229,7 +231,6 @@
             this.tcSetting.Controls.Add(this.tabPage9);
             this.tcSetting.Controls.Add(this.tabPage10);
             this.tcSetting.Controls.Add(this.tabPage11);
-            this.tcSetting.Controls.Add(this.tabPage12);
             this.tcSetting.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tcSetting.Location = new System.Drawing.Point(3, 3);
             this.tcSetting.Name = "tcSetting";
@@ -654,6 +655,35 @@
             this.dgvCustomer.Size = new System.Drawing.Size(720, 403);
             this.dgvCustomer.TabIndex = 3;
             this.dgvCustomer.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvCustomer_KeyDown);
+            // 
+            // รหัสลูกค้า
+            // 
+            this.รหัสลูกค้า.DataPropertyName = "รหัสลูกค้า";
+            this.รหัสลูกค้า.HeaderText = "รหัสหน้างาน";
+            this.รหัสลูกค้า.Name = "รหัสลูกค้า";
+            this.รหัสลูกค้า.Width = 200;
+            // 
+            // ชื่อลูกค้า
+            // 
+            this.ชื่อลูกค้า.DataPropertyName = "ชื่อลูกค้า";
+            this.ชื่อลูกค้า.HeaderText = "ชื่อหน้างาน";
+            this.ชื่อลูกค้า.Name = "ชื่อลูกค้า";
+            this.ชื่อลูกค้า.Width = 400;
+            // 
+            // ที่อยู่
+            // 
+            this.ที่อยู่.DataPropertyName = "ที่อยู่";
+            this.ที่อยู่.HeaderText = "ที่อยู่";
+            this.ที่อยู่.Name = "ที่อยู่";
+            this.ที่อยู่.Width = 400;
+            // 
+            // ส่งที่
+            // 
+            this.ส่งที่.DataPropertyName = "ส่งที่";
+            this.ส่งที่.HeaderText = "ส่งที่";
+            this.ส่งที่.Name = "ส่งที่";
+            this.ส่งที่.Visible = false;
+            this.ส่งที่.Width = 300;
             // 
             // basecustomerBindingSource
             // 
@@ -1258,53 +1288,7 @@
             this.tabPage11.Size = new System.Drawing.Size(753, 460);
             this.tabPage11.TabIndex = 10;
             this.tabPage11.Text = "ทะเบียนรถ";
-            //
-            // tabPage12
-            //
-            this.tabPage12.BackColor = System.Drawing.Color.FloralWhite;
-            this.tabPage12.Controls.Add(this.btnSaveReportLogo);
-            this.tabPage12.Controls.Add(this.cboReportLogo);
-            this.tabPage12.Controls.Add(this.lblReportLogo);
-            this.tabPage12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage12.Location = new System.Drawing.Point(4, 26);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(753, 460);
-            this.tabPage12.TabIndex = 11;
-            this.tabPage12.Text = "โลโก้ใบชั่ง";
-            //
-            // lblReportLogo
-            //
-            this.lblReportLogo.AutoSize = true;
-            this.lblReportLogo.Location = new System.Drawing.Point(30, 30);
-            this.lblReportLogo.Name = "lblReportLogo";
-            this.lblReportLogo.Size = new System.Drawing.Size(206, 24);
-            this.lblReportLogo.TabIndex = 0;
-            this.lblReportLogo.Text = "โลโก้บนใบชั่งน้ำหนัก";
-            //
-            // cboReportLogo
-            //
-            this.cboReportLogo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboReportLogo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboReportLogo.FormattingEnabled = true;
-            this.cboReportLogo.Location = new System.Drawing.Point(30, 65);
-            this.cboReportLogo.Name = "cboReportLogo";
-            this.cboReportLogo.Size = new System.Drawing.Size(320, 32);
-            this.cboReportLogo.TabIndex = 1;
-            //
-            // btnSaveReportLogo
-            //
-            this.btnSaveReportLogo.BackColor = System.Drawing.Color.White;
-            this.btnSaveReportLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveReportLogo.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveReportLogo.ForeColor = System.Drawing.Color.Green;
-            this.btnSaveReportLogo.Location = new System.Drawing.Point(30, 115);
-            this.btnSaveReportLogo.Name = "btnSaveReportLogo";
-            this.btnSaveReportLogo.Size = new System.Drawing.Size(320, 40);
-            this.btnSaveReportLogo.TabIndex = 2;
-            this.btnSaveReportLogo.Text = "บันทึก";
-            this.btnSaveReportLogo.UseVisualStyleBackColor = false;
-            this.btnSaveReportLogo.Click += new System.EventHandler(this.btnSaveReportLogo_Click);
-            //
+            // 
             // btDelCarRegistration
             // 
             this.btDelCarRegistration.BackColor = System.Drawing.Color.IndianRed;
@@ -1385,6 +1369,64 @@
             // 
             this.truckDataSet3.DataSetName = "truckDataSet3";
             this.truckDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.BackColor = System.Drawing.Color.FloralWhite;
+            this.tabPage12.Controls.Add(this.btnSaveReportLogo);
+            this.tabPage12.Controls.Add(this.chkAutoFillWeightIn);
+            this.tabPage12.Controls.Add(this.cboReportLogo);
+            this.tabPage12.Controls.Add(this.lblReportLogo);
+            this.tabPage12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage12.Location = new System.Drawing.Point(4, 26);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(753, 460);
+            this.tabPage12.TabIndex = 11;
+            this.tabPage12.Text = "ตั้งค่าทั่วไป";
+            //
+            // chkAutoFillWeightIn
+            //
+            this.chkAutoFillWeightIn.AutoSize = false;
+            this.chkAutoFillWeightIn.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAutoFillWeightIn.Location = new System.Drawing.Point(30, 120);
+            this.chkAutoFillWeightIn.Name = "chkAutoFillWeightIn";
+            this.chkAutoFillWeightIn.Size = new System.Drawing.Size(680, 40);
+            this.chkAutoFillWeightIn.TabIndex = 3;
+            this.chkAutoFillWeightIn.Text = "ดึงน้ำหนักเข้าล่าสุดของรถในวันเดียวกันมาใส่อัตโนมัติเมื่อกรอกทะเบียนรถ (ค่าเริ่มต้น: ไม่ดึง)";
+            this.chkAutoFillWeightIn.UseVisualStyleBackColor = true;
+            //
+            // btnSaveReportLogo
+            //
+            this.btnSaveReportLogo.BackColor = System.Drawing.Color.White;
+            this.btnSaveReportLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveReportLogo.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveReportLogo.ForeColor = System.Drawing.Color.Green;
+            this.btnSaveReportLogo.Location = new System.Drawing.Point(30, 175);
+            this.btnSaveReportLogo.Name = "btnSaveReportLogo";
+            this.btnSaveReportLogo.Size = new System.Drawing.Size(320, 40);
+            this.btnSaveReportLogo.TabIndex = 2;
+            this.btnSaveReportLogo.Text = "บันทึก";
+            this.btnSaveReportLogo.UseVisualStyleBackColor = false;
+            this.btnSaveReportLogo.Click += new System.EventHandler(this.btnSaveReportLogo_Click);
+            //
+            // cboReportLogo
+            // 
+            this.cboReportLogo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboReportLogo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboReportLogo.FormattingEnabled = true;
+            this.cboReportLogo.Location = new System.Drawing.Point(30, 65);
+            this.cboReportLogo.Name = "cboReportLogo";
+            this.cboReportLogo.Size = new System.Drawing.Size(320, 29);
+            this.cboReportLogo.TabIndex = 1;
+            // 
+            // lblReportLogo
+            // 
+            this.lblReportLogo.AutoSize = true;
+            this.lblReportLogo.Location = new System.Drawing.Point(30, 30);
+            this.lblReportLogo.Name = "lblReportLogo";
+            this.lblReportLogo.Size = new System.Drawing.Size(137, 21);
+            this.lblReportLogo.TabIndex = 0;
+            this.lblReportLogo.Text = "โลโก้บนใบชั่งน้ำหนัก";
             // 
             // basedriverBindingSource1
             // 
@@ -1468,35 +1510,6 @@
             // 
             this.base_car_registrationTableAdapter.ClearBeforeFill = true;
             // 
-            // รหัสลูกค้า
-            // 
-            this.รหัสลูกค้า.DataPropertyName = "รหัสลูกค้า";
-            this.รหัสลูกค้า.HeaderText = "รหัสหน้างาน";
-            this.รหัสลูกค้า.Name = "รหัสลูกค้า";
-            this.รหัสลูกค้า.Width = 200;
-            // 
-            // ชื่อลูกค้า
-            // 
-            this.ชื่อลูกค้า.DataPropertyName = "ชื่อลูกค้า";
-            this.ชื่อลูกค้า.HeaderText = "ชื่อหน้างาน";
-            this.ชื่อลูกค้า.Name = "ชื่อลูกค้า";
-            this.ชื่อลูกค้า.Width = 400;
-            // 
-            // ที่อยู่
-            // 
-            this.ที่อยู่.DataPropertyName = "ที่อยู่";
-            this.ที่อยู่.HeaderText = "ที่อยู่";
-            this.ที่อยู่.Name = "ที่อยู่";
-            this.ที่อยู่.Width = 400;
-            // 
-            // ส่งที่
-            // 
-            this.ส่งที่.DataPropertyName = "ส่งที่";
-            this.ส่งที่.HeaderText = "ส่งที่";
-            this.ส่งที่.Name = "ส่งที่";
-            this.ส่งที่.Visible = false;
-            this.ส่งที่.Width = 300;
-            // 
             // ucSetting
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1552,14 +1565,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarRegistration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecarregistrationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).EndInit();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truck_mDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource3)).EndInit();
-            this.tabPage12.ResumeLayout(false);
-            this.tabPage12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1705,5 +1718,6 @@
         private System.Windows.Forms.Label lblReportLogo;
         private System.Windows.Forms.ComboBox cboReportLogo;
         private System.Windows.Forms.Button btnSaveReportLogo;
+        private System.Windows.Forms.CheckBox chkAutoFillWeightIn;
     }
 }

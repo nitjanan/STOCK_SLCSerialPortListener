@@ -3246,6 +3246,10 @@ namespace SerialPortListener
 
         private void getWeightInOnDay(TextBox tb)
         {
+            // ตั้งค่าได้ที่ ucSetting (ค่าเริ่มต้น: ไม่ดึง) — ถ้าปิดไว้จะไม่ดึงน้ำหนักเข้าล่าสุดของรถมาใส่อัตโนมัติเลย
+            if (!MainFormSettings.GetAutoFillWeightInEnabled())
+                return;
+
             string today = DateTime.Now.ToString("yyyy-MM-dd");
 
             if ((tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text)) && tbWeightIn.Enabled)
