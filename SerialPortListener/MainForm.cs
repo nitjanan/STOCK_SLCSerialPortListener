@@ -27,6 +27,15 @@ namespace SerialPortListener
         SerialPortManager _spManager;
         private readonly object _rxLock = new object();
         private StringBuilder _rxBuffer = new StringBuilder();
+
+        // Adapted from Master_Blue_1 (729a5379, 1eb017c1): require the incoming weight to hold
+        // steady for WeightStableIntervalMs before a read button is clickable, so an operator
+        // can't capture a value while the scale is still settling.
+        private const int WeightStableIntervalMs = 5000;
+        private System.Windows.Forms.Timer _weightStableTimer;
+        private bool _weightIsStable = true;
+        private bool _btReadInBusinessEnabled = true;
+        private bool _btReadOutBusinessEnabled = true;
         Datalayer dl;
         String strCalQ = "1.00";
         AutoCompleteStringCollection collCarTeam = new AutoCompleteStringCollection();
@@ -93,6 +102,15 @@ namespace SerialPortListener
             // Start/Stop is controlled from ucHelp, which shares this MainForm's _spManager.
             // The tick handler no-ops when the buffer is empty, so it's safe to run always.
             timerWeight.Start();
+
+            _weightStableTimer = new System.Windows.Forms.Timer();
+            _weightStableTimer.Interval = WeightStableIntervalMs;
+            _weightStableTimer.Tick += (s, e) =>
+            {
+                _weightStableTimer.Stop();
+                _weightIsStable = true;
+                RefreshReadButtonsEnabledState();
+            };
         }
 
         // ปุ่ม "ตรวจสอบอัพเดท" อยู่ที่ ucBackup ; MainForm รับ event มาทำงานเพราะ logic ต้องใช้ dl, findBWS(), GetJwtToken()
@@ -350,16 +368,27 @@ namespace SerialPortListener
         }
         public void EnableWeightInAndOut()
         {
-            btReadIn.Enabled = true;
-            btReadOut.Enabled = true;
+            _btReadInBusinessEnabled = true;
+            _btReadOutBusinessEnabled = true;
+            RefreshReadButtonsEnabledState();
         }
 
         public void disableReadWeightIn() {
-            btReadIn.Enabled = false;
+            _btReadInBusinessEnabled = false;
+            RefreshReadButtonsEnabledState();
         }
 
         public void disableReadWeightOut() {
-            btReadOut.Enabled = false;
+            _btReadOutBusinessEnabled = false;
+            RefreshReadButtonsEnabledState();
+        }
+
+        // Adapted from Master_Blue_1: effective button state is always business-state AND
+        // weight-stability, so neither concern has to know about the other at call sites.
+        private void RefreshReadButtonsEnabledState()
+        {
+            btReadIn.Enabled = _btReadInBusinessEnabled && _weightIsStable;
+            btReadOut.Enabled = _btReadOutBusinessEnabled && _weightIsStable;
         }
 
         public void resetMainForm() {
@@ -645,7 +674,8 @@ namespace SerialPortListener
             {
                 dtWeightOutDate.Text = DateTime.Now.ToShortDateString();
                 dtWeightOutTime.Text = DateTime.Now.ToShortTimeString();
-                btReadOut.Enabled = true;
+                _btReadOutBusinessEnabled = true;
+                RefreshReadButtonsEnabledState();
             }
             else {
                 dtWeightOutDate.Text = data.weightOutDate;
@@ -813,6 +843,7 @@ namespace SerialPortListener
             {
                 _spManager.Dispose();
             }
+            _weightStableTimer?.Dispose();
         }
 
         // Runs on the SerialPort's background thread. Only buffers data - no UI access here,
@@ -834,6 +865,9 @@ namespace SerialPortListener
 
         private void btRead_Click(object sender, EventArgs e)
         {
+            if (!_weightIsStable)
+                return;
+
             try
             {
                 _spManager.StopListening();
@@ -1061,6 +1095,9 @@ namespace SerialPortListener
 
         private void btReadOut_Click(object sender, EventArgs e)
         {
+            if (!_weightIsStable)
+                return;
+
             try {
                 _spManager.StopListening();
 
@@ -2477,6 +2514,13 @@ namespace SerialPortListener
                     {
                         tbWeigtData.Text = mc[0].Value.TrimStart('0').PadLeft(1, '0');
                         //tbWeigtData.ForeColor = Color.LightCoral;
+
+                        // Adapted from Master_Blue_1: any change in the incoming weight restarts
+                        // the settle window before the read buttons become usable again.
+                        _weightIsStable = false;
+                        RefreshReadButtonsEnabledState();
+                        _weightStableTimer.Stop();
+                        _weightStableTimer.Start();
                     }
                     else
                     {
@@ -2863,7 +2907,8 @@ namespace SerialPortListener
             TableFromDB mf = new TableFromDB(this);
             mf.ShowDialog();
             //ปิดปุ่มอ่านน้ำหนักเข้า
-            btReadIn.Enabled = false;
+            _btReadInBusinessEnabled = false;
+            RefreshReadButtonsEnabledState();
             tbCarLicenseId.Enabled = false;
             tbCarLicense.Enabled = false;
         }
