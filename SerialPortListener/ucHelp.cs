@@ -110,9 +110,26 @@ namespace SerialPortListener
         }
 
         // เลือกรูปแบบใน combo แล้วมีผลทันที (แบบเดียวกับ baud/parity/databits/stopbits)
+        // และคำนวณ tbWeightPreview ใหม่ทันทีจากข้อมูลดิบที่มีอยู่แล้ว ไม่ต้องรอ timerRx tick ถัดไป
         private void cboWeightFormat_SelectedIndexChanged(object sender, EventArgs e)
         {
             MainForm.CurrentWeightFormat = SelectedWeightFormat();
+            RefreshWeightPreview();
+        }
+
+        // อ่านค่าน้ำหนักล่าสุดจากข้อมูลดิบที่มีอยู่แล้วในกล่องตรวจสอบ ด้วย parser/รูปแบบที่เลือกอยู่ตอนนี้
+        // ใช้ทั้งตอนข้อมูลใหม่เข้ามา (timerRx_Tick) และตอนเปลี่ยนรูปแบบ (cboWeightFormat_SelectedIndexChanged)
+        private void RefreshWeightPreview()
+        {
+            try
+            {
+                string parsed = MainForm.ParseWeightFromBuffer(txtDataReceived.Text, tbWeightPreview.Text, SelectedWeightFormat(), out _);
+                if (parsed != null)
+                    tbWeightPreview.Text = parsed;
+            }
+            catch (Exception)
+            {
+            }
         }
 
         // อ่านรูปแบบที่บันทึกไว้จาก config_weightformat.txt คืนค่า default (ParenCR) ถ้าไม่มีไฟล์/อ่านไม่ได้/ค่าที่บันทึกไว้ไม่รู้จัก
@@ -375,9 +392,7 @@ namespace SerialPortListener
 
                 // แสดงน้ำหนักที่อ่านได้แบบสด โดยใช้ parser ตัวเดียวกับที่ MainForm ใช้จริง
                 // กับรูปแบบที่เลือกอยู่ใน cboWeightFormat ตอนนี้ ไม่ต้องพิมพ์ข้อมูลทดสอบเอง
-                string parsed = MainForm.ParseWeightFromBuffer(txtDataReceived.Text, tbWeightPreview.Text, SelectedWeightFormat(), out _);
-                if (parsed != null)
-                    tbWeightPreview.Text = parsed;
+                RefreshWeightPreview();
             }
             catch (Exception)
             {
