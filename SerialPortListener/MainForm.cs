@@ -347,34 +347,45 @@ namespace SerialPortListener
         {
             lbCompanyCode.Text = Company.Code;
 
-            /* autoComplete ผู้ตัก */
-            autoCompleteSettingPair(tbScoopId, "รหัสผู้ตัก", tbScoopName, "ชื่อผู้ตัก", "base_scoop", "where company = '" + Company.Code + "'");
+            // เปิดการเชื่อมต่อไว้ครั้งเดียวคร่อมทุกคำสั่งด้านล่าง แทนที่จะเปิด-ปิดใหม่ทุกคำสั่ง (เดิม 11 รอบ)
+            // ช่วยให้หน้า MainForm โหลดเร็วขึ้นมาก เพราะไม่ต้องเสียเวลาเปิด/ปิด connection ซ้ำๆ ตอนเปิดโปรแกรม
+            // แต่ละเมธอดด้านล่างยังเรียก dl.connect()/dl.close() ของตัวเองตามเดิม (ปลอดภัย เพราะเรียกซ้อนกันได้แล้ว)
+            dl.connect();
+            try
+            {
+                /* autoComplete ผู้ตัก */
+                autoCompleteSettingPair(tbScoopId, "รหัสผู้ตัก", tbScoopName, "ชื่อผู้ตัก", "base_scoop", "where company = '" + Company.Code + "'");
 
-            /* autoComplete ผู้ชั่ง */
-            autoCompleteSettingPair(tbScaleId, "username", tbScaleName, "firstname", "users", "");
+                /* autoComplete ผู้ชั่ง */
+                autoCompleteSettingPair(tbScaleId, "username", tbScaleName, "firstname", "users", "");
 
-            /* autoComplete ผู้อนุมัติ */
-            autoCompleteSettingPair(tbApproveId, "รหัสผู้อนุมัติจ่าย", tbApproveName, "ชื่อผู้อนุมัติจ่าย", "base_approve", "");
+                /* autoComplete ผู้อนุมัติ */
+                autoCompleteSettingPair(tbApproveId, "รหัสผู้อนุมัติจ่าย", tbApproveName, "ชื่อผู้อนุมัติจ่าย", "base_approve", "");
 
-            /* autoComplete จังหวัด */
-            autoCompleteSetting(tbCarCity, "ชื่อจังหวัด", "base_car_city");
+                /* autoComplete จังหวัด */
+                autoCompleteSetting(tbCarCity, "ชื่อจังหวัด", "base_car_city");
 
-            /* autoComplete ลูกค้า */
-            autoCompleteSettingPair(tbCustomerId, "รหัสลูกค้า", tbCustomerName, "ชื่อลูกค้า", "base_customer", "where weight_type = 2 or weight_type = 3");
+                /* autoComplete ลูกค้า */
+                autoCompleteSettingPair(tbCustomerId, "รหัสลูกค้า", tbCustomerName, "ชื่อลูกค้า", "base_customer", "where weight_type = 2 or weight_type = 3");
 
-            /* autoComplete ผู้ขับ */
-            autoCompleteSettingPair(tbDriverId, "รหัสผู้ขับ", tbDriverName, "ชื่อผู้ขับ", "base_driver", "where company = '" + Company.Code + "'");
+                /* autoComplete ผู้ขับ */
+                autoCompleteSettingPair(tbDriverId, "รหัสผู้ขับ", tbDriverName, "ชื่อผู้ขับ", "base_driver", "where company = '" + Company.Code + "'");
 
-            autoCompleteSettingPair(tbMillId, "รหัสโรงโม่", tbMillName, "ชื่อโรงโม่", "base_mill", "where weight_type = 2 or weight_type = 3", rows => _millCache = rows);
+                autoCompleteSettingPair(tbMillId, "รหัสโรงโม่", tbMillName, "ชื่อโรงโม่", "base_mill", "where weight_type = 2 or weight_type = 3", rows => _millCache = rows);
 
-            autoCompleteSettingPair(tbSiteId, "base_site_id", tbSiteName, "base_site_name", "base_site", "where weight_type = 2 or weight_type = 3", rows => _siteCache = rows);
+                autoCompleteSettingPair(tbSiteId, "base_site_id", tbSiteName, "base_site_name", "base_site", "where weight_type = 2 or weight_type = 3", rows => _siteCache = rows);
 
-            autoCompleteSettingPair(tbStoneTypeId, "รหัสหิน", tbStoneTypeName, "ชื่อหิน", "base_stone_type", "where inactive = false", rows => _stoneTypeCache = rows);
+                autoCompleteSettingPair(tbStoneTypeId, "รหัสหิน", tbStoneTypeName, "ชื่อหิน", "base_stone_type", "where inactive = false", rows => _stoneTypeCache = rows);
 
-            /* autoComplete ทะเบียนรถ */
-            autoCompleteSettingPair(tbCarLicenseId, "รหัสทะเบียนรถ", tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration", "where company = '" + Company.Code + "'");
+                /* autoComplete ทะเบียนรถ */
+                autoCompleteSettingPair(tbCarLicenseId, "รหัสทะเบียนรถ", tbCarLicense, "ชื่อทะเบียนรถ", "base_car_registration", "where company = '" + Company.Code + "'");
 
-            Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
+                Weight.CustomerAddress = getPrintFromDB("base_customer", "ที่อยู่", "รหัสลูกค้า", tbCustomerId.Text);
+            }
+            finally
+            {
+                dl.close();
+            }
 
             tbWeigtData.Enter += (s, e) => { tbWeigtData.Parent.Focus(); };
 
