@@ -86,7 +86,8 @@ namespace SerialPortListener
             btnSavePort.Visible = canEdit;
             btnSavePort.Enabled = canEdit;
 
-            // การเลือกรูปแบบตาชั่งต้องมีสิทธิ์ แต่ตัวเลขน้ำหนักที่อ่านได้ (tbWeightPreview) แสดงให้ทุกคนเห็นได้เสมอ
+            // กลุ่ม "รูปแบบตาชั่ง" ทั้งกลุ่ม (รวม tbWeightPreview) ให้เห็นเฉพาะผู้มีสิทธิ์ add_setting เท่านั้น
+            gbWeightFormat.Visible = canEdit;
             cboWeightFormat.Enabled = canEdit;
         }
 
