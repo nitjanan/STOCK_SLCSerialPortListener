@@ -53,6 +53,7 @@ namespace SerialPortListener
             cboWeightFormat.DataSource = WeightFormatCatalog.All;
             MainForm.CurrentWeightFormat = LoadSavedWeightFormat();
             SelectWeightFormatInCombo(MainForm.CurrentWeightFormat);
+            tbWeightPreview.Text = "-  -  -";
         }
 
         private void UcHelp_Disposed(object sender, EventArgs e)
@@ -85,24 +86,8 @@ namespace SerialPortListener
             btnSavePort.Visible = canEdit;
             btnSavePort.Enabled = canEdit;
 
-            lblTestData.Visible = canEdit;
-            tbTestRawData.Visible = canEdit;
-            btnTestParse.Visible = canEdit;
-            lblTestResult.Visible = canEdit;
-            tbTestParsedWeight.Visible = canEdit;
-
-            lblWeightFormat.Visible = canEdit;
+            // การเลือกรูปแบบตาชั่งต้องมีสิทธิ์ แต่ตัวเลขน้ำหนักที่อ่านได้ (tbWeightPreview) แสดงให้ทุกคนเห็นได้เสมอ
             cboWeightFormat.Enabled = canEdit;
-        }
-
-        // ให้ผู้ใช้ลองพิมพ์ข้อมูลดิบจากตาชั่งแล้วดูว่า parser ตัวเดียวกับที่ MainForm ใช้จริง
-        // จะตีความน้ำหนักออกมาเป็นเท่าไหร่ โดยไม่ต้องต่อฮาร์ดแวร์จริง ใช้รูปแบบที่เลือกอยู่ใน combo
-        // ตอนนี้ (ไม่จำเป็นต้องกดบันทึกก่อน) เพื่อให้ลองเทียบรูปแบบต่างๆ ได้ก่อนตัดสินใจ
-        private void btnTestParse_Click(object sender, EventArgs e)
-        {
-            WeightFormat format = SelectedWeightFormat();
-            string parsed = MainForm.ParseWeightFromBuffer(tbTestRawData.Text, "", format, out bool matchedButUnchanged);
-            tbTestParsedWeight.Text = parsed ?? "-";
         }
 
         private WeightFormat SelectedWeightFormat()
@@ -387,6 +372,12 @@ namespace SerialPortListener
                     txtDataReceived.Text = txtDataReceived.Text.Remove(0, txtDataReceived.TextLength - MaxRxTextLength);
                 txtDataReceived.SelectionStart = txtDataReceived.Text.Length;
                 txtDataReceived.ScrollToCaret();
+
+                // แสดงน้ำหนักที่อ่านได้แบบสด โดยใช้ parser ตัวเดียวกับที่ MainForm ใช้จริง
+                // กับรูปแบบที่เลือกอยู่ใน cboWeightFormat ตอนนี้ ไม่ต้องพิมพ์ข้อมูลทดสอบเอง
+                string parsed = MainForm.ParseWeightFromBuffer(txtDataReceived.Text, tbWeightPreview.Text, SelectedWeightFormat(), out _);
+                if (parsed != null)
+                    tbWeightPreview.Text = parsed;
             }
             catch (Exception)
             {
@@ -422,6 +413,7 @@ namespace SerialPortListener
                 {
                     _spManager.StopListening();
                     timerRx.Stop();
+                    tbWeightPreview.Text = "-  -  -";
                     ApplyPortConfigPermission();
                 }
                 catch (Exception ex)
