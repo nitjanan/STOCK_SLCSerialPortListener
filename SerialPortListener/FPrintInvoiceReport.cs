@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +27,7 @@ namespace SerialPortListener
                 //this.weightTableAdapter.Fill(this.weightScoopDataSet.weight);
 
                 Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",Company.CompanyName),
                     new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
                     new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
                 };

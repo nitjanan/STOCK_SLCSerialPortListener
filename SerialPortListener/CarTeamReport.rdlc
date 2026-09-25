@@ -379,7 +379,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>บริษัท เจ.โอ.บี.คอนสตรัคชั่น จำกัด</Value>
+                  <Value>=Parameters!PCompanyName.Value</Value>
                   <Style>
                     <FontFamily>Angsana New</FontFamily>
                     <FontSize>16pt</FontSize>
@@ -464,6 +464,12 @@
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
+  <ReportParameters>
+    <ReportParameter Name="PCompanyName">
+      <DataType>String</DataType>
+      <Prompt>PCompanyName</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>5cd85752-67e3-4044-82bc-eaa24c8e9cfd</rd:ReportID>
 </Report>

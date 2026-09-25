@@ -1442,7 +1442,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>บริษัท เจ.โอ.บี.คอนสตรัคชั่น จำกัด</Value>
+                      <Value>=Parameters!PCompanyName.Value</Value>
                       <Style>
                         <FontFamily>Angsana New</FontFamily>
                         <FontSize>16pt</FontSize>
@@ -1486,6 +1486,10 @@
     </ReportSection>
   </ReportSections>
   <ReportParameters>
+    <ReportParameter Name="PCompanyName">
+      <DataType>String</DataType>
+      <Prompt>PCompanyName</Prompt>
+    </ReportParameter>
     <ReportParameter Name="PDateFrom">
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
@@ -1503,10 +1507,15 @@
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
-          <ParameterName>PDateFrom</ParameterName>
+          <ParameterName>PCompanyName</ParameterName>
         </CellDefinition>
         <CellDefinition>
           <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>PDateFrom</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>PDateTo</ParameterName>
         </CellDefinition>

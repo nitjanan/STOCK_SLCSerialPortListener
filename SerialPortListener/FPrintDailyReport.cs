@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -26,6 +26,7 @@ namespace SerialPortListener
             try
             {
                 Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",Company.CompanyName),
                     new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightDailyReport.DateFrom),
                     new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightDailyReport.DateTo),
                 };

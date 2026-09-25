@@ -24,12 +24,15 @@ namespace SerialPortListener
         {
             try
             {
+                Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
+                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",Company.CompanyName),
+                };
                 this.rvCarTeamReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
                 this.rvCarTeamReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;
                 this.rvCarTeamReport.LocalReport.DataSources.Clear();
                 this.rvCarTeamReport.LocalReport.DataSources.Add(_rs);
                 this.rvCarTeamReport.LocalReport.DisplayName = "รายงานชื่อทีมรถร่วม";
-                //this.rvJointCarReport.LocalReport.SetParameters(p);
+                this.rvCarTeamReport.LocalReport.SetParameters(p);
                 this.rvCarTeamReport.RefreshReport();
             }
             catch (Exception ex)
