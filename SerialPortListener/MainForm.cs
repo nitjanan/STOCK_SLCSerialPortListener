@@ -34,6 +34,14 @@ namespace SerialPortListener
         private const int WeightStableIntervalMs = 5000;
         private System.Windows.Forms.Timer _weightStableTimer;
         private bool _weightIsStable = true;
+
+        // ข้อความ/สีปกติของปุ่มอ่านน้ำหนัก จำไว้ตอนโหลดฟอร์มเพื่อคืนค่ากลับตอนน้ำหนักนิ่งแล้ว
+        private const string WeightNotStableText = "รอน้ำหนักนิ่ง...";
+        private static readonly Color WeightNotStableColor = Color.LightGray;
+        private string _btReadInDefaultText;
+        private Color _btReadInDefaultColor;
+        private string _btReadOutDefaultText;
+        private Color _btReadOutDefaultColor;
         private bool _btReadInBusinessEnabled = true;
         private bool _btReadOutBusinessEnabled = true;
         Datalayer dl;
@@ -111,6 +119,11 @@ namespace SerialPortListener
                 _weightIsStable = true;
                 RefreshReadButtonsEnabledState();
             };
+
+            _btReadInDefaultText = btReadIn.Text;
+            _btReadInDefaultColor = btReadIn.BackColor;
+            _btReadOutDefaultText = btReadOut.Text;
+            _btReadOutDefaultColor = btReadOut.BackColor;
         }
 
         // ปุ่ม "ตรวจสอบอัพเดท" อยู่ที่ ucBackup ; MainForm รับ event มาทำงานเพราะ logic ต้องใช้ dl, findBWS(), GetJwtToken()
@@ -389,6 +402,30 @@ namespace SerialPortListener
         {
             btReadIn.Enabled = _btReadInBusinessEnabled && _weightIsStable;
             btReadOut.Enabled = _btReadOutBusinessEnabled && _weightIsStable;
+
+            // ตอนน้ำหนักยังไม่นิ่ง (แต่ถ้านิ่งแล้วจะกดปุ่มนี้ได้) ให้เปลี่ยนข้อความ/สีปุ่มบอกให้รอ
+            // ถ้าปุ่มถูกปิดด้วยเหตุผลทางธุรกิจอยู่แล้ว (เช่น อ่านไปแล้ว) ให้คงข้อความ/สีเดิมไว้ ไม่ใช่ข้อความรอ
+            if (_btReadInBusinessEnabled && !_weightIsStable)
+            {
+                btReadIn.Text = WeightNotStableText;
+                btReadIn.BackColor = WeightNotStableColor;
+            }
+            else
+            {
+                btReadIn.Text = _btReadInDefaultText;
+                btReadIn.BackColor = _btReadInDefaultColor;
+            }
+
+            if (_btReadOutBusinessEnabled && !_weightIsStable)
+            {
+                btReadOut.Text = WeightNotStableText;
+                btReadOut.BackColor = WeightNotStableColor;
+            }
+            else
+            {
+                btReadOut.Text = _btReadOutDefaultText;
+                btReadOut.BackColor = _btReadOutDefaultColor;
+            }
         }
 
         public void resetMainForm() {
