@@ -1043,12 +1043,12 @@ namespace SerialPortListener
             btMenu4.BackColor = Color.Thistle;
             btMenu5.BackColor = Color.Thistle;
 
-            ucReport.Show();
             ucTruck.Hide();
             ucHelp.Hide();
             ucSetting.Hide();
             ucBackup.Hide();
             ucReport.BringToFront();
+            Utils.ShowWithFade(ucReport);
 
         }
         private void btMenu3_Click(object sender, EventArgs e)
@@ -1059,12 +1059,12 @@ namespace SerialPortListener
             btMenu4.BackColor = Color.Thistle;
             btMenu5.BackColor = Color.Thistle;
 
-            ucSetting.Show();
             ucReport.Hide();
             ucHelp.Hide();
             ucTruck.Hide();
             ucBackup.Hide();
             ucSetting.BringToFront();
+            Utils.ShowWithFade(ucSetting);
         }
         private void btMenu4_Click(object sender, EventArgs e)
         {
@@ -1074,12 +1074,12 @@ namespace SerialPortListener
             btMenu3.BackColor = Color.Thistle;
             btMenu5.BackColor = Color.Thistle;
 
-            ucHelp.Show();
             ucTruck.Hide();
             ucReport.Hide();
             ucSetting.Hide();
             ucBackup.Hide();
             ucHelp.BringToFront();
+            Utils.ShowWithFade(ucHelp);
         }
 
         private void btMenu5_Click(object sender, EventArgs e)
@@ -1090,12 +1090,12 @@ namespace SerialPortListener
             btMenu3.BackColor = Color.Thistle;
             btMenu4.BackColor = Color.Thistle;
 
-            ucBackup.Show();
             ucHelp.Hide();
             ucTruck.Hide();
             ucReport.Hide();
             ucSetting.Hide();
             ucBackup.BringToFront();
+            Utils.ShowWithFade(ucBackup);
         }
 
 
