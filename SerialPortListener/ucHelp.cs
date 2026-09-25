@@ -76,6 +76,20 @@ namespace SerialPortListener
             cboStopBits.Enabled = canEdit;
             btnSavePort.Visible = canEdit;
             btnSavePort.Enabled = canEdit;
+
+            lblTestData.Visible = canEdit;
+            tbTestRawData.Visible = canEdit;
+            btnTestParse.Visible = canEdit;
+            lblTestResult.Visible = canEdit;
+            tbTestParsedWeight.Visible = canEdit;
+        }
+
+        // ให้ผู้ใช้ลองพิมพ์ข้อมูลดิบจากตาชั่งแล้วดูว่า parser ตัวเดียวกับที่ MainForm ใช้จริง
+        // จะตีความน้ำหนักออกมาเป็นเท่าไหร่ โดยไม่ต้องต่อฮาร์ดแวร์จริง
+        private void btnTestParse_Click(object sender, EventArgs e)
+        {
+            string parsed = MainForm.ParseWeightFromBuffer(tbTestRawData.Text, "", out bool matchedButUnchanged);
+            tbTestParsedWeight.Text = parsed ?? "-";
         }
 
         // อ่านค่า COM port ที่บันทึกไว้จาก config_port.txt (บรรทัดเดียว เช่น "COM4") ถ้าไม่มีไฟล์หรืออ่านไม่ได้คืนค่า null

@@ -44,6 +44,11 @@ namespace SerialPortListener
             this.btnStop = new System.Windows.Forms.Button();
             this.btnSavePort = new System.Windows.Forms.Button();
             this.timerRx = new System.Windows.Forms.Timer(this.components);
+            this.lblTestData = new System.Windows.Forms.Label();
+            this.tbTestRawData = new System.Windows.Forms.TextBox();
+            this.btnTestParse = new System.Windows.Forms.Button();
+            this.lblTestResult = new System.Windows.Forms.Label();
+            this.tbTestParsedWeight = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // lblPort
@@ -198,14 +203,67 @@ namespace SerialPortListener
             this.btnSavePort.Click += new System.EventHandler(this.btnSavePort_Click);
             // 
             // timerRx
-            // 
+            //
             this.timerRx.Interval = 200;
             this.timerRx.Tick += new System.EventHandler(this.timerRx_Tick);
-            // 
+            //
+            // lblTestData
+            //
+            this.lblTestData.AutoSize = true;
+            this.lblTestData.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTestData.Location = new System.Drawing.Point(50, 350);
+            this.lblTestData.Name = "lblTestData";
+            this.lblTestData.Size = new System.Drawing.Size(146, 21);
+            this.lblTestData.TabIndex = 16;
+            this.lblTestData.Text = "ทดสอบข้อมูลตาชั่ง";
+            //
+            // tbTestRawData
+            //
+            this.tbTestRawData.Font = new System.Drawing.Font("Consolas", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTestRawData.Location = new System.Drawing.Point(50, 375);
+            this.tbTestRawData.Name = "tbTestRawData";
+            this.tbTestRawData.Size = new System.Drawing.Size(280, 26);
+            this.tbTestRawData.TabIndex = 17;
+            //
+            // btnTestParse
+            //
+            this.btnTestParse.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTestParse.Location = new System.Drawing.Point(340, 373);
+            this.btnTestParse.Name = "btnTestParse";
+            this.btnTestParse.Size = new System.Drawing.Size(90, 30);
+            this.btnTestParse.TabIndex = 18;
+            this.btnTestParse.Text = "ทดสอบ";
+            this.btnTestParse.UseVisualStyleBackColor = true;
+            this.btnTestParse.Click += new System.EventHandler(this.btnTestParse_Click);
+            //
+            // lblTestResult
+            //
+            this.lblTestResult.AutoSize = true;
+            this.lblTestResult.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTestResult.Location = new System.Drawing.Point(50, 415);
+            this.lblTestResult.Name = "lblTestResult";
+            this.lblTestResult.Size = new System.Drawing.Size(68, 21);
+            this.lblTestResult.TabIndex = 19;
+            this.lblTestResult.Text = "ผลลัพธ์";
+            //
+            // tbTestParsedWeight
+            //
+            this.tbTestParsedWeight.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbTestParsedWeight.Location = new System.Drawing.Point(150, 412);
+            this.tbTestParsedWeight.Name = "tbTestParsedWeight";
+            this.tbTestParsedWeight.ReadOnly = true;
+            this.tbTestParsedWeight.Size = new System.Drawing.Size(180, 29);
+            this.tbTestParsedWeight.TabIndex = 20;
+            //
             // ucHelp
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbTestParsedWeight);
+            this.Controls.Add(this.lblTestResult);
+            this.Controls.Add(this.btnTestParse);
+            this.Controls.Add(this.tbTestRawData);
+            this.Controls.Add(this.lblTestData);
             this.Controls.Add(this.btnSavePort);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
@@ -244,5 +302,10 @@ namespace SerialPortListener
         private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Button btnSavePort;
         private System.Windows.Forms.Timer timerRx;
+        private System.Windows.Forms.Label lblTestData;
+        private System.Windows.Forms.TextBox tbTestRawData;
+        private System.Windows.Forms.Button btnTestParse;
+        private System.Windows.Forms.Label lblTestResult;
+        private System.Windows.Forms.TextBox tbTestParsedWeight;
     }
 }
