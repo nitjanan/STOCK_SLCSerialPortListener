@@ -1975,7 +1975,7 @@
               </Textbox>
               <Image Name="Image2">
                 <Source>Embedded</Source>
-                <Value>job_logo</Value>
+                <Value>=IIF(Parameters!PLogoName.Value = "", "job_logo", Parameters!PLogoName.Value)</Value>
                 <Sizing>FitProportional</Sizing>
                 <Top>0.09427in</Top>
                 <Left>0.11563in</Left>
@@ -2354,11 +2354,15 @@
       <DataType>String</DataType>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
+    <ReportParameter Name="PLogoName">
+      <DataType>String</DataType>
+      <Prompt>ReportParameter1</Prompt>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
-      <NumberOfRows>10</NumberOfRows>
+      <NumberOfRows>11</NumberOfRows>
       <CellDefinitions>
         <CellDefinition>
           <ColumnIndex>0</ColumnIndex>
@@ -2559,6 +2563,11 @@
           <ColumnIndex>3</ColumnIndex>
           <RowIndex>9</RowIndex>
           <ParameterName>PSite</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>10</RowIndex>
+          <ParameterName>PLogoName</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
