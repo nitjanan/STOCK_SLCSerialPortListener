@@ -249,6 +249,7 @@
       <DependentUpon>FPrintCustomerReport.cs</DependentUpon>
     </Compile>
     <Compile Include="ReportErrorHelper.cs" />
+    <Compile Include="ReportLogoSettings.cs" />
     <Compile Include="FPrintDailyReport.cs">
       <SubType>Form</SubType>
     </Compile>

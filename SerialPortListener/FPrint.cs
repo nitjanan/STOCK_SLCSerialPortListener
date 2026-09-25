@@ -61,6 +61,7 @@ namespace SerialPortListener
                 new Microsoft.Reporting.WinForms.ReportParameter("TEmail",Company.TEmail),
                 new Microsoft.Reporting.WinForms.ReportParameter("TDocName",Company.TDocName),
                 new Microsoft.Reporting.WinForms.ReportParameter("PDatePrintAndCopyNum",Weight.DatePrintAndCopyNum),
+                new Microsoft.Reporting.WinForms.ReportParameter("PLogoName",ReportLogoSettings.GetSelectedLogoName()),
             };
             //this.reportViewer1.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.PageWidth;
             System.Drawing.Printing.PageSettings ps = new System.Drawing.Printing.PageSettings();
