@@ -157,7 +157,6 @@
             this.dtpAutoBackupEnd = new System.Windows.Forms.DateTimePicker();
             this.btnBackup = new System.Windows.Forms.Button();
             this.lbLastAutoBackup = new System.Windows.Forms.Label();
-            this.btnSaveBackupConfig = new System.Windows.Forms.Button();
             this.chkAutoBackup = new System.Windows.Forms.CheckBox();
             this.basedriverBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSet1 = new SerialPortListener.truckDataSet1();
@@ -1418,11 +1417,11 @@
             this.btnSaveReportLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveReportLogo.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveReportLogo.ForeColor = System.Drawing.Color.Green;
-            this.btnSaveReportLogo.Location = new System.Drawing.Point(30, 175);
+            this.btnSaveReportLogo.Location = new System.Drawing.Point(15, 420);
             this.btnSaveReportLogo.Name = "btnSaveReportLogo";
-            this.btnSaveReportLogo.Size = new System.Drawing.Size(320, 40);
-            this.btnSaveReportLogo.TabIndex = 2;
-            this.btnSaveReportLogo.Text = "บันทึก";
+            this.btnSaveReportLogo.Size = new System.Drawing.Size(720, 32);
+            this.btnSaveReportLogo.TabIndex = 5;
+            this.btnSaveReportLogo.Text = "บันทึกการตั้งค่าทั้งหมด";
             this.btnSaveReportLogo.UseVisualStyleBackColor = false;
             this.btnSaveReportLogo.Click += new System.EventHandler(this.btnSaveReportLogo_Click);
             //
@@ -1459,11 +1458,10 @@
             this.gbBackupConfig.Controls.Add(this.dtpAutoBackupEnd);
             this.gbBackupConfig.Controls.Add(this.btnBackup);
             this.gbBackupConfig.Controls.Add(this.lbLastAutoBackup);
-            this.gbBackupConfig.Controls.Add(this.btnSaveBackupConfig);
             this.gbBackupConfig.Controls.Add(this.chkAutoBackup);
             this.gbBackupConfig.Location = new System.Drawing.Point(15, 225);
             this.gbBackupConfig.Name = "gbBackupConfig";
-            this.gbBackupConfig.Size = new System.Drawing.Size(720, 210);
+            this.gbBackupConfig.Size = new System.Drawing.Size(720, 185);
             this.gbBackupConfig.TabIndex = 4;
             this.gbBackupConfig.TabStop = false;
             this.gbBackupConfig.Text = "Setting Backup";
@@ -1574,17 +1572,6 @@
             this.lbLastAutoBackup.Size = new System.Drawing.Size(120, 21);
             this.lbLastAutoBackup.TabIndex = 11;
             this.lbLastAutoBackup.Text = "Backup ล่าสุด: -";
-            //
-            // btnSaveBackupConfig
-            //
-            this.btnSaveBackupConfig.ForeColor = System.Drawing.Color.Green;
-            this.btnSaveBackupConfig.Location = new System.Drawing.Point(580, 155);
-            this.btnSaveBackupConfig.Name = "btnSaveBackupConfig";
-            this.btnSaveBackupConfig.Size = new System.Drawing.Size(125, 27);
-            this.btnSaveBackupConfig.TabIndex = 12;
-            this.btnSaveBackupConfig.Text = "Save Config";
-            this.btnSaveBackupConfig.UseVisualStyleBackColor = true;
-            this.btnSaveBackupConfig.Click += new System.EventHandler(this.btnSaveBackupConfig_Click);
             //
             // chkAutoBackup
             //
@@ -1905,7 +1892,6 @@
         private System.Windows.Forms.DateTimePicker dtpAutoBackupEnd;
         private System.Windows.Forms.Button btnBackup;
         private System.Windows.Forms.Label lbLastAutoBackup;
-        private System.Windows.Forms.Button btnSaveBackupConfig;
         private System.Windows.Forms.CheckBox chkAutoBackup;
     }
 }

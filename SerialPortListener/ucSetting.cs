@@ -110,7 +110,6 @@ namespace SerialPortListener
             tbBackupDir.ReadOnly = !canEdit;
             btnBrowsePgDump.Enabled = canEdit;
             btnBrowseBackupDir.Enabled = canEdit;
-            btnSaveBackupConfig.Enabled = canEdit;
             chkAutoBackup.Enabled = canEdit;
             dtpAutoBackupStart.Enabled = canEdit;
             dtpAutoBackupEnd.Enabled = canEdit;
@@ -153,11 +152,24 @@ namespace SerialPortListener
             }
         }
 
+        // ปุ่มเดียวบันทึกทุกการตั้งค่าในแท็บนี้ (โลโก้ใบชั่ง, ดึงน้ำหนักเข้าอัตโนมัติ, และการสำรองข้อมูล)
         private void btnSaveReportLogo_Click(object sender, EventArgs e)
         {
             if (!Globals.isPermissionAddSetting())
             {
                 MessageBox.Show("คุณไม่มีสิทธิ์บันทึกการตั้งค่านี้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(tbPgDumpPath.Text) || string.IsNullOrWhiteSpace(tbBackupDir.Text))
+            {
+                MessageBox.Show("กรุณาระบุ pg_dump.exe และ Backup Folder", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (dtpAutoBackupStart.Value.TimeOfDay >= dtpAutoBackupEnd.Value.TimeOfDay)
+            {
+                MessageBox.Show("เวลาเริ่ม Auto Backup ต้องน้อยกว่าเวลาสิ้นสุด", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -168,6 +180,7 @@ namespace SerialPortListener
             {
                 ReportLogoSettings.SaveSelectedLogo(selected);
                 MainFormSettings.SetAutoFillWeightInEnabled(chkAutoFillWeightIn.Checked);
+                SaveBackupConfig();
                 MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "ตั้งค่าทั่วไป", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -1222,37 +1235,6 @@ namespace SerialPortListener
 
                 if (dlg.ShowDialog(FindForm()) == DialogResult.OK)
                     tbBackupDir.Text = dlg.SelectedPath;
-            }
-        }
-
-        private void btnSaveBackupConfig_Click(object sender, EventArgs e)
-        {
-            if (!Globals.isPermissionAddSetting())
-            {
-                MessageBox.Show("คุณไม่มีสิทธิ์บันทึกการตั้งค่านี้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(tbPgDumpPath.Text) || string.IsNullOrWhiteSpace(tbBackupDir.Text))
-            {
-                MessageBox.Show("กรุณาระบุ pg_dump.exe และ Backup Folder", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            if (dtpAutoBackupStart.Value.TimeOfDay >= dtpAutoBackupEnd.Value.TimeOfDay)
-            {
-                MessageBox.Show("เวลาเริ่ม Auto Backup ต้องน้อยกว่าเวลาสิ้นสุด", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            try
-            {
-                SaveBackupConfig();
-                MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "Backup", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("บันทึกการตั้งค่าไม่สำเร็จ: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
