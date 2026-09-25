@@ -34,6 +34,13 @@ namespace SerialPortListener
         private static readonly string PortConfigPath =
             System.IO.Path.Combine(AppDataDir, "config_port.txt");
 
+        // Adapted from Master_Blue_1 (b02df198): previously only the port name was persisted;
+        // Baud/Parity/DataBits/StopBits reset to SerialSettings' hardcoded defaults on every
+        // launch. Stored as simple Key=Value lines, unknown/missing/invalid entries fall back
+        // to whatever SerialSettings already has (its own hardcoded defaults), never Blue's.
+        private static readonly string SerialConfigPath =
+            System.IO.Path.Combine(AppDataDir, "config_serial.txt");
+
         public ucHelp()
         {
             InitializeComponent();
@@ -63,6 +70,10 @@ namespace SerialPortListener
             bool canEdit = Globals.isPermissionAddSetting();
 
             cboPort.Enabled = canEdit;
+            cboBaud.Enabled = canEdit;
+            cboParity.Enabled = canEdit;
+            cboDataBits.Enabled = canEdit;
+            cboStopBits.Enabled = canEdit;
             btnSavePort.Visible = canEdit;
             btnSavePort.Enabled = canEdit;
         }
@@ -84,6 +95,69 @@ namespace SerialPortListener
             }
         }
 
+        // อ่านค่า Baud/Parity/DataBits/StopBits ที่บันทึกไว้จาก config_serial.txt
+        // คืนค่า null ถ้าไม่มีไฟล์หรืออ่านไม่ได้ ค่าที่ parse ไม่ได้จะถูกข้าม (ใช้ค่า default ของ SerialSettings แทน)
+        private static Dictionary<string, string> LoadSavedSerialSettings()
+        {
+            try
+            {
+                if (!System.IO.File.Exists(SerialConfigPath))
+                    return null;
+
+                var result = new Dictionary<string, string>();
+                foreach (string line in System.IO.File.ReadAllLines(SerialConfigPath))
+                {
+                    int idx = line.IndexOf('=');
+                    if (idx <= 0) continue;
+                    result[line.Substring(0, idx).Trim()] = line.Substring(idx + 1).Trim();
+                }
+                return result;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        private void ApplySavedSerialSettings(SerialPortListener.Serial.SerialSettings settings)
+        {
+            var saved = LoadSavedSerialSettings();
+            if (saved == null) return;
+
+            if (saved.TryGetValue("Baud", out string baudStr) && int.TryParse(baudStr, out int baud)
+                && settings.BaudRateCollection.Contains(baud))
+            {
+                cboBaud.SelectedItem = baud;
+            }
+            if (saved.TryGetValue("Parity", out string parityStr)
+                && Enum.TryParse(parityStr, out System.IO.Ports.Parity parity))
+            {
+                cboParity.SelectedItem = parity;
+            }
+            if (saved.TryGetValue("DataBits", out string dataBitsStr) && int.TryParse(dataBitsStr, out int dataBits)
+                && Array.IndexOf(settings.DataBitsCollection, dataBits) >= 0)
+            {
+                cboDataBits.SelectedItem = dataBits;
+            }
+            if (saved.TryGetValue("StopBits", out string stopBitsStr)
+                && Enum.TryParse(stopBitsStr, out System.IO.Ports.StopBits stopBits))
+            {
+                cboStopBits.SelectedItem = stopBits;
+            }
+        }
+
+        private void SaveSerialSettings()
+        {
+            var lines = new[]
+            {
+                "Baud=" + cboBaud.SelectedItem,
+                "Parity=" + cboParity.SelectedItem,
+                "DataBits=" + cboDataBits.SelectedItem,
+                "StopBits=" + cboStopBits.SelectedItem,
+            };
+            System.IO.File.WriteAllLines(SerialConfigPath, lines);
+        }
+
         private void btnSavePort_Click(object sender, EventArgs e)
         {
             if (!Globals.isPermissionAddSetting())
@@ -103,6 +177,7 @@ namespace SerialPortListener
                 if (!System.IO.Directory.Exists(AppDataDir))
                     System.IO.Directory.CreateDirectory(AppDataDir);
                 System.IO.File.WriteAllLines(PortConfigPath, new[] { cboPort.SelectedItem.ToString() });
+                SaveSerialSettings();
                 MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "Port", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -177,6 +252,14 @@ namespace SerialPortListener
             // Bind StopBits ComboBox
             cboStopBits.DataSource = Enum.GetValues(typeof(System.IO.Ports.StopBits));
             cboStopBits.SelectedItem = settings.StopBits;
+
+            // config_serial.txt เก็บ Baud/Parity/DataBits/StopBits ที่บันทึกไว้ล่าสุด
+            // (ก่อนหน้านี้ยังไม่มีการบันทึกค่าเหล่านี้ จะรีเซ็ตเป็นค่า default ทุกครั้งที่เปิดโปรแกรม)
+            ApplySavedSerialSettings(settings);
+            settings.BaudRate = (int)cboBaud.SelectedItem;
+            settings.Parity = (System.IO.Ports.Parity)cboParity.SelectedItem;
+            settings.DataBits = (int)cboDataBits.SelectedItem;
+            settings.StopBits = (System.IO.Ports.StopBits)cboStopBits.SelectedItem;
 
             // Wire UI changes to update settings
             cboPort.SelectedIndexChanged += (s, ev) => { settings.PortName = cboPort.Text; };
