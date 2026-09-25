@@ -3062,7 +3062,7 @@ namespace SerialPortListener
         private void clickWeightIn()
         {
             ucTruck.BringToFront();
-            ucTruck.Show();
+            Utils.ShowWithFade(ucTruck);
             resetMainForm();
             EnableWeightInAndOut();
             getSettingDefault();
@@ -3228,6 +3228,7 @@ namespace SerialPortListener
                     if (!reader.HasRows)
                     {
                         tbCarLicenseId.Text = "";
+
                         tbCarLicense.Text = "";
                     }
                 }
