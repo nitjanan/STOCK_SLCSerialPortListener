@@ -49,6 +49,8 @@ namespace SerialPortListener
             this.btnTestParse = new System.Windows.Forms.Button();
             this.lblTestResult = new System.Windows.Forms.Label();
             this.tbTestParsedWeight = new System.Windows.Forms.TextBox();
+            this.lblWeightFormat = new System.Windows.Forms.Label();
+            this.cboWeightFormat = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // lblPort
@@ -255,10 +257,33 @@ namespace SerialPortListener
             this.tbTestParsedWeight.Size = new System.Drawing.Size(180, 29);
             this.tbTestParsedWeight.TabIndex = 20;
             //
+            // lblWeightFormat
+            //
+            this.lblWeightFormat.AutoSize = true;
+            this.lblWeightFormat.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWeightFormat.Location = new System.Drawing.Point(50, 460);
+            this.lblWeightFormat.Name = "lblWeightFormat";
+            this.lblWeightFormat.Size = new System.Drawing.Size(146, 21);
+            this.lblWeightFormat.TabIndex = 21;
+            this.lblWeightFormat.Text = "รูปแบบข้อมูลตาชั่ง";
+            //
+            // cboWeightFormat
+            //
+            this.cboWeightFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboWeightFormat.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboWeightFormat.FormattingEnabled = true;
+            this.cboWeightFormat.Location = new System.Drawing.Point(50, 485);
+            this.cboWeightFormat.Name = "cboWeightFormat";
+            this.cboWeightFormat.Size = new System.Drawing.Size(280, 29);
+            this.cboWeightFormat.TabIndex = 22;
+            this.cboWeightFormat.SelectedIndexChanged += new System.EventHandler(this.cboWeightFormat_SelectedIndexChanged);
+            //
             // ucHelp
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.cboWeightFormat);
+            this.Controls.Add(this.lblWeightFormat);
             this.Controls.Add(this.tbTestParsedWeight);
             this.Controls.Add(this.lblTestResult);
             this.Controls.Add(this.btnTestParse);
@@ -279,7 +304,7 @@ namespace SerialPortListener
             this.Controls.Add(this.cboPort);
             this.Controls.Add(this.lblPort);
             this.Name = "ucHelp";
-            this.Size = new System.Drawing.Size(844, 480);
+            this.Size = new System.Drawing.Size(844, 540);
             this.Load += new System.EventHandler(this.ucHelp_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -307,5 +332,7 @@ namespace SerialPortListener
         private System.Windows.Forms.Button btnTestParse;
         private System.Windows.Forms.Label lblTestResult;
         private System.Windows.Forms.TextBox tbTestParsedWeight;
+        private System.Windows.Forms.Label lblWeightFormat;
+        private System.Windows.Forms.ComboBox cboWeightFormat;
     }
 }

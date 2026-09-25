@@ -41,10 +41,18 @@ namespace SerialPortListener
         private static readonly string SerialConfigPath =
             System.IO.Path.Combine(AppDataDir, "config_serial.txt");
 
+        // เก็บรูปแบบข้อมูลตาชั่งที่เลือกไว้ (ดู WeightFormat.cs) ไฟล์เดียวเก็บชื่อ enum บรรทัดเดียว
+        private static readonly string WeightFormatConfigPath =
+            System.IO.Path.Combine(AppDataDir, "config_weightformat.txt");
+
         public ucHelp()
         {
             InitializeComponent();
             this.Disposed += UcHelp_Disposed;
+
+            cboWeightFormat.DataSource = WeightFormatCatalog.All;
+            MainForm.CurrentWeightFormat = LoadSavedWeightFormat();
+            SelectWeightFormatInCombo(MainForm.CurrentWeightFormat);
         }
 
         private void UcHelp_Disposed(object sender, EventArgs e)
@@ -82,14 +90,67 @@ namespace SerialPortListener
             btnTestParse.Visible = canEdit;
             lblTestResult.Visible = canEdit;
             tbTestParsedWeight.Visible = canEdit;
+
+            lblWeightFormat.Visible = canEdit;
+            cboWeightFormat.Enabled = canEdit;
         }
 
         // ให้ผู้ใช้ลองพิมพ์ข้อมูลดิบจากตาชั่งแล้วดูว่า parser ตัวเดียวกับที่ MainForm ใช้จริง
-        // จะตีความน้ำหนักออกมาเป็นเท่าไหร่ โดยไม่ต้องต่อฮาร์ดแวร์จริง
+        // จะตีความน้ำหนักออกมาเป็นเท่าไหร่ โดยไม่ต้องต่อฮาร์ดแวร์จริง ใช้รูปแบบที่เลือกอยู่ใน combo
+        // ตอนนี้ (ไม่จำเป็นต้องกดบันทึกก่อน) เพื่อให้ลองเทียบรูปแบบต่างๆ ได้ก่อนตัดสินใจ
         private void btnTestParse_Click(object sender, EventArgs e)
         {
-            string parsed = MainForm.ParseWeightFromBuffer(tbTestRawData.Text, "", out bool matchedButUnchanged);
+            WeightFormat format = SelectedWeightFormat();
+            string parsed = MainForm.ParseWeightFromBuffer(tbTestRawData.Text, "", format, out bool matchedButUnchanged);
             tbTestParsedWeight.Text = parsed ?? "-";
+        }
+
+        private WeightFormat SelectedWeightFormat()
+        {
+            var option = cboWeightFormat.SelectedItem as WeightFormatCatalog.Option;
+            return option != null ? option.Format : WeightFormat.ParenCR;
+        }
+
+        // เลือกรายการใน combo ให้ตรงกับ format ที่ระบุ (ใช้ตอนโหลดค่าที่บันทึกไว้)
+        private void SelectWeightFormatInCombo(WeightFormat format)
+        {
+            foreach (WeightFormatCatalog.Option option in cboWeightFormat.Items)
+            {
+                if (option.Format == format)
+                {
+                    cboWeightFormat.SelectedItem = option;
+                    return;
+                }
+            }
+        }
+
+        // เลือกรูปแบบใน combo แล้วมีผลทันที (แบบเดียวกับ baud/parity/databits/stopbits)
+        private void cboWeightFormat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            MainForm.CurrentWeightFormat = SelectedWeightFormat();
+        }
+
+        // อ่านรูปแบบที่บันทึกไว้จาก config_weightformat.txt คืนค่า default (ParenCR) ถ้าไม่มีไฟล์/อ่านไม่ได้/ค่าที่บันทึกไว้ไม่รู้จัก
+        private static WeightFormat LoadSavedWeightFormat()
+        {
+            try
+            {
+                if (!System.IO.File.Exists(WeightFormatConfigPath))
+                    return WeightFormat.ParenCR;
+
+                string[] lines = System.IO.File.ReadAllLines(WeightFormatConfigPath);
+                if (lines.Length > 0 && Enum.TryParse(lines[0].Trim(), out WeightFormat saved))
+                    return saved;
+            }
+            catch (Exception)
+            {
+            }
+            return WeightFormat.ParenCR;
+        }
+
+        private void SaveWeightFormat()
+        {
+            System.IO.File.WriteAllLines(WeightFormatConfigPath, new[] { SelectedWeightFormat().ToString() });
         }
 
         // อ่านค่า COM port ที่บันทึกไว้จาก config_port.txt (บรรทัดเดียว เช่น "COM4") ถ้าไม่มีไฟล์หรืออ่านไม่ได้คืนค่า null
@@ -192,6 +253,7 @@ namespace SerialPortListener
                     System.IO.Directory.CreateDirectory(AppDataDir);
                 System.IO.File.WriteAllLines(PortConfigPath, new[] { cboPort.SelectedItem.ToString() });
                 SaveSerialSettings();
+                SaveWeightFormat();
                 MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "Port", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
