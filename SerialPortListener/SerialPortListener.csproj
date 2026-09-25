@@ -410,6 +410,7 @@
     <Compile Include="Utils.cs" />
     <Compile Include="Weight.cs" />
     <Compile Include="WeightDailyReport.cs" />
+    <Compile Include="WeightFormat.cs" />
     <Compile Include="weightScoopDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

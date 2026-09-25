@@ -2463,7 +2463,7 @@ namespace SerialPortListener
             tbData.ScrollToCaret();
 
             // JOB ขาเข้า และ  New ล่างสุด 13-08-2025 และ ผลิต
-            string parsedWeight = ParseWeightFromBuffer(tbData.Text, tbWeigtData.Text, out bool matchedButUnchanged);
+            string parsedWeight = ParseWeightFromBuffer(tbData.Text, tbWeigtData.Text, CurrentWeightFormat, out bool matchedButUnchanged);
             if (parsedWeight != null)
             {
                 tbWeigtData.Text = parsedWeight;
@@ -2483,33 +2483,180 @@ namespace SerialPortListener
 
         }
 
+        // ค่ารูปแบบข้อมูลตาชั่งที่ใช้งานอยู่ตอนนี้ ผูกกับ cboWeightFormat ใน ucHelp
+        // ค่าเริ่มต้นคือรูปแบบเดิมของ Stock (ParenCR) เพื่อไม่ให้พฤติกรรมเดิมเปลี่ยนถ้าไม่มีใครไปแตะการตั้งค่านี้
+        internal static WeightFormat CurrentWeightFormat = WeightFormat.ParenCR;
+
         // Extracted from timerWeight_Tick so the exact same parsing rule can be reused
         // by ucHelp's scale-data test panel, without duplicating the regex logic.
-        // Returns the new (trimmed/padded) weight text if the parsed value differs from
+        // Returns the new (formatted) weight text if the parsed value differs from
         // previousDisplayedValue, or null if nothing matched / the buffer couldn't be parsed.
         // matchedButUnchanged is true when a value matched but is the same as before.
-        internal static string ParseWeightFromBuffer(string accumulatedText, string previousDisplayedValue, out bool matchedButUnchanged)
+        //
+        // Every Stock site historically hardcoded its own extraction rule in a separate
+        // branch; TryParse_* below are those rules (verified against each branch's actual
+        // code), selectable here instead of requiring a separate compiled build per site.
+        internal static string ParseWeightFromBuffer(string accumulatedText, string previousDisplayedValue, WeightFormat format, out bool matchedButUnchanged)
         {
             matchedButUnchanged = false;
+            string value;
             try
             {
-                string newString = accumulatedText.Remove(accumulatedText.LastIndexOf("\r"));
-                string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
-
-                MatchCollection mc = Regex.Matches(remainingText, @"\d+");
-
-                if (mc.Count > 0)
+                switch (format)
                 {
-                    if (String.Compare(previousDisplayedValue, mc[0].Value) != 0)
-                    {
-                        return mc[0].Value.TrimStart('0').PadLeft(1, '0');
-                    }
-                    matchedButUnchanged = true;
+                    case WeightFormat.QMarker: value = TryParse_QMarker(accumulatedText); break;
+                    case WeightFormat.PMarker: value = TryParse_PMarker(accumulatedText); break;
+                    case WeightFormat.PQDual: value = TryParse_PQDual(accumulatedText); break;
+                    case WeightFormat.KNTerminated: value = TryParse_UnitTerminated(accumulatedText, "KN"); break;
+                    case WeightFormat.KgTerminated: value = TryParse_UnitTerminated(accumulatedText, "kg"); break;
+                    case WeightFormat.NsmCsv: value = TryParse_NsmCsv(accumulatedText); break;
+                    case WeightFormat.SrdSigned: value = TryParse_SrdSigned(accumulatedText); break;
+                    case WeightFormat.TymFixedWidth: value = TryParse_TymFixedWidth(accumulatedText); break;
+                    case WeightFormat.ParenCR:
+                    default: value = TryParse_ParenCR(accumulatedText); break;
                 }
             }
             catch (Exception)
             {
+                value = null;
             }
+
+            if (value == null)
+                return null;
+
+            if (String.Compare(previousDisplayedValue, value) != 0)
+                return value;
+
+            matchedButUnchanged = true;
+            return null;
+        }
+
+        // รูปแบบเดิมของ Stock (ค่าเริ่มต้น): ตัดถึง \r ตัวสุดท้าย เอาเลขหลัง "(" +3 ตัวอักษร
+        private static string TryParse_ParenCR(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\r"));
+            string remainingText = newString.Substring(newString.LastIndexOf("(") + 3);
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+            return mc[0].Value.TrimStart('0').PadLeft(1, '0');
+        }
+
+        // ตัดถึง \r ตัวสุดท้าย เอาเลขหลัง "q" ตัวสุดท้าย ตรวจสอบค่าก่อนใช้ (ไม่ตัดเลข 0 นำหน้า)
+        private static string TryParse_QMarker(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\r"));
+            string remainingText = newString.Substring(newString.LastIndexOf("q"));
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+            return ValidateMarkerValue(mc[0].Value);
+        }
+
+        // เหมือน ParenCR แต่ตัดจาก "p" ตัวสุดท้าย (ไม่มี offset, ไม่ตรวจสอบค่า)
+        private static string TryParse_PMarker(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\r"));
+            string remainingText = newString.Substring(newString.LastIndexOf("p"));
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+            return mc[0].Value.TrimStart('0').PadLeft(1, '0');
+        }
+
+        // ตัดถึง \r ตัวสุดท้าย เอาเลขหลังเครื่องหมาย p หรือ q ตัวใดก็ตามที่มาทีหลัง (ค่าบวกจับ p ค่าลบจับ q)
+        private static string TryParse_PQDual(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\r"));
+            int lastOperatorIndex = newString.LastIndexOfAny(new char[] { 'p', 'q' });
+            string remainingText = newString.Substring(lastOperatorIndex);
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+            return ValidateMarkerValue(mc[0].Value);
+        }
+
+        // ตรรกะตรวจสอบค่าที่ QMarker/PQDual ใช้ร่วมกัน: ค่าที่หาร 10 ไม่ลงตัวหรือเกิน 100000 ถือว่าใช้ไม่ได้
+        private static string ValidateMarkerValue(string rawValue)
+        {
+            int val = Int32.Parse(rawValue);
+            if (val % 10 != 0 || val > 100000) return null;
+            if (val < 10) return "0";
+            return rawValue;
+        }
+
+        // ตัดข้อความตั้งแต่ marker หน่วย ("KN"/"kg") ตัวสุดท้ายทิ้งก่อน แล้วเอาเลขหลัง \r ตัวสุดท้ายที่เหลือ
+        private static string TryParse_UnitTerminated(string text, string unitMarker)
+        {
+            string newString = text.Remove(text.LastIndexOf(unitMarker));
+            string remainingText = newString.Substring(newString.LastIndexOf("\r"));
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+            return mc[0].Value.TrimStart('0').PadLeft(1, '0');
+        }
+
+        // ตัดถึง ",Kg" ตัวสุดท้าย เอาเลขหลัง "ST,GS," ตัวสุดท้าย
+        private static string TryParse_NsmCsv(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf(",Kg"));
+            string remainingText = newString.Substring(newString.LastIndexOf("ST,GS,"));
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+            return mc[0].Value.TrimStart('0').PadLeft(1, '0');
+        }
+
+        // ตัดถึง \r ตัวสุดท้าย รองรับเครื่องหมายลบ คงเครื่องหมายไว้ถ้าติดลบ ตัดเลข 0 นำหน้าถ้าไม่ติดลบ
+        private static string TryParse_SrdSigned(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\r"));
+            string remainingText = newString.Substring(newString.LastIndexOf(""));
+            MatchCollection mc = Regex.Matches(remainingText, @"-?\d+");
+            if (mc.Count == 0) return null;
+
+            string value = mc[0].Value;
+            if (!int.TryParse(value, out int weightValue)) return null;
+            if (!value.StartsWith("-"))
+                value = weightValue.ToString();
+            return value;
+        }
+
+        // รูปแบบข้อมูล "7*0 000000000000": น้ำหนักคือเลขหลัง "*0" ในบรรทัดสมบูรณ์ล่าสุด
+        // ต้องมีครบ 12 หลัก (กันบรรทัดที่รับมาไม่ครบ) 6 หลักท้ายเป็นทศนิยม implied จึงตัดทิ้ง
+        private static string TryParse_TymFixedWidth(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return null;
+
+            const int WeightFieldLength = 12;
+            const int WeightDecimalPlaces = 6;
+            const string marker = "*0";
+
+            string[] lines = text.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+
+            int lastIndex = lines.Length - 1;
+            if (!(text.EndsWith("\n") || text.EndsWith("\r")))
+                lastIndex--;
+
+            for (int i = lastIndex; i >= 0; i--)
+            {
+                if (i < 0 || i >= lines.Length) continue;
+                string line = lines[i];
+                if (string.IsNullOrEmpty(line)) continue;
+
+                int markerPos = line.LastIndexOf(marker, StringComparison.Ordinal);
+                if (markerPos < 0) continue;
+
+                int pos = markerPos + marker.Length;
+                while (pos < line.Length && char.IsWhiteSpace(line[pos])) pos++;
+
+                int start = pos;
+                while (pos < line.Length && char.IsDigit(line[pos])) pos++;
+
+                if (pos == start) continue;
+
+                string digits = line.Substring(start, pos - start);
+                if (digits.Length != WeightFieldLength) continue;
+
+                string integerPart = digits.Substring(0, digits.Length - WeightDecimalPlaces);
+                string trimmed = integerPart.TrimStart('0');
+                return trimmed.Length == 0 ? "0" : trimmed;
+            }
+
             return null;
         }
 
