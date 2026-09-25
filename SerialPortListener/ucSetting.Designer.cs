@@ -144,7 +144,6 @@
             this.cboReportLogo = new System.Windows.Forms.ComboBox();
             this.lblReportLogo = new System.Windows.Forms.Label();
             this.chkAutoFillWeightIn = new System.Windows.Forms.CheckBox();
-            this.tabPage13 = new System.Windows.Forms.TabPage();
             this.gbBackupConfig = new System.Windows.Forms.GroupBox();
             this.lbPgDumpPath = new System.Windows.Forms.Label();
             this.tbPgDumpPath = new System.Windows.Forms.TextBox();
@@ -225,7 +224,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.basecarregistrationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).BeginInit();
             this.tabPage12.SuspendLayout();
-            this.tabPage13.SuspendLayout();
             this.gbBackupConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet1)).BeginInit();
@@ -238,7 +236,6 @@
             // tcSetting
             // 
             this.tcSetting.Controls.Add(this.tabPage12);
-            this.tcSetting.Controls.Add(this.tabPage13);
             this.tcSetting.Controls.Add(this.tabPage1);
             this.tcSetting.Controls.Add(this.tabPage2);
             this.tcSetting.Controls.Add(this.tabPage3);
@@ -1392,6 +1389,7 @@
             // tabPage12
             // 
             this.tabPage12.BackColor = System.Drawing.Color.FloralWhite;
+            this.tabPage12.Controls.Add(this.gbBackupConfig);
             this.tabPage12.Controls.Add(this.btnSaveReportLogo);
             this.tabPage12.Controls.Add(this.chkAutoFillWeightIn);
             this.tabPage12.Controls.Add(this.cboReportLogo);
@@ -1447,17 +1445,6 @@
             this.lblReportLogo.TabIndex = 0;
             this.lblReportLogo.Text = "โลโก้บนใบชั่งน้ำหนัก";
             //
-            // tabPage13
-            //
-            this.tabPage13.BackColor = System.Drawing.Color.FloralWhite;
-            this.tabPage13.Controls.Add(this.gbBackupConfig);
-            this.tabPage13.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage13.Location = new System.Drawing.Point(4, 26);
-            this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Size = new System.Drawing.Size(753, 460);
-            this.tabPage13.TabIndex = 12;
-            this.tabPage13.Text = "สำรองข้อมูล";
-            //
             // gbBackupConfig
             //
             this.gbBackupConfig.Controls.Add(this.lbPgDumpPath);
@@ -1474,10 +1461,10 @@
             this.gbBackupConfig.Controls.Add(this.lbLastAutoBackup);
             this.gbBackupConfig.Controls.Add(this.btnSaveBackupConfig);
             this.gbBackupConfig.Controls.Add(this.chkAutoBackup);
-            this.gbBackupConfig.Location = new System.Drawing.Point(15, 15);
+            this.gbBackupConfig.Location = new System.Drawing.Point(15, 225);
             this.gbBackupConfig.Name = "gbBackupConfig";
             this.gbBackupConfig.Size = new System.Drawing.Size(720, 210);
-            this.gbBackupConfig.TabIndex = 0;
+            this.gbBackupConfig.TabIndex = 4;
             this.gbBackupConfig.TabStop = false;
             this.gbBackupConfig.Text = "Setting Backup";
             //
@@ -1751,7 +1738,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).EndInit();
             this.tabPage12.ResumeLayout(false);
             this.tabPage12.PerformLayout();
-            this.tabPage13.ResumeLayout(false);
             this.gbBackupConfig.ResumeLayout(false);
             this.gbBackupConfig.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource1)).EndInit();
@@ -1906,7 +1892,6 @@
         private System.Windows.Forms.ComboBox cboReportLogo;
         private System.Windows.Forms.Button btnSaveReportLogo;
         private System.Windows.Forms.CheckBox chkAutoFillWeightIn;
-        private System.Windows.Forms.TabPage tabPage13;
         private System.Windows.Forms.GroupBox gbBackupConfig;
         private System.Windows.Forms.Label lbPgDumpPath;
         private System.Windows.Forms.TextBox tbPgDumpPath;
