@@ -298,7 +298,7 @@ namespace SerialPortListener
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btnSavePort.BackColor = System.Drawing.Color.SeaGreen;
             this.btnSavePort.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSavePort.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSavePort.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSavePort.ForeColor = System.Drawing.Color.White;
             this.btnSavePort.Location = new System.Drawing.Point(15, 432);
             this.btnSavePort.Name = "btnSavePort";

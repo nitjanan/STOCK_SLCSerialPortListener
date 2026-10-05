@@ -30,6 +30,25 @@
         {
             this.components = new System.ComponentModel.Container();
             this.tcSetting = new System.Windows.Forms.TabControl();
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.gbBackupConfig = new System.Windows.Forms.GroupBox();
+            this.lbPgDumpPath = new System.Windows.Forms.Label();
+            this.tbPgDumpPath = new System.Windows.Forms.TextBox();
+            this.btnBrowsePgDump = new System.Windows.Forms.Button();
+            this.lbBackupDir = new System.Windows.Forms.Label();
+            this.tbBackupDir = new System.Windows.Forms.TextBox();
+            this.btnBrowseBackupDir = new System.Windows.Forms.Button();
+            this.lbAutoBackupTime = new System.Windows.Forms.Label();
+            this.dtpAutoBackupStart = new System.Windows.Forms.DateTimePicker();
+            this.lbAutoBackupTimeTo = new System.Windows.Forms.Label();
+            this.dtpAutoBackupEnd = new System.Windows.Forms.DateTimePicker();
+            this.btnBackup = new System.Windows.Forms.Button();
+            this.lbLastAutoBackup = new System.Windows.Forms.Label();
+            this.chkAutoBackup = new System.Windows.Forms.CheckBox();
+            this.btnSaveReportLogo = new System.Windows.Forms.Button();
+            this.chkAutoFillWeightIn = new System.Windows.Forms.CheckBox();
+            this.cboReportLogo = new System.Windows.Forms.ComboBox();
+            this.lblReportLogo = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btDelScale = new System.Windows.Forms.Button();
             this.btSaveScale = new System.Windows.Forms.Button();
@@ -139,25 +158,6 @@
             this.ประเภทรถ = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.basecarregistrationBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSet3 = new SerialPortListener.truckDataSet3();
-            this.tabPage12 = new System.Windows.Forms.TabPage();
-            this.btnSaveReportLogo = new System.Windows.Forms.Button();
-            this.cboReportLogo = new System.Windows.Forms.ComboBox();
-            this.lblReportLogo = new System.Windows.Forms.Label();
-            this.chkAutoFillWeightIn = new System.Windows.Forms.CheckBox();
-            this.gbBackupConfig = new System.Windows.Forms.GroupBox();
-            this.lbPgDumpPath = new System.Windows.Forms.Label();
-            this.tbPgDumpPath = new System.Windows.Forms.TextBox();
-            this.btnBrowsePgDump = new System.Windows.Forms.Button();
-            this.lbBackupDir = new System.Windows.Forms.Label();
-            this.tbBackupDir = new System.Windows.Forms.TextBox();
-            this.btnBrowseBackupDir = new System.Windows.Forms.Button();
-            this.lbAutoBackupTime = new System.Windows.Forms.Label();
-            this.dtpAutoBackupStart = new System.Windows.Forms.DateTimePicker();
-            this.lbAutoBackupTimeTo = new System.Windows.Forms.Label();
-            this.dtpAutoBackupEnd = new System.Windows.Forms.DateTimePicker();
-            this.btnBackup = new System.Windows.Forms.Button();
-            this.lbLastAutoBackup = new System.Windows.Forms.Label();
-            this.chkAutoBackup = new System.Windows.Forms.CheckBox();
             this.basedriverBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.truckDataSet1 = new SerialPortListener.truckDataSet1();
             this.base_stone_typeTableAdapter = new SerialPortListener.baseStoneTypeDataSetTableAdapters.base_stone_typeTableAdapter();
@@ -178,6 +178,8 @@
             this.base_driverTableAdapter2 = new SerialPortListener.truckDataSet2TableAdapters.base_driverTableAdapter();
             this.base_car_registrationTableAdapter = new SerialPortListener.truckDataSet3TableAdapters.base_car_registrationTableAdapter();
             this.tcSetting.SuspendLayout();
+            this.tabPage12.SuspendLayout();
+            this.gbBackupConfig.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basescaleBindingSource)).BeginInit();
@@ -222,8 +224,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarRegistration)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecarregistrationBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).BeginInit();
-            this.tabPage12.SuspendLayout();
-            this.gbBackupConfig.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.truck_mDataSet1)).BeginInit();
@@ -253,6 +253,208 @@
             this.tcSetting.Size = new System.Drawing.Size(761, 490);
             this.tcSetting.TabIndex = 0;
             this.tcSetting.SelectedIndexChanged += new System.EventHandler(this.tcSetting_SelectedIndexChanged);
+            // 
+            // tabPage12
+            // 
+            this.tabPage12.BackColor = System.Drawing.Color.FloralWhite;
+            this.tabPage12.Controls.Add(this.gbBackupConfig);
+            this.tabPage12.Controls.Add(this.btnSaveReportLogo);
+            this.tabPage12.Controls.Add(this.chkAutoFillWeightIn);
+            this.tabPage12.Controls.Add(this.cboReportLogo);
+            this.tabPage12.Controls.Add(this.lblReportLogo);
+            this.tabPage12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tabPage12.Location = new System.Drawing.Point(4, 26);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Size = new System.Drawing.Size(753, 460);
+            this.tabPage12.TabIndex = 11;
+            this.tabPage12.Text = "ตั้งค่าทั่วไป";
+            // 
+            // gbBackupConfig
+            // 
+            this.gbBackupConfig.Controls.Add(this.lbPgDumpPath);
+            this.gbBackupConfig.Controls.Add(this.tbPgDumpPath);
+            this.gbBackupConfig.Controls.Add(this.btnBrowsePgDump);
+            this.gbBackupConfig.Controls.Add(this.lbBackupDir);
+            this.gbBackupConfig.Controls.Add(this.tbBackupDir);
+            this.gbBackupConfig.Controls.Add(this.btnBrowseBackupDir);
+            this.gbBackupConfig.Controls.Add(this.lbAutoBackupTime);
+            this.gbBackupConfig.Controls.Add(this.dtpAutoBackupStart);
+            this.gbBackupConfig.Controls.Add(this.lbAutoBackupTimeTo);
+            this.gbBackupConfig.Controls.Add(this.dtpAutoBackupEnd);
+            this.gbBackupConfig.Controls.Add(this.btnBackup);
+            this.gbBackupConfig.Controls.Add(this.lbLastAutoBackup);
+            this.gbBackupConfig.Controls.Add(this.chkAutoBackup);
+            this.gbBackupConfig.Location = new System.Drawing.Point(19, 166);
+            this.gbBackupConfig.Name = "gbBackupConfig";
+            this.gbBackupConfig.Size = new System.Drawing.Size(716, 195);
+            this.gbBackupConfig.TabIndex = 4;
+            this.gbBackupConfig.TabStop = false;
+            this.gbBackupConfig.Text = "Setting Backup";
+            this.gbBackupConfig.Enter += new System.EventHandler(this.gbBackupConfig_Enter);
+            // 
+            // lbPgDumpPath
+            // 
+            this.lbPgDumpPath.AutoSize = true;
+            this.lbPgDumpPath.Location = new System.Drawing.Point(20, 40);
+            this.lbPgDumpPath.Name = "lbPgDumpPath";
+            this.lbPgDumpPath.Size = new System.Drawing.Size(127, 21);
+            this.lbPgDumpPath.TabIndex = 0;
+            this.lbPgDumpPath.Text = "pg_dump.exe :";
+            // 
+            // tbPgDumpPath
+            // 
+            this.tbPgDumpPath.Location = new System.Drawing.Point(160, 37);
+            this.tbPgDumpPath.Name = "tbPgDumpPath";
+            this.tbPgDumpPath.Size = new System.Drawing.Size(420, 27);
+            this.tbPgDumpPath.TabIndex = 1;
+            // 
+            // btnBrowsePgDump
+            // 
+            this.btnBrowsePgDump.Location = new System.Drawing.Point(590, 36);
+            this.btnBrowsePgDump.Name = "btnBrowsePgDump";
+            this.btnBrowsePgDump.Size = new System.Drawing.Size(90, 27);
+            this.btnBrowsePgDump.TabIndex = 2;
+            this.btnBrowsePgDump.Text = "Browse...";
+            this.btnBrowsePgDump.UseVisualStyleBackColor = true;
+            this.btnBrowsePgDump.Click += new System.EventHandler(this.btnBrowsePgDump_Click);
+            // 
+            // lbBackupDir
+            // 
+            this.lbBackupDir.AutoSize = true;
+            this.lbBackupDir.Location = new System.Drawing.Point(20, 80);
+            this.lbBackupDir.Name = "lbBackupDir";
+            this.lbBackupDir.Size = new System.Drawing.Size(128, 21);
+            this.lbBackupDir.TabIndex = 3;
+            this.lbBackupDir.Text = "Backup Folder :";
+            // 
+            // tbBackupDir
+            // 
+            this.tbBackupDir.Location = new System.Drawing.Point(160, 77);
+            this.tbBackupDir.Name = "tbBackupDir";
+            this.tbBackupDir.Size = new System.Drawing.Size(420, 27);
+            this.tbBackupDir.TabIndex = 4;
+            // 
+            // btnBrowseBackupDir
+            // 
+            this.btnBrowseBackupDir.Location = new System.Drawing.Point(590, 76);
+            this.btnBrowseBackupDir.Name = "btnBrowseBackupDir";
+            this.btnBrowseBackupDir.Size = new System.Drawing.Size(90, 27);
+            this.btnBrowseBackupDir.TabIndex = 5;
+            this.btnBrowseBackupDir.Text = "Browse...";
+            this.btnBrowseBackupDir.UseVisualStyleBackColor = true;
+            this.btnBrowseBackupDir.Click += new System.EventHandler(this.btnBrowseBackupDir_Click);
+            // 
+            // lbAutoBackupTime
+            // 
+            this.lbAutoBackupTime.AutoSize = true;
+            this.lbAutoBackupTime.Location = new System.Drawing.Point(20, 120);
+            this.lbAutoBackupTime.Name = "lbAutoBackupTime";
+            this.lbAutoBackupTime.Size = new System.Drawing.Size(236, 21);
+            this.lbAutoBackupTime.TabIndex = 6;
+            this.lbAutoBackupTime.Text = "เวลา Auto Backup (เริ่ม - สิ้นสุด) :";
+            // 
+            // dtpAutoBackupStart
+            // 
+            this.dtpAutoBackupStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpAutoBackupStart.Location = new System.Drawing.Point(260, 117);
+            this.dtpAutoBackupStart.Name = "dtpAutoBackupStart";
+            this.dtpAutoBackupStart.ShowUpDown = true;
+            this.dtpAutoBackupStart.Size = new System.Drawing.Size(110, 27);
+            this.dtpAutoBackupStart.TabIndex = 7;
+            // 
+            // lbAutoBackupTimeTo
+            // 
+            this.lbAutoBackupTimeTo.AutoSize = true;
+            this.lbAutoBackupTimeTo.Location = new System.Drawing.Point(380, 120);
+            this.lbAutoBackupTimeTo.Name = "lbAutoBackupTimeTo";
+            this.lbAutoBackupTimeTo.Size = new System.Drawing.Size(15, 21);
+            this.lbAutoBackupTimeTo.TabIndex = 8;
+            this.lbAutoBackupTimeTo.Text = "-";
+            // 
+            // dtpAutoBackupEnd
+            // 
+            this.dtpAutoBackupEnd.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpAutoBackupEnd.Location = new System.Drawing.Point(401, 117);
+            this.dtpAutoBackupEnd.Name = "dtpAutoBackupEnd";
+            this.dtpAutoBackupEnd.ShowUpDown = true;
+            this.dtpAutoBackupEnd.Size = new System.Drawing.Size(110, 27);
+            this.dtpAutoBackupEnd.TabIndex = 9;
+            // 
+            // btnBackup
+            // 
+            this.btnBackup.Location = new System.Drawing.Point(590, 117);
+            this.btnBackup.Name = "btnBackup";
+            this.btnBackup.Size = new System.Drawing.Size(90, 27);
+            this.btnBackup.TabIndex = 10;
+            this.btnBackup.Text = "backup";
+            this.btnBackup.UseVisualStyleBackColor = true;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
+            // 
+            // lbLastAutoBackup
+            // 
+            this.lbLastAutoBackup.AutoSize = true;
+            this.lbLastAutoBackup.Location = new System.Drawing.Point(20, 160);
+            this.lbLastAutoBackup.Name = "lbLastAutoBackup";
+            this.lbLastAutoBackup.Size = new System.Drawing.Size(120, 21);
+            this.lbLastAutoBackup.TabIndex = 11;
+            this.lbLastAutoBackup.Text = "Backup ล่าสุด: -";
+            // 
+            // chkAutoBackup
+            // 
+            this.chkAutoBackup.AutoSize = true;
+            this.chkAutoBackup.Checked = true;
+            this.chkAutoBackup.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkAutoBackup.Location = new System.Drawing.Point(20, 190);
+            this.chkAutoBackup.Name = "chkAutoBackup";
+            this.chkAutoBackup.Size = new System.Drawing.Size(299, 25);
+            this.chkAutoBackup.TabIndex = 13;
+            this.chkAutoBackup.Text = "Auto Backup ทุก 2 ชม. (09:00 - 17:00)";
+            this.chkAutoBackup.UseVisualStyleBackColor = true;
+            this.chkAutoBackup.Visible = false;
+            // 
+            // btnSaveReportLogo
+            // 
+            this.btnSaveReportLogo.BackColor = System.Drawing.Color.SeaGreen;
+            this.btnSaveReportLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveReportLogo.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveReportLogo.ForeColor = System.Drawing.Color.Transparent;
+            this.btnSaveReportLogo.Location = new System.Drawing.Point(19, 376);
+            this.btnSaveReportLogo.Name = "btnSaveReportLogo";
+            this.btnSaveReportLogo.Size = new System.Drawing.Size(716, 42);
+            this.btnSaveReportLogo.TabIndex = 5;
+            this.btnSaveReportLogo.Text = "บันทึกการตั้งค่าทั้งหมด";
+            this.btnSaveReportLogo.UseVisualStyleBackColor = false;
+            this.btnSaveReportLogo.Click += new System.EventHandler(this.btnSaveReportLogo_Click);
+            // 
+            // chkAutoFillWeightIn
+            // 
+            this.chkAutoFillWeightIn.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkAutoFillWeightIn.Location = new System.Drawing.Point(30, 111);
+            this.chkAutoFillWeightIn.Name = "chkAutoFillWeightIn";
+            this.chkAutoFillWeightIn.Size = new System.Drawing.Size(680, 40);
+            this.chkAutoFillWeightIn.TabIndex = 3;
+            this.chkAutoFillWeightIn.Text = "ดึงน้ำหนักเข้าล่าสุดของรถในวันเดียวกันมาใส่อัตโนมัติเมื่อกรอกทะเบียนรถ (ค่าเริ่มต" +
+    "้น: ไม่ดึง)";
+            this.chkAutoFillWeightIn.UseVisualStyleBackColor = true;
+            // 
+            // cboReportLogo
+            // 
+            this.cboReportLogo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboReportLogo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboReportLogo.FormattingEnabled = true;
+            this.cboReportLogo.Location = new System.Drawing.Point(30, 65);
+            this.cboReportLogo.Name = "cboReportLogo";
+            this.cboReportLogo.Size = new System.Drawing.Size(320, 29);
+            this.cboReportLogo.TabIndex = 1;
+            // 
+            // lblReportLogo
+            // 
+            this.lblReportLogo.AutoSize = true;
+            this.lblReportLogo.Location = new System.Drawing.Point(30, 30);
+            this.lblReportLogo.Name = "lblReportLogo";
+            this.lblReportLogo.Size = new System.Drawing.Size(137, 21);
+            this.lblReportLogo.TabIndex = 0;
+            this.lblReportLogo.Text = "โลโก้บนใบชั่งน้ำหนัก";
             // 
             // tabPage1
             // 
@@ -1385,207 +1587,6 @@
             this.truckDataSet3.DataSetName = "truckDataSet3";
             this.truckDataSet3.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // tabPage12
-            // 
-            this.tabPage12.BackColor = System.Drawing.Color.FloralWhite;
-            this.tabPage12.Controls.Add(this.gbBackupConfig);
-            this.tabPage12.Controls.Add(this.btnSaveReportLogo);
-            this.tabPage12.Controls.Add(this.chkAutoFillWeightIn);
-            this.tabPage12.Controls.Add(this.cboReportLogo);
-            this.tabPage12.Controls.Add(this.lblReportLogo);
-            this.tabPage12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabPage12.Location = new System.Drawing.Point(4, 26);
-            this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(753, 460);
-            this.tabPage12.TabIndex = 11;
-            this.tabPage12.Text = "ตั้งค่าทั่วไป";
-            //
-            // chkAutoFillWeightIn
-            //
-            this.chkAutoFillWeightIn.AutoSize = false;
-            this.chkAutoFillWeightIn.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkAutoFillWeightIn.Location = new System.Drawing.Point(30, 120);
-            this.chkAutoFillWeightIn.Name = "chkAutoFillWeightIn";
-            this.chkAutoFillWeightIn.Size = new System.Drawing.Size(680, 40);
-            this.chkAutoFillWeightIn.TabIndex = 3;
-            this.chkAutoFillWeightIn.Text = "ดึงน้ำหนักเข้าล่าสุดของรถในวันเดียวกันมาใส่อัตโนมัติเมื่อกรอกทะเบียนรถ (ค่าเริ่มต้น: ไม่ดึง)";
-            this.chkAutoFillWeightIn.UseVisualStyleBackColor = true;
-            //
-            // btnSaveReportLogo
-            //
-            this.btnSaveReportLogo.BackColor = System.Drawing.Color.White;
-            this.btnSaveReportLogo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveReportLogo.Font = new System.Drawing.Font("Century Gothic", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveReportLogo.ForeColor = System.Drawing.Color.Green;
-            this.btnSaveReportLogo.Location = new System.Drawing.Point(15, 420);
-            this.btnSaveReportLogo.Name = "btnSaveReportLogo";
-            this.btnSaveReportLogo.Size = new System.Drawing.Size(720, 32);
-            this.btnSaveReportLogo.TabIndex = 5;
-            this.btnSaveReportLogo.Text = "บันทึกการตั้งค่าทั้งหมด";
-            this.btnSaveReportLogo.UseVisualStyleBackColor = false;
-            this.btnSaveReportLogo.Click += new System.EventHandler(this.btnSaveReportLogo_Click);
-            //
-            // cboReportLogo
-            // 
-            this.cboReportLogo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboReportLogo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboReportLogo.FormattingEnabled = true;
-            this.cboReportLogo.Location = new System.Drawing.Point(30, 65);
-            this.cboReportLogo.Name = "cboReportLogo";
-            this.cboReportLogo.Size = new System.Drawing.Size(320, 29);
-            this.cboReportLogo.TabIndex = 1;
-            // 
-            // lblReportLogo
-            // 
-            this.lblReportLogo.AutoSize = true;
-            this.lblReportLogo.Location = new System.Drawing.Point(30, 30);
-            this.lblReportLogo.Name = "lblReportLogo";
-            this.lblReportLogo.Size = new System.Drawing.Size(137, 21);
-            this.lblReportLogo.TabIndex = 0;
-            this.lblReportLogo.Text = "โลโก้บนใบชั่งน้ำหนัก";
-            //
-            // gbBackupConfig
-            //
-            this.gbBackupConfig.Controls.Add(this.lbPgDumpPath);
-            this.gbBackupConfig.Controls.Add(this.tbPgDumpPath);
-            this.gbBackupConfig.Controls.Add(this.btnBrowsePgDump);
-            this.gbBackupConfig.Controls.Add(this.lbBackupDir);
-            this.gbBackupConfig.Controls.Add(this.tbBackupDir);
-            this.gbBackupConfig.Controls.Add(this.btnBrowseBackupDir);
-            this.gbBackupConfig.Controls.Add(this.lbAutoBackupTime);
-            this.gbBackupConfig.Controls.Add(this.dtpAutoBackupStart);
-            this.gbBackupConfig.Controls.Add(this.lbAutoBackupTimeTo);
-            this.gbBackupConfig.Controls.Add(this.dtpAutoBackupEnd);
-            this.gbBackupConfig.Controls.Add(this.btnBackup);
-            this.gbBackupConfig.Controls.Add(this.lbLastAutoBackup);
-            this.gbBackupConfig.Controls.Add(this.chkAutoBackup);
-            this.gbBackupConfig.Location = new System.Drawing.Point(15, 225);
-            this.gbBackupConfig.Name = "gbBackupConfig";
-            this.gbBackupConfig.Size = new System.Drawing.Size(720, 185);
-            this.gbBackupConfig.TabIndex = 4;
-            this.gbBackupConfig.TabStop = false;
-            this.gbBackupConfig.Text = "Setting Backup";
-            //
-            // lbPgDumpPath
-            //
-            this.lbPgDumpPath.AutoSize = true;
-            this.lbPgDumpPath.Location = new System.Drawing.Point(20, 40);
-            this.lbPgDumpPath.Name = "lbPgDumpPath";
-            this.lbPgDumpPath.Size = new System.Drawing.Size(127, 21);
-            this.lbPgDumpPath.TabIndex = 0;
-            this.lbPgDumpPath.Text = "pg_dump.exe :";
-            //
-            // tbPgDumpPath
-            //
-            this.tbPgDumpPath.Location = new System.Drawing.Point(160, 37);
-            this.tbPgDumpPath.Name = "tbPgDumpPath";
-            this.tbPgDumpPath.Size = new System.Drawing.Size(420, 27);
-            this.tbPgDumpPath.TabIndex = 1;
-            //
-            // btnBrowsePgDump
-            //
-            this.btnBrowsePgDump.Location = new System.Drawing.Point(590, 36);
-            this.btnBrowsePgDump.Name = "btnBrowsePgDump";
-            this.btnBrowsePgDump.Size = new System.Drawing.Size(90, 27);
-            this.btnBrowsePgDump.TabIndex = 2;
-            this.btnBrowsePgDump.Text = "Browse...";
-            this.btnBrowsePgDump.UseVisualStyleBackColor = true;
-            this.btnBrowsePgDump.Click += new System.EventHandler(this.btnBrowsePgDump_Click);
-            //
-            // lbBackupDir
-            //
-            this.lbBackupDir.AutoSize = true;
-            this.lbBackupDir.Location = new System.Drawing.Point(20, 80);
-            this.lbBackupDir.Name = "lbBackupDir";
-            this.lbBackupDir.Size = new System.Drawing.Size(128, 21);
-            this.lbBackupDir.TabIndex = 3;
-            this.lbBackupDir.Text = "Backup Folder :";
-            //
-            // tbBackupDir
-            //
-            this.tbBackupDir.Location = new System.Drawing.Point(160, 77);
-            this.tbBackupDir.Name = "tbBackupDir";
-            this.tbBackupDir.Size = new System.Drawing.Size(420, 27);
-            this.tbBackupDir.TabIndex = 4;
-            //
-            // btnBrowseBackupDir
-            //
-            this.btnBrowseBackupDir.Location = new System.Drawing.Point(590, 76);
-            this.btnBrowseBackupDir.Name = "btnBrowseBackupDir";
-            this.btnBrowseBackupDir.Size = new System.Drawing.Size(90, 27);
-            this.btnBrowseBackupDir.TabIndex = 5;
-            this.btnBrowseBackupDir.Text = "Browse...";
-            this.btnBrowseBackupDir.UseVisualStyleBackColor = true;
-            this.btnBrowseBackupDir.Click += new System.EventHandler(this.btnBrowseBackupDir_Click);
-            //
-            // lbAutoBackupTime
-            //
-            this.lbAutoBackupTime.AutoSize = true;
-            this.lbAutoBackupTime.Location = new System.Drawing.Point(20, 120);
-            this.lbAutoBackupTime.Name = "lbAutoBackupTime";
-            this.lbAutoBackupTime.Size = new System.Drawing.Size(236, 21);
-            this.lbAutoBackupTime.TabIndex = 6;
-            this.lbAutoBackupTime.Text = "เวลา Auto Backup (เริ่ม - สิ้นสุด) :";
-            //
-            // dtpAutoBackupStart
-            //
-            this.dtpAutoBackupStart.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpAutoBackupStart.Location = new System.Drawing.Point(260, 117);
-            this.dtpAutoBackupStart.Name = "dtpAutoBackupStart";
-            this.dtpAutoBackupStart.ShowUpDown = true;
-            this.dtpAutoBackupStart.Size = new System.Drawing.Size(110, 27);
-            this.dtpAutoBackupStart.TabIndex = 7;
-            //
-            // lbAutoBackupTimeTo
-            //
-            this.lbAutoBackupTimeTo.AutoSize = true;
-            this.lbAutoBackupTimeTo.Location = new System.Drawing.Point(380, 120);
-            this.lbAutoBackupTimeTo.Name = "lbAutoBackupTimeTo";
-            this.lbAutoBackupTimeTo.Size = new System.Drawing.Size(15, 21);
-            this.lbAutoBackupTimeTo.TabIndex = 8;
-            this.lbAutoBackupTimeTo.Text = "-";
-            //
-            // dtpAutoBackupEnd
-            //
-            this.dtpAutoBackupEnd.Format = System.Windows.Forms.DateTimePickerFormat.Time;
-            this.dtpAutoBackupEnd.Location = new System.Drawing.Point(401, 117);
-            this.dtpAutoBackupEnd.Name = "dtpAutoBackupEnd";
-            this.dtpAutoBackupEnd.ShowUpDown = true;
-            this.dtpAutoBackupEnd.Size = new System.Drawing.Size(110, 27);
-            this.dtpAutoBackupEnd.TabIndex = 9;
-            //
-            // btnBackup
-            //
-            this.btnBackup.Location = new System.Drawing.Point(590, 117);
-            this.btnBackup.Name = "btnBackup";
-            this.btnBackup.Size = new System.Drawing.Size(90, 27);
-            this.btnBackup.TabIndex = 10;
-            this.btnBackup.Text = "backup";
-            this.btnBackup.UseVisualStyleBackColor = true;
-            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
-            //
-            // lbLastAutoBackup
-            //
-            this.lbLastAutoBackup.AutoSize = true;
-            this.lbLastAutoBackup.Location = new System.Drawing.Point(20, 160);
-            this.lbLastAutoBackup.Name = "lbLastAutoBackup";
-            this.lbLastAutoBackup.Size = new System.Drawing.Size(120, 21);
-            this.lbLastAutoBackup.TabIndex = 11;
-            this.lbLastAutoBackup.Text = "Backup ล่าสุด: -";
-            //
-            // chkAutoBackup
-            //
-            this.chkAutoBackup.AutoSize = true;
-            this.chkAutoBackup.Checked = true;
-            this.chkAutoBackup.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkAutoBackup.Location = new System.Drawing.Point(20, 190);
-            this.chkAutoBackup.Name = "chkAutoBackup";
-            this.chkAutoBackup.Size = new System.Drawing.Size(299, 25);
-            this.chkAutoBackup.TabIndex = 13;
-            this.chkAutoBackup.Text = "Auto Backup ทุก 2 ชม. (09:00 - 17:00)";
-            this.chkAutoBackup.UseVisualStyleBackColor = true;
-            this.chkAutoBackup.Visible = false;
-            //
             // basedriverBindingSource1
             // 
             this.basedriverBindingSource1.DataMember = "base_driver";
@@ -1677,6 +1678,10 @@
             this.Size = new System.Drawing.Size(769, 496);
             this.Load += new System.EventHandler(this.ucSetting_Load);
             this.tcSetting.ResumeLayout(false);
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
+            this.gbBackupConfig.ResumeLayout(false);
+            this.gbBackupConfig.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basescaleBindingSource)).EndInit();
@@ -1723,10 +1728,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvCarRegistration)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.basecarregistrationBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet3)).EndInit();
-            this.tabPage12.ResumeLayout(false);
-            this.tabPage12.PerformLayout();
-            this.gbBackupConfig.ResumeLayout(false);
-            this.gbBackupConfig.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.basedriverBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truckDataSet1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.truck_mDataSet1)).EndInit();

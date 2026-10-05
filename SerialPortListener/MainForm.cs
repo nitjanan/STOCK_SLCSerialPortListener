@@ -954,7 +954,8 @@ namespace SerialPortListener
                 tbCarLicenseId.Enabled = true;
                 tbCarCity.Enabled = true;
 
-                tbWeightIn.Enabled = true;
+                tbWeightIn.Enabled = false;
+
             }
             else if (mode.Equals(1))
             {

@@ -29,9 +29,9 @@
                 </Paragraphs>
                 <rd:DefaultName>PCompanyName</rd:DefaultName>
                 <Top>0.77772cm</Top>
-                <Left>2.20816cm</Left>
+                <Left>0.29373cm</Left>
                 <Height>0.71466cm</Height>
-                <Width>6.94057cm</Width>
+                <Width>8.855cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -1973,21 +1973,6 @@
                   <PaddingBottom>2pt</PaddingBottom>
                 </Style>
               </Textbox>
-              <Image Name="Image2">
-                <Source>Embedded</Source>
-                <Value>=IIF(Parameters!PLogoName.Value = "", "job_logo", Parameters!PLogoName.Value)</Value>
-                <Sizing>FitProportional</Sizing>
-                <Top>0.09427in</Top>
-                <Left>0.11563in</Left>
-                <Height>0.66347in</Height>
-                <Width>0.75373in</Width>
-                <ZIndex>63</ZIndex>
-                <Style>
-                  <Border>
-                    <Style>None</Style>
-                  </Border>
-                </Style>
-              </Image>
               <Textbox Name="Textbox22">
                 <CanGrow>true</CanGrow>
                 <KeepTogether>true</KeepTogether>
@@ -2013,7 +1998,7 @@
                 <Left>0.10173in</Left>
                 <Height>0.25in</Height>
                 <Width>0.99678in</Width>
-                <ZIndex>64</ZIndex>
+                <ZIndex>63</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2046,7 +2031,7 @@
                 <Left>1.09851in</Left>
                 <Height>0.25in</Height>
                 <Width>2.48945in</Width>
-                <ZIndex>65</ZIndex>
+                <ZIndex>64</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2082,7 +2067,7 @@
                 <Left>0.11564in</Left>
                 <Height>0.25in</Height>
                 <Width>0.99679in</Width>
-                <ZIndex>66</ZIndex>
+                <ZIndex>65</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2115,7 +2100,7 @@
                 <Left>2.82555cm</Left>
                 <Height>0.635cm</Height>
                 <Width>6.28793cm</Width>
-                <ZIndex>67</ZIndex>
+                <ZIndex>66</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -2151,7 +2136,7 @@
                 <Left>6.11157in</Left>
                 <Height>0.25in</Height>
                 <Width>1.07712in</Width>
-                <ZIndex>68</ZIndex>
+                <ZIndex>67</ZIndex>
                 <Style>
                   <Border>
                     <Style>None</Style>

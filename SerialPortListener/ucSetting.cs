@@ -1490,5 +1490,10 @@ namespace SerialPortListener
 
             return tcs.Task;
         }
+
+        private void gbBackupConfig_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }

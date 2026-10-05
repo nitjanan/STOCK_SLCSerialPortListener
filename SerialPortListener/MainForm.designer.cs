@@ -39,6 +39,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dtDate = new System.Windows.Forms.DateTimePicker();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.label38 = new System.Windows.Forms.Label();
             this.lbCompanyCode = new System.Windows.Forms.Label();
             this.btMenu5 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -189,6 +190,7 @@
             // 
             this.tbWeightIn.AccessibleName = "น้ำหนักเข้า";
             this.tbWeightIn.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.tbWeightIn.Enabled = false;
             this.tbWeightIn.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbWeightIn.Location = new System.Drawing.Point(438, 56);
             this.tbWeightIn.Name = "tbWeightIn";
@@ -268,6 +270,7 @@
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.MediumPurple;
+            this.panel3.Controls.Add(this.label38);
             this.panel3.Controls.Add(this.lbCompanyCode);
             this.panel3.Controls.Add(this.btMenu5);
             this.panel3.Controls.Add(this.label1);
@@ -280,6 +283,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(186, 647);
             this.panel3.TabIndex = 18;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label38.Location = new System.Drawing.Point(12, 622);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(73, 15);
+            this.label38.TabIndex = 108;
+            this.label38.Text = "version 1.0.0";
             // 
             // lbCompanyCode
             // 
@@ -312,13 +326,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 24F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.label1.Location = new System.Drawing.Point(34, 69);
+            this.label1.Location = new System.Drawing.Point(26, 85);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(124, 39);
+            this.label1.Size = new System.Drawing.Size(136, 25);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Weight";
+            this.label1.Text = "TruckWeight";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btMenu4
@@ -542,6 +556,7 @@
             // btLoadCustomer
             // 
             this.btLoadCustomer.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btLoadCustomer.Enabled = false;
             this.btLoadCustomer.Font = new System.Drawing.Font("Century Gothic", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btLoadCustomer.Location = new System.Drawing.Point(659, 151);
             this.btLoadCustomer.Name = "btLoadCustomer";
@@ -2067,6 +2082,7 @@
         private System.Windows.Forms.TextBox tbMillId;
         private System.Windows.Forms.TextBox tbSiteName;
         private System.Windows.Forms.TextBox tbSiteId;
+        private System.Windows.Forms.Label label38;
     }
 }
 
