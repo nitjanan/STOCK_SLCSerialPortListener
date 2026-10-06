@@ -41,6 +41,7 @@ namespace SerialPortListener
             }
             try {
                 conn.Open();
+                DbDate.ApplySessionDateStyle(conn);
                 _connectDepth = 1;
                 getmassage = "Connect successfully";
                 return true;

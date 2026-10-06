@@ -218,6 +218,7 @@
       <DependentUpon>customerDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="Datalayer.cs" />
+    <Compile Include="DbDate.cs" />
     <Compile Include="FCancelPassword.cs">
       <SubType>Form</SubType>
     </Compile>
