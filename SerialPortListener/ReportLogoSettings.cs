@@ -95,5 +95,33 @@ namespace SerialPortListener
                 System.IO.Directory.CreateDirectory(Utils.AppDataDir);
             System.IO.File.WriteAllLines(ConfigPath, new[] { logo.ToString() });
         }
+
+        private static readonly string ShowAddressConfigPath =
+            System.IO.Path.Combine(Utils.AppDataDir, "config_report_show_address.txt");
+
+        // แสดงที่อยู่บริษัท (PAddress) บนใบชั่งน้ำหนักหรือไม่ ค่าเริ่มต้น = ไม่แสดง
+        public static bool GetShowAddress()
+        {
+            try
+            {
+                if (System.IO.File.Exists(ShowAddressConfigPath))
+                {
+                    string[] lines = System.IO.File.ReadAllLines(ShowAddressConfigPath);
+                    if (lines.Length > 0 && bool.TryParse(lines[0].Trim(), out bool saved))
+                        return saved;
+                }
+            }
+            catch (Exception)
+            {
+            }
+            return false;
+        }
+
+        public static void SetShowAddress(bool show)
+        {
+            if (!System.IO.Directory.Exists(Utils.AppDataDir))
+                System.IO.Directory.CreateDirectory(Utils.AppDataDir);
+            System.IO.File.WriteAllLines(ShowAddressConfigPath, new[] { show.ToString() });
+        }
     }
 }

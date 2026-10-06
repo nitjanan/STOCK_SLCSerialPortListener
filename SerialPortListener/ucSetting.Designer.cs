@@ -47,6 +47,7 @@
             this.chkAutoBackup = new System.Windows.Forms.CheckBox();
             this.btnSaveReportLogo = new System.Windows.Forms.Button();
             this.chkAutoFillWeightIn = new System.Windows.Forms.CheckBox();
+            this.chkShowReportAddress = new System.Windows.Forms.CheckBox();
             this.cboReportLogo = new System.Windows.Forms.ComboBox();
             this.lblReportLogo = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -260,6 +261,7 @@
             this.tabPage12.Controls.Add(this.gbBackupConfig);
             this.tabPage12.Controls.Add(this.btnSaveReportLogo);
             this.tabPage12.Controls.Add(this.chkAutoFillWeightIn);
+            this.tabPage12.Controls.Add(this.chkShowReportAddress);
             this.tabPage12.Controls.Add(this.cboReportLogo);
             this.tabPage12.Controls.Add(this.lblReportLogo);
             this.tabPage12.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -436,9 +438,19 @@
             this.chkAutoFillWeightIn.Text = "ดึงน้ำหนักเข้าล่าสุดของรถในวันเดียวกันมาใส่อัตโนมัติเมื่อกรอกทะเบียนรถ (ค่าเริ่มต" +
     "้น: ไม่ดึง)";
             this.chkAutoFillWeightIn.UseVisualStyleBackColor = true;
-            // 
+            //
+            // chkShowReportAddress
+            //
+            this.chkShowReportAddress.Font = new System.Drawing.Font("Century Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkShowReportAddress.Location = new System.Drawing.Point(380, 65);
+            this.chkShowReportAddress.Name = "chkShowReportAddress";
+            this.chkShowReportAddress.Size = new System.Drawing.Size(340, 29);
+            this.chkShowReportAddress.TabIndex = 2;
+            this.chkShowReportAddress.Text = "แสดงที่อยู่บริษัทบนใบชั่ง (ค่าเริ่มต้น: ไม่แสดง)";
+            this.chkShowReportAddress.UseVisualStyleBackColor = true;
+            //
             // cboReportLogo
-            // 
+            //
             this.cboReportLogo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboReportLogo.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboReportLogo.FormattingEnabled = true;
@@ -1880,6 +1892,7 @@
         private System.Windows.Forms.ComboBox cboReportLogo;
         private System.Windows.Forms.Button btnSaveReportLogo;
         private System.Windows.Forms.CheckBox chkAutoFillWeightIn;
+        private System.Windows.Forms.CheckBox chkShowReportAddress;
         private System.Windows.Forms.GroupBox gbBackupConfig;
         private System.Windows.Forms.Label lbPgDumpPath;
         private System.Windows.Forms.TextBox tbPgDumpPath;

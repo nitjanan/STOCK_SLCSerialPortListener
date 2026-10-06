@@ -28,10 +28,10 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PCompanyName</rd:DefaultName>
-                <Top>0.77772cm</Top>
-                <Left>0.29373cm</Left>
-                <Height>0.71466cm</Height>
-                <Width>8.855cm</Width>
+                <Top>0.46917cm</Top>
+                <Left>0.29367cm</Left>
+                <Height>0.60884cm</Height>
+                <Width>8.8903cm</Width>
                 <Style>
                   <Border>
                     <Style>None</Style>
@@ -62,13 +62,13 @@
                   </Paragraph>
                 </Paragraphs>
                 <rd:DefaultName>PAddress</rd:DefaultName>
-                <Top>0.30619in</Top>
-                <Left>2.61563in</Left>
-                <Height>0.22933in</Height>
-                <Width>0.97234in</Width>
+                <Top>0.50774in</Top>
+                <Left>0.11563in</Left>
+                <Height>0.20834in</Height>
+                <Width>3.47234in</Width>
                 <ZIndex>1</ZIndex>
                 <Visibility>
-                  <Hidden>true</Hidden>
+                  <Hidden>=IsNothing(Parameters!PAddress.Value) OrElse Parameters!PAddress.Value = ""</Hidden>
                 </Visibility>
                 <Style>
                   <Border>
@@ -2185,6 +2185,8 @@
     </ReportParameter>
     <ReportParameter Name="PAddress">
       <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <AllowBlank>true</AllowBlank>
       <Prompt>ReportParameter1</Prompt>
     </ReportParameter>
     <ReportParameter Name="PTelephone">

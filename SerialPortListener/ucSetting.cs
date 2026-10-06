@@ -85,6 +85,7 @@ namespace SerialPortListener
 
             cboReportLogo.DataSource = ReportLogoSettings.All;
             SelectCurrentReportLogoInCombo();
+            chkShowReportAddress.Checked = ReportLogoSettings.GetShowAddress();
             chkAutoFillWeightIn.Checked = MainFormSettings.GetAutoFillWeightInEnabled();
 
             // ย้ายมาจาก ucBackup: โหลดค่า config การสำรองข้อมูล + เริ่มตัวจับเวลา auto backup
@@ -152,7 +153,7 @@ namespace SerialPortListener
             }
         }
 
-        // ปุ่มเดียวบันทึกทุกการตั้งค่าในแท็บนี้ (โลโก้ใบชั่ง, ดึงน้ำหนักเข้าอัตโนมัติ, และการสำรองข้อมูล)
+        // ปุ่มเดียวบันทึกทุกการตั้งค่าในแท็บนี้ (โลโก้ใบชั่ง, แสดงที่อยู่บนใบชั่ง, ดึงน้ำหนักเข้าอัตโนมัติ, และการสำรองข้อมูล)
         private void btnSaveReportLogo_Click(object sender, EventArgs e)
         {
             if (!Globals.isPermissionAddSetting())
@@ -179,6 +180,7 @@ namespace SerialPortListener
             try
             {
                 ReportLogoSettings.SaveSelectedLogo(selected);
+                ReportLogoSettings.SetShowAddress(chkShowReportAddress.Checked);
                 MainFormSettings.SetAutoFillWeightInEnabled(chkAutoFillWeightIn.Checked);
                 SaveBackupConfig();
                 MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "ตั้งค่าทั่วไป", MessageBoxButtons.OK, MessageBoxIcon.Information);
