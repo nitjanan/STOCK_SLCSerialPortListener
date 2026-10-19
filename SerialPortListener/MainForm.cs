@@ -2562,6 +2562,7 @@ namespace SerialPortListener
                     case WeightFormat.SrdSigned: value = TryParse_SrdSigned(accumulatedText); break;
                     case WeightFormat.TymFixedWidth: value = TryParse_TymFixedWidth(accumulatedText); break;
                     case WeightFormat.FixedOffsetTail: value = TryParse_FixedOffsetTail(accumulatedText); break;
+                    case WeightFormat.PlainPadded: value = TryParse_PlainPadded(accumulatedText); break;
                     case WeightFormat.ParenCR:
                     default: value = TryParse_ParenCR(accumulatedText); break;
                 }
@@ -2724,6 +2725,33 @@ namespace SerialPortListener
             string substring = text.Substring(text.Length - TailLength, WindowLength);
             Match m = Regex.Match(substring, @"\d+");
             return m.Success ? m.Value : null;
+        }
+
+        // รูปแบบข้อมูล "    1930 " / "    1930U" : แต่ละบรรทัดมีแค่ตัวเลขน้ำหนัก (อาจมีเครื่องหมายลบ) เว้นวรรคหน้า
+        // ท้ายบรรทัดเป็นช่องว่าง = นิ่งแล้ว, เป็น "U" = ยังไม่นิ่ง (unstable) ใช้เฉพาะค่าที่นิ่งแล้ว
+        // ไม่มี marker ใดๆ จึงใช้บรรทัดสมบูรณ์ล่าสุด (ลงท้ายด้วย \r หรือ \n แล้ว) ที่เป็นตัวเลขล้วนเท่านั้น
+        // บรรทัดที่ยังไม่นิ่ง (มี U) รับมาไม่ครบ หรือมีอักขระอื่นปน ข้ามไป
+        private static string TryParse_PlainPadded(string text)
+        {
+            if (string.IsNullOrEmpty(text)) return null;
+
+            string[] lines = text.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+
+            int lastIndex = lines.Length - 1;
+            if (!(text.EndsWith("\n") || text.EndsWith("\r")))
+                lastIndex--;
+
+            for (int i = lastIndex; i >= 0; i--)
+            {
+                Match m = Regex.Match(lines[i], @"^\s*(-?)\s*(\d+)\s*$");
+                if (!m.Success) continue;
+
+                string trimmed = m.Groups[2].Value.TrimStart('0');
+                if (trimmed.Length == 0) return "0";
+                return m.Groups[1].Value + trimmed;
+            }
+
+            return null;
         }
 
         private Boolean checkCancelAction()

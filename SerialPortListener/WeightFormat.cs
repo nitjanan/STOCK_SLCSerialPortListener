@@ -14,6 +14,7 @@ namespace SerialPortListener
         SrdSigned,
         TymFixedWidth,
         FixedOffsetTail,
+        PlainPadded,
     }
 
     // รายการรูปแบบทั้งหมดสำหรับผูกกับ combo box ตัวเลือกใน ucHelp
@@ -45,6 +46,7 @@ namespace SerialPortListener
             new Option(WeightFormat.SrdSigned, "แบบมีเครื่องหมายลบ"),
             new Option(WeightFormat.TymFixedWidth, "แบบฟิลด์คงที่ *0 (12 หลัก)"),
             new Option(WeightFormat.FixedOffsetTail, "แบบตำแหน่งคงที่ท้ายบัฟเฟอร์ (ของเดิม/สำรอง)"),
+            new Option(WeightFormat.PlainPadded, "แบบตัวเลขล้วน ลงท้าย U = ยังไม่นิ่ง (เช่น \"    1930 \")"),
         };
     }
 }
