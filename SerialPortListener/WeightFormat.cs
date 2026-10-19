@@ -15,6 +15,7 @@ namespace SerialPortListener
         TymFixedWidth,
         FixedOffsetTail,
         PlainPadded,
+        JobOutQMarker,
     }
 
     // รายการรูปแบบทั้งหมดสำหรับผูกกับ combo box ตัวเลือกใน ucHelp
@@ -36,17 +37,19 @@ namespace SerialPortListener
 
         public static readonly Option[] All = new[]
         {
-            new Option(WeightFormat.ParenCR, "แบบ ( ... CR (ค่าเริ่มต้น)"),
-            new Option(WeightFormat.QMarker, "แบบ q ... CR"),
-            new Option(WeightFormat.PMarker, "แบบ p ... CR"),
-            new Option(WeightFormat.PQDual, "แบบ p/q (มีเครื่องหมาย)"),
-            new Option(WeightFormat.KNTerminated, "แบบลงท้าย KN"),
-            new Option(WeightFormat.KgTerminated, "แบบลงท้าย kg"),
-            new Option(WeightFormat.NsmCsv, "แบบ ST,GS,...,Kg"),
-            new Option(WeightFormat.SrdSigned, "แบบมีเครื่องหมายลบ"),
-            new Option(WeightFormat.TymFixedWidth, "แบบฟิลด์คงที่ *0 (12 หลัก)"),
-            new Option(WeightFormat.FixedOffsetTail, "แบบตำแหน่งคงที่ท้ายบัฟเฟอร์ (ของเดิม/สำรอง)"),
-            new Option(WeightFormat.PlainPadded, "แบบตัวเลขล้วน ลงท้าย U = ยังไม่นิ่ง (เช่น \"    1930 \")"),
+            // [..] ท้ายชื่อ = branch ที่เคย hardcode รูปแบบนี้ไว้
+            new Option(WeightFormat.ParenCR, "แบบ ( ... CR (ค่าเริ่มต้น) [T3, T4, JOB ขาเข้า, KRD, TYM เดิม]"),
+            new Option(WeightFormat.QMarker, "แบบ q ... CR [CTM, T3 เดิม]"),
+            new Option(WeightFormat.JobOutQMarker, "แบบ q ... ETB [JOB ขาออก]"),
+            new Option(WeightFormat.PMarker, "แบบ p ... CR [T5, M3]"),
+            new Option(WeightFormat.PQDual, "แบบ p/q (มีเครื่องหมาย) [39]"),
+            new Option(WeightFormat.KNTerminated, "แบบลงท้าย KN [KT]"),
+            new Option(WeightFormat.KgTerminated, "แบบลงท้าย kg [UNI]"),
+            new Option(WeightFormat.NsmCsv, "แบบ ST,GS,...,Kg [NSM]"),
+            new Option(WeightFormat.SrdSigned, "แบบมีเครื่องหมายลบ [SRD]"),
+            new Option(WeightFormat.TymFixedWidth, "แบบฟิลด์คงที่ *0 (12 หลัก) [TYM]"),
+            new Option(WeightFormat.FixedOffsetTail, "แบบตำแหน่งคงที่ท้ายบัฟเฟอร์ (ของเดิม/สำรอง) [ทุก branch เก่า]"),
+            new Option(WeightFormat.PlainPadded, "แบบตัวเลขล้วน ลงท้าย U = ยังไม่นิ่ง (เช่น \"    1930 \") [SRD ผลิต]"),
         };
     }
 }

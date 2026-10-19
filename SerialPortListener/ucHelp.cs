@@ -51,6 +51,11 @@ namespace SerialPortListener
             this.Disposed += UcHelp_Disposed;
 
             cboWeightFormat.DataSource = WeightFormatCatalog.All;
+            // ชื่อตัวเลือกมี [branch] ต่อท้ายจึงยาวกว่าช่อง ขยายเฉพาะรายการ drop-down ให้พอดีชื่อที่ยาวสุด
+            int widestLabel = 0;
+            foreach (var option in WeightFormatCatalog.All)
+                widestLabel = Math.Max(widestLabel, TextRenderer.MeasureText(option.Label, cboWeightFormat.Font).Width);
+            cboWeightFormat.DropDownWidth = Math.Max(cboWeightFormat.Width, widestLabel + SystemInformation.VerticalScrollBarWidth);
             MainForm.CurrentWeightFormat = LoadSavedWeightFormat();
             SelectWeightFormatInCombo(MainForm.CurrentWeightFormat);
             tbWeightPreview.Text = "-  -  -";

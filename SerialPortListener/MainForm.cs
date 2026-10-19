@@ -2554,6 +2554,7 @@ namespace SerialPortListener
                 switch (format)
                 {
                     case WeightFormat.QMarker: value = TryParse_QMarker(accumulatedText); break;
+                    case WeightFormat.JobOutQMarker: value = TryParse_JobOutQMarker(accumulatedText); break;
                     case WeightFormat.PMarker: value = TryParse_PMarker(accumulatedText); break;
                     case WeightFormat.PQDual: value = TryParse_PQDual(accumulatedText); break;
                     case WeightFormat.KNTerminated: value = TryParse_UnitTerminated(accumulatedText, "KN"); break;
@@ -2600,6 +2601,26 @@ namespace SerialPortListener
             MatchCollection mc = Regex.Matches(remainingText, @"\d+");
             if (mc.Count == 0) return null;
             return ValidateMarkerValue(mc[0].Value);
+        }
+
+        // JOB ขาออก (เครื่องแม่): ตัดถึง ETB (0x17) ตัวสุดท้าย เอาเลขหลัง "q" ตัวสุดท้าย
+        // ต่างจาก QMarker ตรงที่ค่าหาร 10 ไม่ลงตัวหรือเกิน 100000 จะตัดหลักสุดท้ายทิ้งแล้วใช้ค่านั้น (ไม่ใช่ข้ามไป)
+        private static string TryParse_JobOutQMarker(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\x17"));
+            string remainingText = newString.Substring(newString.LastIndexOf("q"));
+            MatchCollection mc = Regex.Matches(remainingText, @"\d+");
+            if (mc.Count == 0) return null;
+
+            string rawValue = mc[0].Value;
+            int val = Int32.Parse(rawValue);
+            if (val % 10 != 0 || val > 100000)
+            {
+                string cut = rawValue.Remove(rawValue.Length - 1);
+                return cut.Length == 0 ? "0" : cut;
+            }
+            if (val < 10) return "0";
+            return rawValue.TrimStart('0').PadLeft(1, '0');
         }
 
         // เหมือน ParenCR แต่ตัดจาก "p" ตัวสุดท้าย (ไม่มี offset, ไม่ตรวจสอบค่า)
