@@ -2741,7 +2741,9 @@ namespace SerialPortListener
             if (!(text.EndsWith("\n") || text.EndsWith("\r")))
                 lastIndex--;
 
-            for (int i = lastIndex; i >= 0; i--)
+            // บัฟเฟอร์ถูกตัดหัวทิ้งเมื่อยาวเกิน (เช่น tbData เก็บแค่ 50 ตัวอักษร) บรรทัดแรกจึงอาจเหลือแค่ท้ายตัวเลข
+            // (เช่น "    1930 " เหลือ "30 ") และดูเหมือนตัวเลขปกติ จึงไม่ใช้บรรทัดแรก (i = 0) เลย
+            for (int i = lastIndex; i >= 1; i--)
             {
                 Match m = Regex.Match(lines[i], @"^\s*(-?)\s*(\d+)\s*$");
                 if (!m.Success) continue;
