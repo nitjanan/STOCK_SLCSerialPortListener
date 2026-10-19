@@ -2745,7 +2745,9 @@ namespace SerialPortListener
             // (เช่น "    1930 " เหลือ "30 ") และดูเหมือนตัวเลขปกติ จึงไม่ใช้บรรทัดแรก (i = 0) เลย
             for (int i = lastIndex; i >= 1; i--)
             {
-                Match m = Regex.Match(lines[i], @"^\s*(-?)\s*(\d+)\s*$");
+                // ตาชั่งบางรุ่นส่งอักขระควบคุมที่มองไม่เห็นมาด้วย (เช่น STX/ETX หัวท้ายบรรทัด) ตัดทิ้งก่อนตรวจ
+                string line = Regex.Replace(lines[i], @"\p{Cc}", "");
+                Match m = Regex.Match(line, @"^\s*(-?)\s*(\d+)\s*$");
                 if (!m.Success) continue;
 
                 string trimmed = m.Groups[2].Value.TrimStart('0');
