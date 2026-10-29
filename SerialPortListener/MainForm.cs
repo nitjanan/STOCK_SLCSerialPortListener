@@ -3333,9 +3333,14 @@ namespace SerialPortListener
             if (!MainFormSettings.GetAutoFillWeightInEnabled())
                 return;
 
+            // ใช้กับทุก permission: ดึงได้เมื่อยังไม่ได้อ่านน้ำหนักเข้า (บิลใหม่) หรือผู้ใช้มีสิทธิ์แก้น้ำหนัก
+            // ถ้าอ่านน้ำหนักเข้าไปแล้ว/โหลดบิลเดิม และแก้น้ำหนักเข้าไม่ได้ ให้คงน้ำหนักเข้าเดิมไว้
+            if (!tbWeightIn.Enabled && !_btReadInBusinessEnabled)
+                return;
+
             string today = DateTime.Now.ToString("yyyy-MM-dd");
 
-            if ((tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text)) && tbWeightIn.Enabled)
+            if (tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text))
             {
                 //sql
                 OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
