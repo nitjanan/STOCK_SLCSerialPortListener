@@ -2561,6 +2561,7 @@ namespace SerialPortListener
                     case WeightFormat.KgTerminated: value = TryParse_UnitTerminated(accumulatedText, "kg"); break;
                     case WeightFormat.NsmCsv: value = TryParse_NsmCsv(accumulatedText); break;
                     case WeightFormat.SrdSigned: value = TryParse_SrdSigned(accumulatedText); break;
+                    case WeightFormat.SrdStxSigned: value = TryParse_SrdStxSigned(accumulatedText); break;
                     case WeightFormat.TymFixedWidth: value = TryParse_TymFixedWidth(accumulatedText); break;
                     case WeightFormat.FixedOffsetTail: value = TryParse_FixedOffsetTail(accumulatedText); break;
                     case WeightFormat.PlainPadded: value = TryParse_PlainPadded(accumulatedText); break;
@@ -2678,6 +2679,22 @@ namespace SerialPortListener
         {
             string newString = text.Remove(text.LastIndexOf("\r"));
             string remainingText = newString.Substring(newString.LastIndexOf(""));
+            MatchCollection mc = Regex.Matches(remainingText, @"-?\d+");
+            if (mc.Count == 0) return null;
+
+            string value = mc[0].Value;
+            if (!int.TryParse(value, out int weightValue)) return null;
+            if (!value.StartsWith("-"))
+                value = weightValue.ToString();
+            return value;
+        }
+
+        // ตามโค้ดจริงใน SRD_Blue_11/03/25: ตัดถึง \r ตัวสุดท้าย แล้วตัดหน้าที่ STX (\x02) ตัวสุดท้าย
+        // (ใน branch ต้นทางเขียนเป็น LastIndexOf("") ที่มี STX ซ่อนอยู่ มองไม่เห็นใน editor ต่างจาก SrdSigned ที่ไม่ตัดหน้า)
+        private static string TryParse_SrdStxSigned(string text)
+        {
+            string newString = text.Remove(text.LastIndexOf("\r"));
+            string remainingText = newString.Substring(newString.LastIndexOf("\u0002"));
             MatchCollection mc = Regex.Matches(remainingText, @"-?\d+");
             if (mc.Count == 0) return null;
 

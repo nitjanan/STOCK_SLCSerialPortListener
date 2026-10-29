@@ -410,6 +410,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>usersDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="UserScaleSync.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Weight.cs" />
     <Compile Include="WeightDailyReport.cs" />

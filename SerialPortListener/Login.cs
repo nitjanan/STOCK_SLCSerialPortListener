@@ -54,15 +54,64 @@ namespace SerialPortListener
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private DataTable findUser()
         {
-            
-            //MessageBox.Show("test = "+ dl.connect());
-            string sql = "select username, firstname, password, permission, users_id from public.users where username = '" + tbUsername.Text + "' and password = '" + Utils.hashPassword(tbPassword.Text) + "'";
-            OdbcDataAdapter cmd = new OdbcDataAdapter(sql, dl.sqlConn());
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "select username, firstname, password, permission, users_id from public.users where username = ? and password = ?";
+            pgCommand.Parameters.AddWithValue("", tbUsername.Text.Trim());
+            pgCommand.Parameters.AddWithValue("", Utils.hashPassword(tbPassword.Text));
             DataTable dt = new DataTable();
             dl.connect();
-            cmd.Fill(dt);
+            try
+            {
+                new OdbcDataAdapter(pgCommand).Fill(dt);
+            }
+            finally
+            {
+                dl.close();
+            }
+            return dt;
+        }
+
+        private bool isLoggingIn = false;
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            if (isLoggingIn)
+                return;
+
+            DataTable dt;
+            try
+            {
+                dt = findUser();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("เชื่อมต่อฐานข้อมูลไม่สำเร็จ", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // ไม่พบในเครื่อง: อาจเป็นผู้ชั่งที่เพิ่ง เพิ่ม/แก้ไข บน web app (UserScale) แต่ยังไม่ได้ดึงลงเครื่อง
+            // ดึง users จาก web app แล้วลองใหม่อีกครั้ง
+            if (dt.Rows.Count != 1)
+            {
+                isLoggingIn = true;
+                Cursor = Cursors.WaitCursor;
+                try
+                {
+                    await UserScaleSync.PullAsync(dl);
+                    dt = findUser();
+                }
+                catch (Exception)
+                {
+                    // ออฟไลน์ / API ใช้ไม่ได้ ใช้ข้อมูลในเครื่องตามเดิม
+                }
+                finally
+                {
+                    Cursor = Cursors.Default;
+                    isLoggingIn = false;
+                }
+            }
 
             if (dt.Rows.Count == 1 )
             {
@@ -84,7 +133,6 @@ namespace SerialPortListener
             else {
                 MessageBox.Show("username หรือ password ไม่ถูกต้อง", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            dl.close();
 
 
             /*

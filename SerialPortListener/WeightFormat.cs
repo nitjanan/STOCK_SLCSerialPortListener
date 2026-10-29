@@ -16,6 +16,7 @@ namespace SerialPortListener
         FixedOffsetTail,
         PlainPadded,
         JobOutQMarker,
+        SrdStxSigned,
     }
 
     // รายการรูปแบบทั้งหมดสำหรับผูกกับ combo box ตัวเลือกใน ucHelp
@@ -47,6 +48,7 @@ namespace SerialPortListener
             new Option(WeightFormat.KgTerminated, "แบบลงท้าย kg [UNI]"),
             new Option(WeightFormat.NsmCsv, "แบบ ST,GS,...,Kg [NSM]"),
             new Option(WeightFormat.SrdSigned, "แบบมีเครื่องหมายลบ [SRD]"),
+            new Option(WeightFormat.SrdStxSigned, "แบบ STX ... CR มีเครื่องหมายลบ [SRD_Blue_11/03/25]"),
             new Option(WeightFormat.TymFixedWidth, "แบบฟิลด์คงที่ *0 (12 หลัก) [TYM]"),
             new Option(WeightFormat.FixedOffsetTail, "แบบตำแหน่งคงที่ท้ายบัฟเฟอร์ (ของเดิม/สำรอง) [ทุก branch เก่า]"),
             new Option(WeightFormat.PlainPadded, "แบบตัวเลขล้วน ลงท้าย U = ยังไม่นิ่ง (เช่น \"    1930 \") [SRD ผลิต]"),
