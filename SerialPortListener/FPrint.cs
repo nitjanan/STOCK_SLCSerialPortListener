@@ -21,7 +21,7 @@ namespace SerialPortListener
         private void FPrint_Load(object sender, EventArgs e)
         {
             Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",Company.CompanyName),
+                new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",ReportLogoSettings.GetHeaderNameOrDefault(Company.CompanyName)),
                 new Microsoft.Reporting.WinForms.ReportParameter("PAddress",ReportLogoSettings.GetShowAddress() ? Company.Address : ""),
                 new Microsoft.Reporting.WinForms.ReportParameter("PTelephone",Company.Telephone),
                 new Microsoft.Reporting.WinForms.ReportParameter("PEmail",Company.Email),

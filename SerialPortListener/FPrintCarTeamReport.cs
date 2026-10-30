@@ -25,7 +25,7 @@ namespace SerialPortListener
             try
             {
                 Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",Company.CompanyName),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",ReportLogoSettings.GetHeaderNameOrDefault(Company.CompanyName)),
                 };
                 this.rvCarTeamReport.SetDisplayMode(Microsoft.Reporting.WinForms.DisplayMode.PrintLayout);
                 this.rvCarTeamReport.ZoomMode = Microsoft.Reporting.WinForms.ZoomMode.Percent;

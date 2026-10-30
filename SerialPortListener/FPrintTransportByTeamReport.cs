@@ -24,7 +24,7 @@ namespace SerialPortListener
             try
             {
                 Microsoft.Reporting.WinForms.ReportParameter[] p = new Microsoft.Reporting.WinForms.ReportParameter[] {
-                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",Company.CompanyName),
+                    new Microsoft.Reporting.WinForms.ReportParameter("PCompanyName",ReportLogoSettings.GetHeaderNameOrDefault(Company.CompanyName)),
                     new Microsoft.Reporting.WinForms.ReportParameter("PDateFrom",WeightTempReport.DateFrom),
                     new Microsoft.Reporting.WinForms.ReportParameter("PDateTo",WeightTempReport.DateTo),
                 };

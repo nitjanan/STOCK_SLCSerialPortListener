@@ -86,6 +86,7 @@ namespace SerialPortListener
             cboReportLogo.DataSource = ReportLogoSettings.All;
             SelectCurrentReportLogoInCombo();
             chkShowReportAddress.Checked = ReportLogoSettings.GetShowAddress();
+            tbReportHeaderName.Text = ReportLogoSettings.GetHeaderName();
             chkAutoFillWeightIn.Checked = MainFormSettings.GetAutoFillWeightInEnabled();
 
             // ย้ายมาจาก ucBackup: โหลดค่า config การสำรองข้อมูล + เริ่มตัวจับเวลา auto backup
@@ -107,6 +108,7 @@ namespace SerialPortListener
         {
             bool canEdit = Globals.isPermissionAddSetting();
 
+            tbReportHeaderName.ReadOnly = !canEdit;
             tbPgDumpPath.ReadOnly = !canEdit;
             tbBackupDir.ReadOnly = !canEdit;
             btnBrowsePgDump.Enabled = canEdit;
@@ -181,6 +183,7 @@ namespace SerialPortListener
             {
                 ReportLogoSettings.SaveSelectedLogo(selected);
                 ReportLogoSettings.SetShowAddress(chkShowReportAddress.Checked);
+                ReportLogoSettings.SetHeaderName(tbReportHeaderName.Text);
                 MainFormSettings.SetAutoFillWeightInEnabled(chkAutoFillWeightIn.Checked);
                 SaveBackupConfig();
                 MessageBox.Show("บันทึกการตั้งค่าสำเร็จ", "ตั้งค่าทั่วไป", MessageBoxButtons.OK, MessageBoxIcon.Information);

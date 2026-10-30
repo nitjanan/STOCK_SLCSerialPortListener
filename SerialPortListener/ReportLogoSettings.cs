@@ -123,5 +123,36 @@ namespace SerialPortListener
                 System.IO.Directory.CreateDirectory(Utils.AppDataDir);
             System.IO.File.WriteAllLines(ShowAddressConfigPath, new[] { show.ToString() });
         }
+
+        private static readonly string HeaderNameConfigPath =
+            System.IO.Path.Combine(Utils.AppDataDir, "config_report_header_name.txt");
+
+        // ข้อความหัวกระดาษบิล (PCompanyName) ที่ผู้ใช้กำหนดเอง "" = ใช้ชื่อบริษัทจากฐานข้อมูลตามเดิม
+        public static string GetHeaderName()
+        {
+            try
+            {
+                if (System.IO.File.Exists(HeaderNameConfigPath))
+                    return System.IO.File.ReadAllText(HeaderNameConfigPath).Trim();
+            }
+            catch (Exception)
+            {
+            }
+            return "";
+        }
+
+        public static void SetHeaderName(string headerName)
+        {
+            if (!System.IO.Directory.Exists(Utils.AppDataDir))
+                System.IO.Directory.CreateDirectory(Utils.AppDataDir);
+            System.IO.File.WriteAllText(HeaderNameConfigPath, (headerName ?? "").Trim());
+        }
+
+        // ค่าที่ส่งเป็น ReportParameter "PCompanyName" ให้ทุก .rdlc (ใบชั่ง ReportMain และรายงานในหน้า ucReport)
+        public static string GetHeaderNameOrDefault(string companyName)
+        {
+            string headerName = GetHeaderName();
+            return headerName != "" ? headerName : companyName;
+        }
     }
 }
