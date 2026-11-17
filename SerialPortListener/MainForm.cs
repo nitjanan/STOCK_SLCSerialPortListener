@@ -510,6 +510,8 @@ namespace SerialPortListener
             _noWeightInWarnedCar = null;
 
             //if user admin enable all
+            if (Globals.isPermissionTop())
+                disableBtAfterRead(3);
             if (Globals.isPermissionEditWeight())
                 disableBtAfterRead(999);
         }
@@ -984,6 +986,13 @@ namespace SerialPortListener
                 tbWeightTotal.Enabled = false;
                 tbQ.Enabled = false;
             }
+            else if (mode.Equals(3))//open all admin add
+            {
+                tbWeightIn.Enabled = true;
+                tbWeightOut.Enabled = true;
+                tbWeightTotal.Enabled = false;
+                tbQ.Enabled = true;
+            }
             else if (mode.Equals(4))//disable all
             {
                 dtWeightInDate.Enabled = false;
@@ -1006,6 +1015,9 @@ namespace SerialPortListener
 
                 tbCarLicense.Enabled = true;
                 tbCarCity.Enabled = true;
+
+                dtWeightInTime.Enabled = true;
+                dtWeightOutTime.Enabled = true;
             }
         }
 
