@@ -363,7 +363,7 @@
             this.chkAutoFillWeightIn.Name = "chkAutoFillWeightIn";
             this.chkAutoFillWeightIn.Size = new System.Drawing.Size(695, 26);
             this.chkAutoFillWeightIn.TabIndex = 0;
-            this.chkAutoFillWeightIn.Text = "ดึงน้ำหนักเข้าล่าสุดของรถในวันเดียวกันมาใส่อัตโนมัติเมื่อกรอกทะเบียนรถ";
+            this.chkAutoFillWeightIn.Text = "ดึงน้ำหนักเข้าจากรายการแรกของรถในวันเดียวกันมาใส่อัตโนมัติเมื่อกรอกทะเบียนรถ";
             this.chkAutoFillWeightIn.UseVisualStyleBackColor = true;
             //
             // gbBackupConfig

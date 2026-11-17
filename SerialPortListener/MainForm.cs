@@ -507,8 +507,9 @@ namespace SerialPortListener
             calculatenumQ();
 
             disableBtAfterRead(0);
+            _noWeightInWarnedCar = null;
 
-            //if user admin enable all 
+            //if user admin enable all
             if (Globals.isPermissionEditWeight())
                 disableBtAfterRead(999);
         }
@@ -3329,47 +3330,121 @@ namespace SerialPortListener
 
         private void getWeightInOnDay(TextBox tb)
         {
+            LogAutoFill("getWeightInOnDay: called from " + (tb != null ? tb.Name : "null")
+                + " car=[" + tbCarLicense.Text + "] weightIn=[" + tbWeightIn.Text + "] weightOut=[" + tbWeightOut.Text + "]"
+                + " weightInEnabled=" + tbWeightIn.Enabled + " readInEnabled=" + _btReadInBusinessEnabled);
+
             // ตั้งค่าได้ที่ ucSetting (ค่าเริ่มต้น: ไม่ดึง) — ถ้าปิดไว้จะไม่ดึงน้ำหนักเข้าล่าสุดของรถมาใส่อัตโนมัติเลย
             if (!MainFormSettings.GetAutoFillWeightInEnabled())
+            {
+                LogAutoFill("getWeightInOnDay: skip - setting off");
                 return;
+            }
 
             // ใช้กับทุก permission: ดึงได้เมื่อยังไม่ได้อ่านน้ำหนักเข้า (บิลใหม่) หรือผู้ใช้มีสิทธิ์แก้น้ำหนัก
             // ถ้าอ่านน้ำหนักเข้าไปแล้ว/โหลดบิลเดิม และแก้น้ำหนักเข้าไม่ได้ ให้คงน้ำหนักเข้าเดิมไว้
             if (!tbWeightIn.Enabled && !_btReadInBusinessEnabled)
-                return;
-
-            string today = DateTime.Now.ToString("yyyy-MM-dd");
-
-            if (tb != null && tb.Text != "" && checkZeroStr(tbWeightOut.Text))
             {
-                //sql
-                OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
-                pgCommand.CommandText = "SELECT น้ำหนักรถ FROM public.weight where วันที่ = '" + today + "' and ทะเบียนรถ = '" + tbCarLicense.Text + "' ORDER BY weight_id DESC LIMIT 1 ";
-                try
+                LogAutoFill("getWeightInOnDay: skip - weight-in already read / not editable");
+                return;
+            }
+
+            // ใช้ InvariantCulture เสมอ ไม่งั้นเครื่องที่ตั้งปฏิทินไทยจะได้ปี พ.ศ. (2569-..) แล้วหาไม่เจอ
+            string today = DbDate.ToIso(DateTime.Now);
+            string carLicense = tbCarLicense.Text.Trim();
+
+            if (tb == null || tb.Text.Trim() == "" || carLicense == "" || !checkZeroStr(tbWeightOut.Text))
+            {
+                LogAutoFill("getWeightInOnDay: skip - no car license or weight-out already set");
+                clearAutoFilledWeightIn();
+                return;
+            }
+
+            // ใช้น้ำหนักรถจาก "รายการล่าสุดของวัน" ของรถคันนี้ (weight_id มากสุด)
+            // ถ้ารายการล่าสุดถูกยกเลิก หรือน้ำหนักรถเป็น 0/NULL ให้ย้อนไปใช้รายการก่อนหน้าของวันเดียวกัน
+            OdbcCommand pgCommand = (OdbcCommand)dl.sqlConn().CreateCommand();
+            pgCommand.CommandText = "SELECT น้ำหนักรถ FROM public.weight WHERE วันที่ = '" + today + "' AND TRIM(ทะเบียนรถ) = '" + carLicense.Replace("'", "''") + "' AND is_cancel IS NOT TRUE ORDER BY weight_id DESC LIMIT 50";
+
+            string found = null;
+            bool queryOk = false;
+            try
+            {
+                dl.connect();
+                using (OdbcDataReader reader = pgCommand.ExecuteReader())
                 {
-                    dl.connect();
-                    OdbcDataReader reader = pgCommand.ExecuteReader();
                     while (reader.Read())
                     {
-                        string rdStr = reader["น้ำหนักรถ"].ToString();
-                        tbWeightIn.Text = tonTokg(rdStr);
+                        object v = reader["น้ำหนักรถ"];
+                        if (v == null || v == DBNull.Value)
+                            continue;
+                        double ton;
+                        if (double.TryParse(v.ToString(), out ton) && ton > 0)
+                        {
+                            found = tonTokg(v.ToString());
+                            break;
+                        }
                     }
-                    //sql รีเซตค่าหากหาข้อมูลไม่เจอ
-                    if (!reader.HasRows)
-                    {
-                        tbWeightIn.Text = "0.00";
-                    }
-
                 }
-                catch (Exception)
-                {
-                }
+                queryOk = true;
+            }
+            catch (Exception ex)
+            {
+                LogAutoFill("getWeightInOnDay error: " + ex.Message);
+            }
+            finally
+            {
                 dl.close();
+            }
+
+            LogAutoFill("getWeightInOnDay: date=" + today + " car=" + carLicense + " found=" + (found ?? "(none)"));
+            if (found != null)
+            {
+                tbWeightIn.Text = found;
+                _autoFilledWeightIn = found;
+                _noWeightInWarnedCar = null;
             }
             else
             {
-                tbWeightIn.Text = "0.00";
+                clearAutoFilledWeightIn();
+
+                // แจ้งเตือนเมื่อทะเบียนนี้ยังไม่มีรายการชั่งเข้าของวันนี้ (ไม่แจ้งถ้า query error)
+                // แจ้งครั้งเดียวต่อทะเบียน เพราะ Leave ของช่องรหัสทะเบียนและช่องทะเบียนเรียกฟังก์ชันนี้ซ้ำกัน
+                if (queryOk && carLicense != _noWeightInWarnedCar)
+                {
+                    _noWeightInWarnedCar = carLicense;
+                    MessageBox.Show("ทะเบียนรถ " + carLicense + " ยังไม่มีรายการชั่งเข้าของวันนี้\nระบบจะไม่ได้ดึงน้ำหนักเข้า auto ให้", "แจ้งเตือน", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
+        }
+
+        // ทะเบียนที่แจ้งเตือน "ยังไม่มีชั่งเข้าของวันนี้" ไปแล้ว กันไม่ให้เด้งซ้ำสำหรับทะเบียนเดิม
+        private string _noWeightInWarnedCar = null;
+
+        // เขียน log การดึงน้ำหนักเข้าอัตโนมัติลงไฟล์ autofill_weightin.log ใน AppData เพื่อตรวจว่าทำไมบางครั้งไม่ขึ้น
+        private static void LogAutoFill(string msg)
+        {
+            try
+            {
+                if (!System.IO.Directory.Exists(Utils.AppDataDir))
+                    System.IO.Directory.CreateDirectory(Utils.AppDataDir);
+                System.IO.File.AppendAllText(System.IO.Path.Combine(Utils.AppDataDir, "autofill_weightin.log"),
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) + " " + msg + Environment.NewLine);
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        // น้ำหนักเข้าที่ระบบเติมให้อัตโนมัติครั้งล่าสุด ใช้แยกว่าค่าในช่องมาจากการเติมอัตโนมัติหรือผู้ใช้กรอก/อ่านเอง
+        private string _autoFilledWeightIn = null;
+
+        // ล้างน้ำหนักเข้าเป็น 0 เฉพาะเมื่อค่าในช่องเป็นค่าที่ระบบเติมให้เอง (เช่น เปลี่ยนทะเบียนเป็นคันที่ไม่มีบิลวันนี้)
+        // ถ้าผู้ใช้อ่าน/กรอกน้ำหนักเองไว้แล้ว จะไม่ทับเป็น 0
+        private void clearAutoFilledWeightIn()
+        {
+            if (checkZeroStr(tbWeightIn.Text) || tbWeightIn.Text == _autoFilledWeightIn)
+                tbWeightIn.Text = "0.00";
+            _autoFilledWeightIn = null;
         }
 
         private void tbScoopId_Leave(object sender, EventArgs e)
