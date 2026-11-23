@@ -372,6 +372,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>truck_mDataSet1.xsd</DependentUpon>
     </Compile>
+    <Compile Include="MigrationRunner.cs" />
+    <Compile Include="WeightMirrorSync.cs" />
+    <Compile Include="WeightMirrorRestore.cs" />
+    <Compile Include="RestoreMirrorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="ucBackup.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -421,6 +427,9 @@
       <DependentUpon>weightScoopDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="WeightTempReport.cs" />
+    <EmbeddedResource Include="..\sql\2026-11-23-weight-mirror-outbox.sql">
+      <Link>sql\2026-11-23-weight-mirror-outbox.sql</Link>
+    </EmbeddedResource>
     <EmbeddedResource Include="CarTeamReport.rdlc" />
     <EmbeddedResource Include="CleanReport.rdlc" />
     <EmbeddedResource Include="CustomerReport.rdlc" />

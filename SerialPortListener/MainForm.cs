@@ -885,11 +885,15 @@ namespace SerialPortListener
             _spManager.NewSerialDataRecieved += new EventHandler<SerialDataEventArgs>(_spManager_NewSerialDataRecieved);
             this.FormClosing += new FormClosingEventHandler(MainForm_FormClosing);
 
+            // ส่งข้อมูลชั่งขึ้นตาราง mirror บน web app ตลอดวัน ไว้กู้เมื่อ local DB เสีย
+            WeightMirrorSync.Start();
+
         }
 
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            WeightMirrorSync.Stop();
             if (_spManager != null)
             {
                 _spManager.Dispose();

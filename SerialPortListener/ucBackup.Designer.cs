@@ -43,10 +43,14 @@ namespace SerialPortListener
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.lbCheckUpdate = new System.Windows.Forms.Label();
             this.btnCheckUpdate = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.lbRestoreMirrorDesc = new System.Windows.Forms.Label();
+            this.btRestoreMirror = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTitle
@@ -234,10 +238,49 @@ namespace SerialPortListener
             this.btnCheckUpdate.UseVisualStyleBackColor = false;
             this.btnCheckUpdate.Click += new System.EventHandler(this.btnCheckUpdate_Click);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.lbRestoreMirrorDesc);
+            this.groupBox5.Controls.Add(this.btRestoreMirror);
+            this.groupBox5.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(25, 490);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(20, 15, 20, 15);
+            this.groupBox5.Size = new System.Drawing.Size(900, 85);
+            this.groupBox5.TabIndex = 6;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "กู้รายการชั่งจากเซิร์ฟเวอร์";
+            // 
+            // lbRestoreMirrorDesc
+            // 
+            this.lbRestoreMirrorDesc.Font = new System.Drawing.Font("Century Gothic", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbRestoreMirrorDesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.lbRestoreMirrorDesc.Location = new System.Drawing.Point(20, 30);
+            this.lbRestoreMirrorDesc.Name = "lbRestoreMirrorDesc";
+            this.lbRestoreMirrorDesc.Size = new System.Drawing.Size(670, 44);
+            this.lbRestoreMirrorDesc.TabIndex = 0;
+            this.lbRestoreMirrorDesc.Text = "ใช้เมื่อฐานข้อมูลในเครื่องเสีย ดึงรายการชั่งที่อัพโหลดแล้ว แล้วเติมรายการที่ยังไม่ได้อัพโหลดจากสำเนา (กู้ก่อนเริ่มชั่ง)";
+            this.lbRestoreMirrorDesc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btRestoreMirror
+            // 
+            this.btRestoreMirror.BackColor = System.Drawing.Color.White;
+            this.btRestoreMirror.FlatAppearance.BorderColor = System.Drawing.Color.Firebrick;
+            this.btRestoreMirror.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btRestoreMirror.ForeColor = System.Drawing.Color.Firebrick;
+            this.btRestoreMirror.Location = new System.Drawing.Point(710, 33);
+            this.btRestoreMirror.Name = "btRestoreMirror";
+            this.btRestoreMirror.Size = new System.Drawing.Size(150, 35);
+            this.btRestoreMirror.TabIndex = 1;
+            this.btRestoreMirror.Text = "กู้ข้อมูล";
+            this.btRestoreMirror.UseVisualStyleBackColor = false;
+            this.btRestoreMirror.Click += new System.EventHandler(this.btRestoreMirror_Click);
+            // 
             // ucBackup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -247,7 +290,8 @@ namespace SerialPortListener
             this.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(5);
             this.Name = "ucBackup";
-            this.Size = new System.Drawing.Size(965, 500);
+            this.AutoScroll = true;
+            this.Size = new System.Drawing.Size(965, 600);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -255,6 +299,7 @@ namespace SerialPortListener
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -278,5 +323,8 @@ namespace SerialPortListener
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label lbCheckUpdate;
         private System.Windows.Forms.Button btnCheckUpdate;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label lbRestoreMirrorDesc;
+        private System.Windows.Forms.Button btRestoreMirror;
     }
 }
