@@ -151,23 +151,44 @@ namespace SerialPortListener
                 string apiUsername = getBaseApi(2, 1);
                 string apiPassword = getBaseApi(3, 1);
 
+                if (string.IsNullOrWhiteSpace(baseUrl))
+                {
+                    if (!silent)
+                    {
+                        MessageBox.Show("ไม่สามารถเชื่อมต่อ Server เพื่อเช็คอัพเดทได้\r\n\r\nสาเหตุ: ไม่พบ url ใน base_api id = 1 (หรืออ่านจาก database ไม่ได้)",
+                            "เช็คอัพเดท", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    return;
+                }
+
                 using (HttpClient client = new HttpClient { Timeout = TimeSpan.FromSeconds(10) })
                 {
-                    string accessToken;
+                    string accessToken = null;
+                    string loginError = null;
                     try
                     {
-                        accessToken = await GetJwtToken(client, baseUrl, apiUsername, apiPassword);
+                        // ไม่ใช้ GetJwtToken() เพราะกลืน error หมด ทำให้ไม่รู้ว่าเชื่อมต่อไม่ได้เพราะอะไร
+                        string loginJson = JsonConvert.SerializeObject(new { username = apiUsername, password = apiPassword });
+                        HttpResponseMessage jwtResponse = await client.PostAsync(
+                            $"{baseUrl.TrimEnd('/')}/jwt/create/",
+                            new StringContent(loginJson, Encoding.UTF8, "application/json"));
+                        string jwtBody = await jwtResponse.Content.ReadAsStringAsync();
+                        if (jwtResponse.IsSuccessStatusCode)
+                            accessToken = Newtonsoft.Json.Linq.JObject.Parse(jwtBody)["access"]?.ToString();
+                        else
+                            loginError = $"login ไม่ผ่าน (HTTP {(int)jwtResponse.StatusCode}) {Truncate(jwtBody, 200)}";
                     }
-                    catch (Exception)
+                    catch (Exception loginEx)
                     {
-                        accessToken = null;
+                        loginError = DescribeHttpError(loginEx);
                     }
 
-                    if (accessToken == null)
+                    if (string.IsNullOrEmpty(accessToken))
                     {
                         if (!silent)
                         {
-                            MessageBox.Show("ไม่สามารถเชื่อมต่อ Server เพื่อเช็คอัพเดทได้", "เช็คอัพเดท",
+                            MessageBox.Show("ไม่สามารถเชื่อมต่อ Server เพื่อเช็คอัพเดทได้\r\n\r\nServer: " + baseUrl +
+                                "\r\nสาเหตุ: " + (loginError ?? "ไม่ได้รับ access token"), "เช็คอัพเดท",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         }
                         return;
@@ -220,7 +241,7 @@ namespace SerialPortListener
             {
                 if (!silent)
                 {
-                    MessageBox.Show("เกิดข้อผิดพลาดระหว่างเช็ค/ติดตั้งอัพเดท: " + ex.Message, "เช็คอัพเดท",
+                    MessageBox.Show("เกิดข้อผิดพลาดระหว่างเช็ค/ติดตั้งอัพเดท: " + DescribeHttpError(ex), "เช็คอัพเดท",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
@@ -228,6 +249,26 @@ namespace SerialPortListener
             {
                 ucBackup.CheckUpdateButtonEnabled = true;
             }
+        }
+
+        // HttpClient บอกแค่ "An error occurred while sending the request." ให้เอาสาเหตุชั้นในสุดมาแสดง
+        private static string DescribeHttpError(Exception ex)
+        {
+            if (ex is TaskCanceledException)
+                return "เซิร์ฟเวอร์ไม่ตอบกลับภายในเวลาที่กำหนด (timeout)";
+            Exception inner = ex;
+            while (inner.InnerException != null)
+                inner = inner.InnerException;
+            if (ex is HttpRequestException && inner != ex)
+                return "เชื่อมต่อเซิร์ฟเวอร์ไม่ได้ (" + inner.Message + ")";
+            return ex.Message;
+        }
+
+        private static string Truncate(string s, int max)
+        {
+            if (string.IsNullOrEmpty(s) || s.Length <= max)
+                return s;
+            return s.Substring(0, max) + "...";
         }
 
         private async Task<string> GetJwtToken(HttpClient client, string baseUrl, string username, string password)
